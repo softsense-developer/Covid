@@ -359,7 +359,7 @@ namespace Smartsense.Business.Concrete
 
             
             response.Warnings.OrderByDescending(o => o.time);
-            response.Message = "Hastalara ait uyarılar getirildi";
+            response.Message = "Hastalara ait uyarılar geldi";
             response.Code = "200";
             return response;
         }
