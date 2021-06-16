@@ -345,7 +345,7 @@ namespace Smartsense.Business.Concrete
                
                 
             }
-                // warnings.OrderByDescending(o => o.CreatedDate);
+                
             foreach (var warning in warnings)
             {
                 var model = new WarningInfoModel();
@@ -357,7 +357,7 @@ namespace Smartsense.Business.Concrete
                 response.Warnings.Add(model);
             }
 
-            //Todo zamana göre sıralama düzgün çalışmıyor
+            
             response.Warnings.OrderByDescending(o => o.time);
             response.Message = "Hastalara ait uyarılar getirildi";
             response.Code = "200";
