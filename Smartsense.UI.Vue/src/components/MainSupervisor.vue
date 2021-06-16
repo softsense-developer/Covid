@@ -35,11 +35,11 @@
               <table class="table table-borderless">
                 <thead style="text-transform:uppercase;">
                   <tr style="font-size:12px" >
-                    <th scope="col">name surname</th>
-                    <th scope="col">diagnosis</th>
-                    <th scope="col">oxygen</th>
-                    <th scope="col">pulse</th>
-                    <th scope="col">temperature</th>
+                    <th scope="col">İsim Soyisim</th>
+                    <th scope="col">Teşhis</th>
+                    <th scope="col">SPO2</th>
+                    <th scope="col">Nabız</th>
+                    <th scope="col">Ateş</th>
                     <th scope="col">Detay</th>
                   </tr>
                 </thead>

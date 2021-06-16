@@ -19,10 +19,10 @@
                   <img src="../assets/hospital.jpg" id="person-img" alt="" />
                 </div>
                 <div class="col-sm-6 col-md-6 col-lg-6">
-                  <h6 class="mt-3"><span style="color:rgb(28,134,122)">hastane:</span> {{objects.hospitalName}}</h6>
-                  <h6><span  style="color:rgb(28,134,122)">Adres:</span> {{objects.address}}</h6>
-                  <h6><span  style="color:rgb(28,134,122)">hastane kapasite:</span> {{objects.capacity}}</h6>
-                  <div class="text-right" style="margin-top:20%">
+                  <h6 class="mt-3"><span style="color:rgb(28,134,122)">hastane:</span> {{hospitalName}}</h6>
+                  <h6><span  style="color:rgb(28,134,122)">Adres:</span> {{address}}</h6>
+                  <h6><span  style="color:rgb(28,134,122)">hastane kapasite:</span> {{capacity}}</h6>
+                  <div class="text-right mb-3" style="margin-top:20%">
                     <button class="btn text-center w-100 text-white shadow" @click="pageModes()">Güncelle</button>
                   </div>
                 </div>
@@ -56,8 +56,8 @@
               <div class="card-text text-right mt-3 d-flex justify-content-between">
                 <i class="fas fa-arrow-left mt-4" style="font-size:15px;cursor:pointer" @click="pageModesx()"> Geri</i>
               </div>
-                <div class="form-group mt-5 d-flex justify-content-center">
-                  <button class="btn" style="background:-webkit-linear-gradient(left, #3ca89c, #00695C);color:white;">Güncelle</button>
+                <div class="form-group mt-3 mb-3 d-flex justify-content-center">
+                  <button class="btn  " style="background:-webkit-linear-gradient(left, #3ca89c, #00695C);color:white;">Güncelle</button>
                 </div>
             </form>
           </div>
@@ -83,6 +83,10 @@ export default {
         address:'',
         capacity:''
       },
+      hospitalName:'',
+      address:'',
+      capacity:'',
+
       submitted: false,
       flashmessage:false
     }
@@ -133,9 +137,9 @@ export default {
           headers: {'Authorization': `Bearer ${token}`}
         }).then(res=> {
         console.log(res);
-        this.objects.hospitalName=res.data.hospitalName;
-        this.objects.address=res.data.address;
-        this.objects.capacity=res.data.hospitalCapacity;
+        this.hospitalName=res.data.hospitalName;
+        this.address=res.data.address;
+        this.capacity=res.data.hospitalCapacity;
         });
       },  
 

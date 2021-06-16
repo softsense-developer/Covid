@@ -95,7 +95,7 @@
                         </div>
                       </div>
                       <div class="d-flex justify-content-end">
-                          <a class="btn w-50 text-white" @click="profilUpdate()" style="background:rgb(28,134,122)">Go somewhere</a>
+                          <a class="btn w-100 mt-3 mb-2 mr-2 ml-2 text-white" @click="profilUpdate()" style="background:rgb(28,134,122)">Bilgileri Güncelle</a>
                         </div>
                     </div>
                   </div>
