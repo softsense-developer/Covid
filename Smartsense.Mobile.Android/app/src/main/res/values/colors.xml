@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00796B</color>
+    <color name="colorPrimaryDark">#00695C</color>
+    <color name="colorAccent">#00897B</color>
+
+
+    <color name="fragmentBackgroundColor">#FCFCFC</color>
+    <color name="backgroundGrey">#F7F7F7</color>
+    <color name="viewColor">#FCFCFC</color>
+    <color name="colorComponent">#F7F7F7</color>
+    <color name="cardPassiveColor">#6E6E6E</color>
+    <color name="cardActiveColor">#43A047</color>
+    <color name="cardNormalColor">#2E7D32</color>
+    <color name="cardNotActive">#C62828</color>
+
+    <color name="warning">#F9A825</color>
+    <color name="warningHospital">#C62828</color>
+
+
+    <color name="colorFWhite">#FFFFFF</color>
+    <color name="colorWhite">#F9F9F9</color>
+    <color name="colorRed">#C62828</color>
+    <color name="colorGrey">#959595</color>
+    <color name="textBoxColor2">#FFFFFF</color>
+
+    <color name="textColorSecondary">#7C7C7C</color>
+    <color name="textColorPassive">#959595</color>
+    <color name="textColorPrimary">#494949</color>
+    <color name="textWhitePrimary">#FEFEFE</color>
+    <color name="textWhiteSecondary">#E9E9E9</color>
+
+    <color name="errorColor">#C62828</color>
+    <color name="textboxColor">#F9F9F9</color>
+    <color name="dividerColor">#C6A1A1A1</color>
+
+    <color name="callIconColor">#FFFFFF</color>
+
+    <color name="colorButton">@color/colorAccent</color>
+    <color name="colorButtonPressed">@color/colorPrimaryDark</color>
+    <color name="colorButtonNotEnable">#B6B6B6</color>
+    <color name="colorButtonText">#FEFEFE</color>
+
+    <color name="measuredButton">#FEFEFE</color>
+    <color name="measuredButtonPressed">#E9E9E9</color>
+    <color name="measuredButtonNotEnable">#B6B6B6</color>
+    <color name="measuredButtonText">#959595</color>
+
+    <color name="graph_color">#1565c0</color>
+    <color name="graph_color_2">#00897B</color>
+    <color name="graph_color_3">#e53935</color>
+    <color name="graph_color_4">#BF360C</color>
+    <color name="graph_color_5">#43A047</color>
+    <color name="greyColor">#64BABABA</color>
+
+
+    <color name="heart_color">#E53935</color>
+    <color name="temp_color">#FF7043</color>
+    <color name="spo2_color">#55b9db</color>
+
+    <color name="home_color">#00796B</color>
+
+
+    <color name="heart_gradient_start">#EF5350</color>
+    <color name="heart_gradient_end">#B71C1C</color>
+
+    <color name="temp_gradient_start">#FFAB91</color>
+    <color name="temp_gradient_end">#FF7043</color>
+
+    <color name="spo2_gradient_start">#77c0d8</color>
+    <color name="spo2_gradient_end">#55b9db</color>
+
+
+</resources>

@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  covid
+
+  Created by SmartSense on 1.06.2021.
+  
+*/
+
+"create_account" = "Hesap Oluştur";
+"name" = "Ad";
+"surname" = "Soyad";
+"email" = "E-mail";
+"password" = "Şifre";
+"login" = "Giriş";
+"forget_password" = "Şifremi unuttum?";
+"create_an_account" = "Hesabınız yok mu?";
+"sign_up" = "Kaydol";
+"have_account" = "Zaten hesabınız var mı?";
+"reset_password" = "Şifreyi Sıfırla";
+"send_reset" = "Gönder";

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.smartsense.covid.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_connection2"
+            app:destination="@id/nav_connection" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_connection"
+        android:name="com.smartsense.covid.ui.baglanti.BaglantiFragment"
+        android:label="@string/menu_connection"
+        tools:layout="@layout/fragment_baglanti" />
+
+    <fragment
+        android:id="@+id/nav_medicine"
+        android:name="com.smartsense.covid.ui.medicine.MedicineFragment"
+        android:label="@string/medicine_reminding"
+        tools:layout="@layout/medicine_fragment" />
+
+    <fragment
+        android:id="@+id/nav_data_show"
+        android:name="com.smartsense.covid.ui.kayit_goster.KayitGosterFragment"
+        android:label="@string/menu_data_show"
+        tools:layout="@layout/fragment_kayit_goster" />
+    <fragment
+        android:id="@+id/nav_data_backup"
+        android:name="com.smartsense.covid.ui.backup.BackupFragment"
+        android:label="@string/backupRestore"
+        tools:layout="@layout/backup_fragment" />
+    <fragment
+        android:id="@+id/nav_data_send"
+        android:name="com.smartsense.covid.ui.datasent.DataSentFragment"
+        android:label="@string/menu_send"
+        tools:layout="@layout/data_sent_fragment" />
+    <fragment
+        android:id="@+id/nav_add_doctor"
+        android:name="com.smartsense.covid.ui.adddoctor.AddDoctorFragment"
+        android:label="@string/menu_add_doctor"
+        tools:layout="@layout/fragment_add_doctor" />
+    <fragment
+        android:id="@+id/nav_request"
+        android:name="com.smartsense.covid.ui.request.RequestFragment"
+        android:label="@string/menu_request"
+        tools:layout="@layout/fragment_request" />
+
+    <fragment
+        android:id="@+id/nav_companion"
+        android:name="com.smartsense.covid.ui.companion.CompanionFragment"
+        android:label="@string/companion"
+        tools:layout="@layout/fragment_companion" />
+
+</navigation>

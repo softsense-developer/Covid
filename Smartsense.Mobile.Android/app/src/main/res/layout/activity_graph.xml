@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGrey"
+    android:orientation="vertical"
+    tools:context=".GraphActivity">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/heart_gradient_end"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/appBarText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:gravity="center"
+            android:text="@string/heart"
+            android:textColor="@color/textWhitePrimary"
+            android:textSize="14sp" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/appBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--Graph Layout Start-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/gradientView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="@drawable/heart_graph_gradient"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:id="@+id/selectedDataView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/graphSelectedText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="56"
+                            android:textColor="@color/textWhitePrimary"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/graphUnitText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="BPM"
+                            android:textColor="@color/textWhiteSecondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/graphSelectedDateText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="10/24 10:30"
+                        android:textAlignment="center"
+                        android:textColor="@color/textWhiteSecondary"
+                        android:textSize="11sp" />
+
+                </LinearLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@+id/timeLayout"
+                    app:layout_constraintStart_toStartOf="parent">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/measuredResultView"
+                        android:visibility="gone"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="60dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/measuredResultText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:gravity="center"
+                                android:text="125"
+                                android:textColor="@color/textWhitePrimary"
+                                android:textSize="60sp" />
+
+                            <TextView
+                                android:id="@+id/measuredResultUnitText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="4dp"
+                                android:layout_marginBottom="8dp"
+                                android:fontFamily="@font/montserrat_medium"
+                                android:text="@string/heart_unit"
+                                android:textColor="@color/textWhiteSecondary"
+                                android:textSize="20sp" />
+
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/measuredOkayBt"
+                            android:layout_width="80dp"
+                            android:layout_height="30dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/measured_button"
+                            android:contentDescription="@string/okay"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="@string/okay"
+                            android:textAllCaps="false"
+                            android:textColor="@color/measuredButtonText"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/measuredAnimView"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="heart.json"
+                        app:lottie_loop="true" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/graphMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@+id/timeLayout"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+                <!--Time Layout Start-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/timeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <TextView
+                        android:id="@+id/time0000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="00:00"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textWhitePrimary"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/time0600"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="06:00"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textWhitePrimary"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/time0000"
+                        app:layout_constraintRight_toLeftOf="@+id/time1200" />
+
+                    <TextView
+                        android:id="@+id/time1200"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="12:00"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/textWhitePrimary"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/time0600"
+                        app:layout_constraintRight_toLeftOf="@+id/time1800" />
+
+                    <TextView
+                        android:id="@+id/time1800"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="18:00"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/textWhitePrimary"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/time1200"
+                        app:layout_constraintRight_toLeftOf="@+id/time2359" />
+
+                    <TextView
+                        android:id="@+id/time2359"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="23:59"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/textWhitePrimary"
+                        android:textSize="11sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--Time Layout End-->
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--Graph Layout End-->
+
+            <!--Day Layout Start-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/viewColor"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/previousDayBt"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    android:paddingLeft="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_arrow_back_48" />
+
+                <TextView
+                    android:id="@+id/graphDayText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center"
+                    android:text="@string/today"
+                    android:textAlignment="center"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="14sp" />
+
+
+                <ImageButton
+                    android:id="@+id/nextDayBt"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="12dp"
+                    android:rotation="180"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_arrow_back_48"
+                    android:visibility="invisible" />
+            </LinearLayout>
+            <!--Day Layout End-->
+
+            <!--Dummy Layout Start-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@color/viewColor"
+            android:orientation="horizontal"
+            android:paddingTop="16dp"
+            android:id="@+id/dummyDataView"
+            android:visibility="gone"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="Rastgele veri ekle"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+            <!--Dummy Layout End-->
+
+            <!--Max Min Layout Start-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/viewColor"
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/maxData"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="125"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/maxDataUnitText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="4dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:paddingBottom="1dp"
+                            android:text="@string/heart_unit"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/maxDataText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/max_heart_rate"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:alpha="0.5"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/minData"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="60"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/minDataUnitText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="4dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:paddingBottom="1dp"
+                            android:text="@string/heart_unit"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/minDataText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/min_heart_rate"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:alpha="0.5"
+                    android:background="@color/dividerColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/avgData"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="97"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/avgDataUnitText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="4dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:paddingBottom="1dp"
+                            android:text="@string/heart_unit"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="10sp" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/avgDataText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/avg_heart_rate"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--Max Min Layout End-->
+
+            <!--Manual Measurment Start-->
+            <LinearLayout
+                android:id="@+id/manuallyMeasurmentBt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@color/viewColor"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/manuallyMeasurmentImage"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_heart_rate"
+                    app:tint="@color/heart_color" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/manual_measure"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+            <!--Manual Measurment End-->
+
+
+            <!--Manually measured Layout Start-->
+            <LinearLayout
+                android:id="@+id/manuallyMeasurmentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/viewColor"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:layout_marginBottom="?attr/actionBarSize"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text="@string/measurment"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:alpha="0.5"
+                    android:background="@color/dividerColor" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/manualMeasurmentRecView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_manually_measured">
+
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

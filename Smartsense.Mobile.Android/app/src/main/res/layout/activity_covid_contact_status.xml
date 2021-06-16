@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGrey"
+    android:orientation="vertical"
+    android:padding="@dimen/fragment_padding"
+    tools:context=".settings.CovidContactStatusActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:text="@string/contact_status"
+        android:textColor="@color/textColorPrimary"
+        android:textSize="15sp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:id="@+id/quarantineRBGroup"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/quarantineHomeRB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/home_quarantine"
+            android:textColor="@color/textColorSecondary" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/quarantineHospitalRB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/hospital_quarantine"
+            android:textColor="@color/textColorSecondary" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/quarantineContactRB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/contact_quarantine"
+            android:textColor="@color/textColorSecondary" />
+
+    </RadioGroup>
+
+
+</LinearLayout>

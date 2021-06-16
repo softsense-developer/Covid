@@ -1,0 +1,651 @@
+<!DOCTYPE resources [<!ENTITY appname "iCovid"><!ENTITY author "Gökhan Dağtekin">]>
+
+<resources>
+
+    <string name="app_name">&appname;</string>
+    <string name="app_name_no_space">&appname;</string>
+    <string name="smartsense">SmartSense</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Login Activity -->
+    <string name="log_in">Giriş</string>
+    <string name="login_email">Email</string>
+    <string name="forget_password">Şifremi unuttum?</string>
+    <string name="create_an_account">Hesabınız yok mu?</string>
+    <string name="password">Şifre</string>
+    <string name="currenct_password">Şu anki şifreniz</string>
+    <string name="new_password">Yeni şifreniz</string>
+    <string name="password_change">Şifre Değiştir</string>
+    <string name="log_in_button">GİRİŞ</string>
+    <string name="sign_up_button">KAYDOL</string>
+    <string name="sign_up">Kayıt Ol</string>
+    <string name="create_account">Hesap Oluştur</string>
+    <string name="have_account">Zaten hesabınız var mı?</string>
+    <string name="reset_password">Şifreyi Sıfırla</string>
+    <string name="send_reset">Gönder</string>
+    <string name="authentication_failed">Kimlik doğrulama başarısız oldu</string>
+    <string name="connection_established">Bağlantı kurulmadı</string>
+    <string name="connection_failed">Bağlantı başarısız oldu</string>
+    <string name="logout">Oturumu kapat</string>
+    <string name="sign_in_dot">Oturum açılıyor…</string>
+    <string name="data_check">Verileriniz kontrol ediliyor…</string>
+    <string name="sign_invalid_pass">Şifre geçersiz.</string>
+    <string name="email_empty">Email adresi boş olamaz</string>
+    <string name="error_invalid_email">Geçersiz email adresi</string>
+    <string name="error_invalid_password">Şifre çok kısa. En az 6 karakter.</string>
+    <string name="pass_empty">Şifre boş olamaz</string>
+    <string name="name_empty">Ad soyad boş olamaz</string>
+    <string name="phone_empty">Telefon numarası boş olamaz</string>
+    <string name="doctor_id_empty">Doktor ID boş olamaz</string>
+    <string name="register_dot">Kaydolunuyor…</string>
+    <string name="password_reset_info">Şifre sıfırlama maili gönderildi. Lütfen email adresinizi kontrol edin!</string>
+    <string name="password_resetting">Şifre sıfırlama emaili gönderiliyor…</string>
+    <string name="verification_info">Doğrulama maili gönderildi. Lütfen email adresinizi kontrol edin.</string>
+    <string name="error_field_required">Bu alan gereklidir</string>
+    <string name="banned_info">Hesabınız, şartlarımızı ihlal ettiği için devre dışı bırakıldı.</string>
+    <string name="sign_up_legal">Kaydol düğmesine tıklayarak, Hizmet Şartlarını ve Gizlilik Politakasını kabul etmiş olursunuz.</string>
+    <string name="for_index_terms_conditions">Hizmet Şartlarını</string>
+    <string name="for_index_privacy_policy">Gizlilik Politakasını</string>
+    <string name="terms_and_conditions">Terms &#38; Conditions</string>
+    <string name="noConnection">İnternet bağlantısı yok.</string>
+    <string name="occurred_error">Bir hata oluştu. Hata kodu:</string>
+
+    <string name="login_role_doctor">Mobil uygulama girişinde Doktor yönetim arayüzü açılmayacaktır. Kişisel arayüzünüz açılacaktır.</string>
+    <string name="login_role_supervisor">Mobil uygulama girişinde Supervisor yönetim arayüzü açılmayacaktır. Kişisel arayüzünüz açılacaktır.</string>
+    <string name="login_role_admin">Mobil uygulama girişinde Admin yönetim arayüzü açılmayacaktır. Kişisel arayüzünüz açılacaktır.</string>
+    <string name="login_role_companion">Mobil uygulama girişinde Refakatçi arayüzü açılmayacaktır. Refakatçisi olduğunuz hastaları görüntülemek için web sitemiz üzerinden giriş yapınız.</string>
+
+
+    <!-- Api Text -->
+    <string name="account_created">Hesap oluşturuldu.</string>
+    <string name="already_exists_user">E-mail adresine ait bir hesap var. Eğer sizin hesabınızsa giriş yapmayı deneyin.</string>
+    <string name="account_created_error">Hesap oluşturulamadı.</string>
+    <string name="login_successful">Oturum açma başarılı</string>
+    <string name="user_not_found">Bu email adresine karşılık gelen bir kullanıcı kaydı yok.</string>
+    <string name="error_incorrect_password">Şifre yanlış</string>
+    <string name="incorrect_email_password">E-mail adresi ya da şifreniz yanlış.</string>
+    <string name="data_updated">Güncellendi.</string>
+    <string name="data_update_error">Güncellenemedi.</string>
+    <string name="password_changed">Şifreniz değiştirildi.</string>
+    <string name="password_not_changed">Şifreniz değiştirilemedi.</string>
+    <string name="password_not_match">Şu anki şifreniz yanlış.</string>
+    <string name="token_refreshed">Token yenilendi.</string>
+    <string name="token_expried">Token süresi geçti. Yeni token alınız.</string>
+    <string name="unauthorized">Bu işlemi yapmaya yetkiniz bulunmamaktadır.</string>
+    <string name="forbidden">Bu işlemi yapmaya izniniz bulunmamaktadır.</string>
+    <string name="data_inserted">Veri sunucuya kayıt edildi.</string>
+    <string name="data_not_inserted">Veri sunucuya kayıt edilemedi.</string>
+    <string name="request_ok">İstek başarılı.</string>
+    <string name="internal_server">Sunucu cevap vermiyor.</string>
+    <string name="bad_request">İstek başarısız.</string>
+
+    <!-- Main Activity -->
+    <string name="location_permission">Lokasyon iznini vermezseniz bileklik ile bağlantı yapamazsınız.</string>
+    <string name="location_permission_for_tracking">Lütfen ayarlardan \"Her zaman\" olarak lokasyon izni veriniz.</string>
+    <string name="location_permission_enable">İZİN VER</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="nav_header_title">Ad Soyad</string>
+    <string name="nav_header_subtitle">email@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="other_settings">Diğer Ayarlar</string>
+
+    <string name="menu_home">Anasayfa</string>
+    <string name="menu_connection">Bağlantı</string>
+    <string name="menu_data_show">Kayıtlar</string>
+    <string name="menu_add_doctor">Doktor Seçimi</string>
+    <string name="menu_data_backup">Kayıtları Yedekle</string>
+    <string name="menu_data_restore">Kayıtları Geri Yükle</string>
+    <string name="menu_send">Kayıtları Gönder</string>
+    <string name="menu_request">İstekler</string>
+
+    <string name="connection_status">Bağlantı Durumu</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="connection_active">Aktif</string>
+    <string name="connection_pasive">Pasif</string>
+    <string name="wearing">Bağlantı</string>
+    <string name="battery">Batarya</string>
+    <string name="connection_no">Bağlantı yok</string>
+    <string name="connection_no_click">Bağlantı yok. Buraya tıklayarak bağlantı yapabilirsiniz.</string>
+
+
+    <string name="heart">Nabız</string>
+    <string name="spo2">SpO2</string>
+    <string name="temperature">Sıcaklık</string>
+    <string name="temp">Ateş</string>
+
+
+    <string name="location_set_wait">Konum belirleniyor bekleyiniz...</string>
+    <string name="home_title">Karantina konumu belirle</string>
+    <string name="home_hint">Karantina konumunuz GPS üzerinden belirlenecektir ve belirlentikten sonra konumunuzu değiştiremezsiniz.</string>
+    <string name="home_location_saved">Karantina konumu kayıt edildi.</string>
+    <string name="home_location_send_permission">Karantina lokasyonu belirleme ve vital verilerinizin sunucuya gönderilmesi için lütfen \"Ayarlar\" - \"Ölçüm Ayarları\" ekranındaki \"Sunucuya verileri gönderme durumu\" etkinleştiriniz.</string>
+
+    <string name="smartsense_band">SmartSense Band</string>
+    <string name="connected">bağlandı</string>
+    <string name="not_connected">bağlanamadı</string>
+    <string name="disconnect">Bağlantıyı Kes</string>
+    <string name="disconnect_pairing">Eşleştirmeyi Kes</string>
+    <string name="all_data">Tümü</string>
+
+
+    <string name="backupRestore">Yedekle/Geri Yükle</string>
+    <string name="back_up">Yedekle</string>
+    <string name="csv_data">Veri</string>
+    <string name="csv_data_type">Veri Türü</string>
+    <string name="csv_save_type">Kayıt Türü</string>
+    <string name="csv_time">Kayıt Zamanı</string>
+    <string name="back_up_done">Yedekleme bitti.</string>
+    <string name="select_backup_file">Yedek dosyasını seçiniz</string>
+    <string name="write_external_permission">Eğer izin vermezseniz yedek ve geri yükleme yapamazsınız.</string>
+    <string name="give_permission">İZİN VER.</string>
+    <string name="backup_dot">Yedekleniyor...</string>
+    <string name="backup_hint">CSV formatında yedek almak için dokununuz.</string>
+    <string name="restore_hint">CSV formatında verilerinizi geri yükleyebilirsiniz.</string>
+    <string name="saved_path">yoluna yedeklendi.</string>
+    <string name="manuel_save">Manuel</string>
+    <string name="auto_save">Oto</string>
+
+
+    <string name="restore">Geri Yükle</string>
+    <string name="restore_done">Verileriniz geri yüklendi.</string>
+    <string name="restore_dot">Geri yükleniyor...</string>
+    <string name="restore_all_count">Toplam veri sayısı:</string>
+    <string name="restore_correct_count">Geri yüklenen veri sayısı:</string>
+    <string name="restore_same">Aynı veri sayısı:</string>
+    <string name="restore_error_count">Hatalı veri sayısı:</string>
+    <string name="okay">Tamam</string>
+
+
+    <!-- User-emergency settings activity  -->
+    <string name="user">kullanıcısı</string>
+    <string name="user_data">Kullanıcı Bilgileri</string>
+    <string name="patient_data">Hasta Bilgileri</string>
+    <string name="user_name">Ad Soyad</string>
+    <string name="user_phone">Telefon</string>
+    <string name="user_phone_hint">Telefon (5...)</string>
+    <string name="user_email">E-mail</string>
+    <string name="user_identity">T.C. Kimlik No</string>
+    <string name="user_gender">Cinsiyet</string>
+    <string name="user_date_of_birth">Doğum Tarihi</string>
+    <string name="user_quarantine_status">Karantina Türü</string>
+    <string name="user_diagnosis">Hastalık Türü</string>
+    <string name="doctor_id">Doktor ID</string>
+    <string name="save">Kaydet</string>
+    <string name="update">Güncelle</string>
+    <string name="not_empty">Bu alan boş olamaz.</string>
+    <string name="phone_must_length">Telefon numarası 10 karakter olmalıdır.</string>
+    <string name="identity_must_length">T.C. Kimlik No 11 karakter olmalıdır.</string>
+    <string name="email_not_valid">E-mail adresi hatalı.</string>
+    <string name="data_saved">Kayıt edildi.</string>
+    <string name="data_updating">Güncelleniyor...</string>
+
+    <string name="dont_specify">Belirtmek istemiyorum</string>
+    <string name="male">Erkek</string>
+    <string name="female">Kadın</string>
+
+    <string-array name="gender">
+        <item>@string/dont_specify</item>
+        <item>@string/female</item>
+        <item>@string/male</item>
+    </string-array>
+
+
+    <string name="emergency_warning_type">Acil Durum Kişisi Uyarı Türü</string>
+    <string name="emergency_data">Acil Durum İletişim Bilgileri</string>
+    <string name="emergency_SMS">SMS</string>
+    <string name="emergency_SMS_nead">SMS gönderilebilmesi için Acil Durum Kişisi Telefon numarası giriniz.</string>
+    <string name="permission_sms">SMS gönderme iznini vermezseniz uygulama uyarı anında SMS gönderemez.</string>
+    <string name="permission_enable">İZİN VER</string>
+    <string name="old_pass_same_new">Yeni şifreniz eski şifreniz ile aynı olamaz.</string>
+
+
+    <!-- Covid Contact Status  -->
+    <string name="contact_status">Gözlem türü</string>
+    <string name="home_quarantine">Evde karantina</string>
+    <string name="hospital_quarantine">Hastanede gözlem</string>
+    <string name="contact_quarantine">Temaslı kişi</string>
+    <string name="being_discharged">Taburcu</string>
+    <string name="status_other">Diğer</string>
+    <string name="warning">Uyarı</string>
+
+    <string-array name="contact_array">
+        <item>@string/home_quarantine</item>
+        <item>@string/hospital_quarantine</item>
+        <item>@string/contact_quarantine</item>
+        <item>@string/being_discharged</item>
+        <item>@string/status_other</item>
+    </string-array>
+
+    <string name="warning_spo2">SpO2 değerinizin düşük olduğu tespit edildi.</string>
+    <string name="warning_temp">Sıcaklık değerinizin yüksek olduğu tespit edildi.</string>
+    <string name="warning_heartrate_low">Nabız değerinizin düşük olduğu tespit edildi.</string>
+    <string name="warning_heartrate_high">Nabız değerinizin yüksek olduğu tespit edildi.</string>
+
+    <string name="quarantine_home_warning">Lütfen bir sağlık kurumu ile iletişime geçiniz.</string>
+    <string name="quarantine_hospital_warning">Lütfen bir sağlık personeli ile iletişime geçiniz.</string>
+
+    <string name="warning_spo2_plus">SpO2 değerinizin düşük olduğu tespit edildi. Lütfen bir sağlık kurumu ile iletişime geçiniz.</string>
+
+    <!-- Data sent fragment  -->
+    <string name="back_up_and_sent">Yedekle ve Gönder</string>
+    <string name="backup_and_sent_hint">CSV formatında yedek almak ve göndermek için dokununuz.</string>
+    <string name="select_backup_to_sent">Gönder</string>
+    <string name="select_backup_sent_hint">Yedeklerinizden birini seçip göndermek için dokununuz.</string>
+    <string name="select_to_sent_dialog_hint">Göndermek için bir yedek dosyası seçiniz</string>
+    <string name="not_found_backup">Varsayılan yedekleme klasöründe yedek dosyası bulunamadı.</string>
+    <string name="select_app_to_sent">Göndermek istediğiniz bir uygulamayı seçiniz.</string>
+
+
+    <string name="name">Ad</string>
+    <string name="surname">Soyad</string>
+    <string name="menu_about">Hakkında</string>
+    <string name="menu_connect">Bağlan</string>
+    <string name="menu_disconnect">Bağlantıyı kopar</string>
+    <string name="menu_scan">Tara</string>
+    <string name="menu_stop">İptal</string>
+    <string name="menu_share">Paylaş</string>
+    <string name="refresh">Yenile</string>
+    <string name="scan_device">Bluetooth</string>
+    <string name="available_devices">Uygun Cihazlar</string>
+    <string name="heart_unit">BPM</string>
+    <string name="temp_unit">°C</string>
+    <string name="spo2_unit">%</string>
+    <string name="no_measurement">Ölçüm yapılmadı</string>
+
+    <string name="default_notification_channel_id">Notification Channel 23</string>
+    <string name="notification_description">This notification channel is used to notify user</string>
+
+    <string name="disconnected">Bağlantı koptu</string>
+    <string name="invalid_device_data">Geçersiz cihaz verisi!</string>
+    <string name="no_data">Veri yok</string>
+    <string name="not_supported">Desteklenmiyor</string>
+    <string name="off">Kapalı</string>
+    <string name="on">Açık</string>
+    <string name="supported">Destekli</string>
+    <string name="unknown">Bilinmeyen</string>
+    <string name="unknown_characteristic">Bilinmeyen karakteristik</string>
+    <string name="unknown_device">Bilinmeyen cihaz</string>
+    <string name="unknown_service">Bilinmeyen servis</string>
+    <string name="no_known_services">Bilinen servis yok</string>
+
+    <string name="miui_permission">Cihazınızın Xiaomi bir cihaz olduğu tespit edildi. Bazı Xiaomi cihazlarda SMS izni işlemini izin ayarları sayfasından yapmanız gerekmektedir.
+        \nLütfen kontrol etmek için ayarlar sayfasını açınız eğer izin verilmemişse izin veriniz.\n\n \"SMS mesajı gönder\" iznine \"Her zaman izin ver\" şeklinde düzenlemeniz gerekmektedir.</string>
+    <string name="miui_permission_hint">Eğer izin vermezseniz acil durumlarda SMS gönderimi yapılamayacaktır.</string>
+    <string name="miui_permission_not">İzin verme</string>
+    <string name="miui_permission_open">Ayarları aç</string>
+
+
+    <!-- Schedule Activity -->
+    <string name="temp_schedule">Ateş Ölçüm Aralığı (Dakika)</string>
+    <string name="schedule_helper_text">5 ile 360 dakika arasında bir süre belirleyebilirsiniz.</string>
+    <string name="heart_schedule">Nabız Ölçüm Aralığı (Dakika)</string>
+    <string name="spo2_schedule">SpO2 Ölçüm Aralığı (Dakika)</string>
+    <string name="server_data_sent_status">Sunucuya verileri gönderme durumu</string>
+    <string name="server_data_sent">Gönder</string>
+    <string name="measurement_settings">Ölçüm Ayarları</string>
+    <string name="measurement_empty">Boş olamaz.</string>
+
+    <!-- Graph Activity -->
+    <string name="max_heart_rate">Max Nabız</string>
+    <string name="min_heart_rate">Min Nabız</string>
+    <string name="avg_heart_rate">Ort Nabız</string>
+    <string name="max_temp">Max Ateş</string>
+    <string name="min_temp">Min Ateş</string>
+    <string name="avg_temp">Ort Ateş</string>
+    <string name="max_spo2">Max SpO2</string>
+    <string name="min_spo2">Min SpO2</string>
+    <string name="avg_spo2">Ort SpO2</string>
+    <string name="manual_measure">Ölçüm Yap</string>
+    <string name="manual_measurment">Manuel Ölçümler</string>
+    <string name="measurment">Ölçümler</string>
+    <string name="today">Bugün</string>
+    <string name="yesterday">Dün</string>
+    <string name="no_heart_data">Nabız verisi yok</string>
+    <string name="no_temp_data">Ateş verisi yok</string>
+    <string name="no_spo2_data">SpO2 verisi yok</string>
+
+
+    <string name="launch_activity">Launch activity</string>
+    <string name="location_unknown">Location Unknown</string>
+    <string name="location_updates_label">Location Updates</string>
+
+    <string name="permission_rationale">Location permission needed for core functionality</string>
+    <string name="settings">Settings</string>
+    <string name="ok">OK</string>
+
+    <string name="start_location_updates_button_text">Start receiving location updates</string>
+    <string name="stop_location_updates_button_text">Stop receiving location updates</string>
+
+    <string name="location_updated">Location Updated: %1$s</string>
+
+    <string name="preference_file_key">com.example.android.while_in_use_location.PREFERENCE_FILE_KEY</string>
+    <string name="no_location_text">No current location</string>
+
+
+    <string name="request_updates">Request updates</string>
+    <string name="remove_updates">Remove updates</string>
+    <string name="unknown_location">Unknown location</string>
+
+    <string name="batched_location_updates">Batched location updates</string>
+
+    <!-- Location  -->
+    <string name="permission_location_rationale">Uygulamanın düzgün çalışabilmesi için her zaman konum erişim gereklidir.</string>
+    <string name="permission_denied_explanation">Her zaman konum erişimine izin verilmedi; acil durumlar için gereklidir.</string>
+    <string name="not_have_location_permission_for_remove">Lokasyon izni bulunmamakta. Lokasyon isteği kaldırılamaz.</string>
+    <string name="not_have_location_permission_for_request">Lokasyon izni bulunmamakta. Lokasyon bilgisi istenemez.</string>
+    <string name="not_get_location">Lokasyon bilgisi bulunamadı.</string>
+    <string name="location_permission_gone">Lokasyon izni kaybedildi.</string>
+    <string name="location_service_running">Servis çalışıyor...</string>
+
+    <!-- Medicine fragment  -->
+    <string name="medicine_reminding">İlaç Hatırlatma</string>
+    <string name="medicine_reminder_add">Hatırlatma zamanı ekle</string>
+    <string name="medicine_add">İlaç Ekle</string>
+    <string name="medicine_name">İlaç Adı</string>
+    <string name="medicine_dose">Doz</string>
+    <string name="medicine_time">Kullanma Saati</string>
+    <string name="time">Zaman</string>
+    <string name="medicine_day">Kullanma Günleri</string>
+    <string name="monday">Pazartesi</string>
+    <string name="tuesday">Salı</string>
+    <string name="wednesday">Çarşamba</string>
+    <string name="thursday">Perşembe</string>
+    <string name="friday">Cuma</string>
+    <string name="saturday">Cumartesi</string>
+    <string name="sunday">Pazar</string>
+    <string name="select">Seç</string>
+    <string name="cancel">İptal</string>
+    <string name="doses_empty">Doz miktarı boş olamaz.</string>
+    <string name="reminder_empty">En az 1 hatırlatma zamanı eklemeniz gerekmektedir.</string>
+    <string name="reminder_delete">Hatırlatmayı sil</string>
+    <string name="use_your_medicine">Lütfen en kısa sürede ilacınızı kullanınız. Uygulamayı açarak kullandığınızı onaylamayı unutmayınız.</string>
+    <string name="medicine_used">Kullandım</string>
+    <string name="notify_medicine_not_used">Lütfen ilacınızı kullanmayı daha fazla geciktirmeyiniz. Eğer kullandıysanız uygulamayı açarak kullandığınızı onaylayınız.</string>
+    <string name="medicine_should_used_time">İlacın kullanılması gereken saat:</string>
+    <string name="battery_info_text">Uygulamanın gerekli uyarıları verebilmesi için lütfen ayarlarından &appname;
+        uygulamasına uygulanan tüm batarya kısıtlamalarını kaldır.</string>
+    <string name="battery_info_hint">Eğer gerekli şekilde ayarlamaları yapmazsan uygulama tam olarak çalışmayabilir.</string>
+    <string name="battery_info_settings">Ayarlara git</string>
+    <string name="epilepsy_info">Bu uygulama epilepsi tedavisi görenlerin davranışları modellenerek geliştirilmiştir. Bu sebeple epilepsi hastası olmayanlarda hatalı sonuçlar üretebilir.</string>
+    <string name="epilepsy_dont_show">Bir daha gösterme</string>
+    <string name="no_medicine_text">İlaç verisi bulunamadı.\n\nİlaç hatırlatıcıyı kullanmak için + butonuna tıklayıp ilacını kayıt edebilirsin.</string>
+
+
+    <string name="connected_to_wristband">Bilekliğe bağlandı.</string>
+    <string name="disconnected_to_wristband">Bileklik bağlantısı koptu.</string>
+
+
+    <!-- Mail Verified  -->
+    <string name="email_verified">Doğruladım</string>
+    <string name="send_again">Tekrar Gönder</string>
+    <string name="back_to_login">Girişe Dön</string>
+
+    <!-- Add Doctor Fragment -->
+    <string name="search">Ara</string>
+    <string name="doctor">Doktor</string>
+    <string name="select_hospital">Hastane seçimi</string>
+    <string name="hospital">Hastane</string>
+    <string name="select_doctor">Doktor seçimi</string>
+    <string name="add_doctor">Doktor ekle</string>
+    <string name="add_doctor_info">Doktor ekleyerek verilerinizi doktorunuz ile paylaşabilirsiniz.</string>
+    <string name="add_doctor_info_before">Not: Doktor ekleyebilmek için lütfen \"Ayarlar\" - \"Hasta Bilgileri\" bölümünden bilgilerinizi doldurunuz.</string>
+    <string name="add_doctor_toast">Doktor eklendi.</string>
+    <string name="change_doctor">Doktor değiştir</string>
+    <string name="select_doctor_not_empty">Doktor ve hastene seçimi boş olamaz</string>
+
+    <!-- Request Fragment -->
+    <string name="request">İstekler</string>
+    <string name="accept">Kabul et</string>
+    <string name="refuse">Reddet</string>
+    <string name="doctor_request_text">sizi Doktor rolüne terfi ettirdi.</string>
+    <string name="no_request_text">Herhangi bir istek bulunmamaktadır.</string>
+    <string name="request_accepted">İstek kabul edildi.</string>
+    <string name="request_refuse">İstek kabul edilmedi.</string>
+    <string name="request_role_doctor">Doktor rolüne yükseltildiniz. Doktor arayüzüne erişmek için lütfen internet sitemizden oturum açınız.</string>
+
+    <!-- Companion Fragment -->
+    <string name="companion">Refakatçi</string>
+    <string name="companion_add">Refakatçi ekle</string>
+    <string name="companion_name">Refakatçi Adı</string>
+    <string name="companion_surname">Refakatçi Soyadı</string>
+    <string name="companion_email">Refakatçi E-mail</string>
+    <string name="companion_password">Refakatçi Şifre</string>
+    <string name="no_companion">Refakatçi verisi bulunamadı.\n\nRefakatçi eklemek için + butonuna tıklayıp refakatçi ekleyebilirsiniz.</string>
+    <string name="companion_info">Refakatçi olarak birini eklemek o kişiyle verilerinizi paylaşmanızı sağlar.</string>
+    <string name="companion_password_info">Refakatçiniz daha önce kayıt olmadıysa belirlediğiniz e-mail ve şifre ile giriş yapacaktır. Eğer kayıtlıysa kendi belirlediği şifresiyle giriş yapacaktır.</string>
+    <string name="companion_delete">Refakatçinizi silmek istediğinize emin misiniz?</string>
+    <string name="companion_added">Refakatçi eklendi.</string>
+
+    <!-- Dialog -->
+    <string name="delete">Sil</string>
+    <string name="no">Hayır</string>
+    <string name="are_you_sure_delete">Silmek istediğinize emin misiniz?</string>
+
+
+    <string name="privacy_policy">Privacy Policy</string>
+
+    <string name="privacy_policy_text"><![CDATA[
+
+	<p>
+                  Smartsense built the iCovid app as
+                  a Free app. This SERVICE is provided by
+                  Smartsense at no cost and is intended for use as
+                  is.
+                </p> <p>
+                  This page is used to inform visitors regarding our
+                  policies with the collection, use, and disclosure of Personal
+                  Information if anyone decided to use our Service.
+                </p> <p>
+                  If you choose to use our Service, then you agree to
+                  the collection and use of information in relation to this
+                  policy. The Personal Information that we collect is
+                  used for providing and improving the Service. We will not use or share your information with
+                  anyone except as described in this Privacy Policy.
+                </p> <p>
+                  The terms used in this Privacy Policy have the same meanings
+                  as in our Terms and Conditions, which is accessible at
+                  iCovid unless otherwise defined in this Privacy Policy.
+                </p> <p><strong>Information Collection and Use</strong></p> <p>
+                  For a better experience, while using our Service, we
+                  may require you to provide us with certain personally
+                  identifiable information, including but not limited to first name, last name, e-mail, password. The information that
+                  we request will be retained by us and used as described in this privacy policy.
+                </p> <div><p>
+                    The app does use third party services that may collect
+                    information used to identify you.
+                  </p> <p>
+                    Link to privacy policy of third party service providers used
+                    by the app
+                  </p> <ul><li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play Services</a></li><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></ul></div> <p><strong>Log Data</strong></p> <p>
+                  We want to inform you that whenever you
+                  use our Service, in a case of an error in the app
+                  we collect data and information (through third party
+                  products) on your phone called Log Data. This Log Data may
+                  include information such as your device Internet Protocol
+                  (“IP”) address, device name, operating system version, the
+                  configuration of the app when utilizing our Service,
+                  the time and date of your use of the Service, and other
+                  statistics.
+                </p> <p><strong>Cookies</strong></p> <p>
+                  Cookies are files with a small amount of data that are
+                  commonly used as anonymous unique identifiers. These are sent
+                  to your browser from the websites that you visit and are
+                  stored on your device\'s internal memory.
+                </p> <p>
+                  This Service does not use these “cookies” explicitly. However,
+                  the app may use third party code and libraries that use
+                  “cookies” to collect information and improve their services.
+                  You have the option to either accept or refuse these cookies
+                  and know when a cookie is being sent to your device. If you
+                  choose to refuse our cookies, you may not be able to use some
+                  portions of this Service.
+                </p> <p><strong>Service Providers</strong></p> <p>
+                  We may employ third-party companies and
+                  individuals due to the following reasons:
+                </p> <ul><li>To facilitate our Service;</li> <li>To provide the Service on our behalf;</li> <li>To perform Service-related services; or</li> <li>To assist us in analyzing how our Service is used.</li></ul> <p>
+                  We want to inform users of this Service
+                  that these third parties have access to your Personal
+                  Information. The reason is to perform the tasks assigned to
+                  them on our behalf. However, they are obligated not to
+                  disclose or use the information for any other purpose.
+                </p> <p><strong>Security</strong></p> <p>
+                  We value your trust in providing us your
+                  Personal Information, thus we are striving to use commercially
+                  acceptable means of protecting it. But remember that no method
+                  of transmission over the internet, or method of electronic
+                  storage is 100% secure and reliable, and we cannot
+                  guarantee its absolute security.
+                </p> <p><strong>Links to Other Sites</strong></p> <p>
+                  This Service may contain links to other sites. If you click on
+                  a third-party link, you will be directed to that site. Note
+                  that these external sites are not operated by us.
+                  Therefore, we strongly advise you to review the
+                  Privacy Policy of these websites. We have
+                  no control over and assume no responsibility for the content,
+                  privacy policies, or practices of any third-party sites or
+                  services.
+                </p> <p><strong>Children’s Privacy</strong></p> <p>
+                  These Services do not address anyone under the age of 13.
+                  We do not knowingly collect personally
+                  identifiable information from children under 13 years of age. In the case
+                  we discover that a child under 13 has provided
+                  us with personal information, we immediately
+                  delete this from our servers. If you are a parent or guardian
+                  and you are aware that your child has provided us with
+                  personal information, please contact us so that
+                  we will be able to do necessary actions.
+                </p> <p><strong>Changes to This Privacy Policy</strong></p> <p>
+                  We may update our Privacy Policy from
+                  time to time. Thus, you are advised to review this page
+                  periodically for any changes. We will
+                  notify you of any changes by posting the new Privacy Policy on
+                  this page.
+                </p> <p>This policy is effective as of 2021-05-05</p> <p><strong>Contact Us</strong></p> <p>
+                  If you have any questions or suggestions about our
+                  Privacy Policy, do not hesitate to contact us at bilgi@insense.com.tr.
+                </p> ]]>
+      </string>
+
+    <string name="terms_of_conditions">Terms &amp; Conditions</string>
+
+    <string name="terms_of_conditions_text"><![CDATA[
+
+ <p>
+                  By downloading or using the app, these terms will
+                  automatically apply to you – you should make sure therefore
+                  that you read them carefully before using the app. You’re not
+                  allowed to copy, or modify the app, any part of the app, or
+                  our trademarks in any way. You’re not allowed to attempt to
+                  extract the source code of the app, and you also shouldn’t try
+                  to translate the app into other languages, or make derivative
+                  versions. The app itself, and all the trade marks, copyright,
+                  database rights and other intellectual property rights related
+                  to it, still belong to Smartsense.
+                </p> <p>
+                  Smartsense is committed to ensuring that the app is
+                  as useful and efficient as possible. For that reason, we
+                  reserve the right to make changes to the app or to charge for
+                  its services, at any time and for any reason. We will never
+                  charge you for the app or its services without making it very
+                  clear to you exactly what you’re paying for.
+                </p> <p>
+                  The iCovid app stores and processes personal data that
+                  you have provided to us, in order to provide our
+                  Service. It’s your responsibility to keep your phone and
+                  access to the app secure. We therefore recommend that you do
+                  not jailbreak or root your phone, which is the process of
+                  removing software restrictions and limitations imposed by the
+                  official operating system of your device. It could make your
+                  phone vulnerable to malware/viruses/malicious programs,
+                  compromise your phone’s security features and it could mean
+                  that the iCovid app won’t work properly or at all.
+                </p> <div><p>
+                    The app does use third party services that declare their own
+                    Terms and Conditions.
+                  </p> <p>
+                    Link to Terms and Conditions of third party service
+                    providers used by the app
+                  </p> <ul><li><a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Google Play Services</a></li><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></ul></div> <p>
+                  You should be aware that there are certain things that
+                  Smartsense will not take responsibility for. Certain
+                  functions of the app will require the app to have an active
+                  internet connection. The connection can be Wi-Fi, or provided
+                  by your mobile network provider, but Smartsense
+                  cannot take responsibility for the app not working at full
+                  functionality if you don’t have access to Wi-Fi, and you don’t
+                  have any of your data allowance left.
+                </p> <p></p> <p>
+                  If you’re using the app outside of an area with Wi-Fi, you
+                  should remember that your terms of the agreement with your
+                  mobile network provider will still apply. As a result, you may
+                  be charged by your mobile provider for the cost of data for
+                  the duration of the connection while accessing the app, or
+                  other third party charges. In using the app, you’re accepting
+                  responsibility for any such charges, including roaming data
+                  charges if you use the app outside of your home territory
+                  (i.e. region or country) without turning off data roaming. If
+                  you are not the bill payer for the device on which you’re
+                  using the app, please be aware that we assume that you have
+                  received permission from the bill payer for using the app.
+                </p> <p>
+                  Along the same lines, Smartsense cannot always take
+                  responsibility for the way you use the app i.e. You need to
+                  make sure that your device stays charged – if it runs out of
+                  battery and you can’t turn it on to avail the Service,
+                  Smartsense cannot accept responsibility.
+                </p> <p>
+                  With respect to Smartsense’s responsibility for your
+                  use of the app, when you’re using the app, it’s important to
+                  bear in mind that although we endeavour to ensure that it is
+                  updated and correct at all times, we do rely on third parties
+                  to provide information to us so that we can make it available
+                  to you. Smartsense accepts no liability for any
+                  loss, direct or indirect, you experience as a result of
+                  relying wholly on this functionality of the app.
+                </p> <p>
+                  At some point, we may wish to update the app. The app is
+                  currently available on Android – the requirements for
+                  system(and for any additional systems we
+                  decide to extend the availability of the app to) may change,
+                  and you’ll need to download the updates if you want to keep
+                  using the app. Smartsense does not promise that it
+                  will always update the app so that it is relevant to you
+                  and/or works with the Android version that you have
+                  installed on your device. However, you promise to always
+                  accept updates to the application when offered to you, We may
+                  also wish to stop providing the app, and may terminate use of
+                  it at any time without giving notice of termination to you.
+                  Unless we tell you otherwise, upon any termination, (a) the
+                  rights and licenses granted to you in these terms will end;
+                  (b) you must stop using the app, and (if needed) delete it
+                  from your device.
+                </p> <p><strong>Changes to This Terms and Conditions</strong></p> <p>
+                  We may update our Terms and Conditions
+                  from time to time. Thus, you are advised to review this page
+                  periodically for any changes. We will
+                  notify you of any changes by posting the new Terms and
+                  Conditions on this page.
+                </p> <p>
+                  These terms and conditions are effective as of 2021-05-05
+                </p> <p><strong>Contact Us</strong></p> <p>
+                  If you have any questions or suggestions about our
+                  Terms and Conditions, do not hesitate to contact us
+                  at bilgi@insense.com.tr.
+                </p>
+                ]]>
+      </string>
+
+
+    <plurals name="num_locations_reported">
+        <item quantity="zero">No location reported</item>
+        <item quantity="one">One location reported</item>
+        <item quantity="other">%d locations reported</item>
+    </plurals>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

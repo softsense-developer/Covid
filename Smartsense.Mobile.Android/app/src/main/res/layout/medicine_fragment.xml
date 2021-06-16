@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/backgroundGrey"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context=".ui.medicine.MedicineFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/medicineItemRecView"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/item_medicine"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/noMedicineText"
+        android:text="@string/no_medicine_text"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:fontFamily="@font/montserrat_medium"
+        android:gravity="center"/>
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addMedicineButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:src="@drawable/ic_add"
+        app:elevation="3dp"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="36dp"
+        app:tint="@color/colorWhite" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

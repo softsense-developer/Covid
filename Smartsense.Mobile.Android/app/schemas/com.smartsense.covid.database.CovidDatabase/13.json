@@ -1,0 +1,208 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 13,
+    "identityHash": "9fafd91ea1161380eb1233e2fa3e7f46",
+    "entities": [
+      {
+        "tableName": "covid_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `time` INTEGER NOT NULL, `data` REAL NOT NULL, `dataType` INTEGER NOT NULL, `saveType` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "ID",
+            "columnName": "ID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "time",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataType",
+            "columnName": "dataType",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "saveType",
+            "columnName": "saveType",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "medicine_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`medicineID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `medicineName` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "medicineID",
+            "columnName": "medicineID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "medicineName",
+            "columnName": "medicineName",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "medicineID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "medicine_time_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`medicineTimeID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `foreignMedicineID` INTEGER NOT NULL, `timeUsage` INTEGER NOT NULL, `dose` TEXT, FOREIGN KEY(`foreignMedicineID`) REFERENCES `medicine_table`(`medicineID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "medicineTimeID",
+            "columnName": "medicineTimeID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foreignMedicineID",
+            "columnName": "foreignMedicineID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeUsage",
+            "columnName": "timeUsage",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dose",
+            "columnName": "dose",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "medicineTimeID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_medicine_time_table_foreignMedicineID",
+            "unique": false,
+            "columnNames": [
+              "foreignMedicineID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_medicine_time_table_foreignMedicineID` ON `${TABLE_NAME}` (`foreignMedicineID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "medicine_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foreignMedicineID"
+            ],
+            "referencedColumns": [
+              "medicineID"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "medicine_usage_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`medicineUsageID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `foreignMedicineTimeID` INTEGER NOT NULL, `useTimestamp` INTEGER NOT NULL, `isUsed` INTEGER NOT NULL, `isNotifySent` INTEGER NOT NULL, FOREIGN KEY(`foreignMedicineTimeID`) REFERENCES `medicine_time_table`(`medicineTimeID`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "medicineUsageID",
+            "columnName": "medicineUsageID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "foreignMedicineTimeID",
+            "columnName": "foreignMedicineTimeID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "useTimestamp",
+            "columnName": "useTimestamp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isUsed",
+            "columnName": "isUsed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isNotifySent",
+            "columnName": "isNotifySent",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "medicineUsageID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_medicine_usage_table_foreignMedicineTimeID",
+            "unique": false,
+            "columnNames": [
+              "foreignMedicineTimeID"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_medicine_usage_table_foreignMedicineTimeID` ON `${TABLE_NAME}` (`foreignMedicineTimeID`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "medicine_time_table",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "foreignMedicineTimeID"
+            ],
+            "referencedColumns": [
+              "medicineTimeID"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9fafd91ea1161380eb1233e2fa3e7f46')"
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.smartsense.covid">
+
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".EmailVerifyActivity"
+            android:theme="@style/FullScreen">
+
+        </activity>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/FullScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/FullScreen"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name=".CovidMainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme2" />
+        <activity
+            android:name=".MedicineAddEditActivity"
+            android:label="@string/medicine_reminding" />
+        <activity
+            android:name=".GraphActivity"
+            android:theme="@style/FullScreen" />
+        <activity android:name=".CompanionActivity"
+            android:label="@string/companion_add">
+        </activity>
+        <activity
+            android:name=".bluetoothlegatt.BluetoothScanActivity"
+            android:label="@string/scan_device" />
+        <activity
+            android:name=".settings.UserSettingsActivity"
+            android:label="@string/user_data"
+            android:windowSoftInputMode="stateHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.smartsense.covid.settings.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/action_settings" />
+        <activity
+            android:name=".settings.PasswordChangeActivity"
+            android:label="@string/password_change">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.smartsense.covid.settings.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".settings.CovidContactStatusActivity"
+            android:label="@string/contact_status">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.smartsense.covid.settings.SettingsActivity" />
+        </activity>
+        <activity
+            android:name=".settings.ScheduleSettingsActivity"
+            android:label="@string/measurement_settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.smartsense.covid.settings.SettingsActivity" />
+        </activity>
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.smartsense.covid.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>
+
+        <service
+            android:name=".bluetoothlegatt.BluetoothLeService"
+            android:enabled="true" />
+
+        <receiver
+            android:name=".MyBroadCastReceiver"
+            android:directBootAware="true"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".AlarmService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote" />
+
+        <receiver
+            android:name=".MedicineCheckBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".location.MyBackgroundService"
+            android:enabled="true"
+            android:exported="true"
+            android:foregroundServiceType="location" />
+    </application>
+
+</manifest>

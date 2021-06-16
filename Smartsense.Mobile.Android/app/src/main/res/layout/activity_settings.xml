@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fragmentBackgroundColor"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".settings.SettingsActivity">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userDataSettingsButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="@string/user_data"
+        android:textAllCaps="false"
+        android:fontFamily="@font/montserrat_medium"
+        android:textSize="17sp"
+        app:icon="@drawable/ic_user"
+        app:iconSize="24dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/scheduleSettingsButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp"
+        android:text="@string/measurement_settings"
+        android:fontFamily="@font/montserrat_medium"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        app:icon="@drawable/ic_clock"
+        app:iconSize="24dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/contactStatusSettingsButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/contact_status"
+        android:fontFamily="@font/montserrat_medium"
+        android:visibility="gone"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        app:icon="@drawable/ic_contact_status"
+        app:iconSize="32dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/changePasswordButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_medium"
+        android:padding="10dp"
+        android:text="@string/password_change"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        app:icon="@drawable/ic_outline_lock_24"
+        app:iconSize="32dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logOutButton"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="@string/logout"
+        android:fontFamily="@font/montserrat_medium"
+        android:textAllCaps="false"
+        android:textSize="17sp"
+        app:icon="@drawable/ic_logout"
+        app:iconSize="28dp" />
+
+</LinearLayout>
