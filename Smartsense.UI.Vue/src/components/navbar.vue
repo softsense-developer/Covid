@@ -1,5 +1,6 @@
 <template>
 <div >
+  <!-- merhaba git -->
   <nav id="sidebar" class="sidebar-wrapper">
     <div class="sidebar-content">
       <div class="sidebar-brand">
