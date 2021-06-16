@@ -1,0 +1,2 @@
+# covid
+SmartSense Covid Project
