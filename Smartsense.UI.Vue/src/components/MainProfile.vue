@@ -26,10 +26,10 @@
               <div class="form-inner">
                 <form  class="login">
                   <div class="field">
-                    <input type="text" placeholder="TC Kimlik No" required v-model="Tckn">
+                    <input type="text" placeholder="TC Kimlik No" required>
                   </div>
                   <div class="field">
-                    <input type="date" id="birthday" name="birthday" required v-model="bdate">
+                    <input type="date" id="birthday" name="birthday" required>
                   </div>
                   <div class="field">
                       <!-- <label for="exampleFormControlSelect1">Cinsiyet Seçiniz</label> -->
@@ -50,7 +50,7 @@
                       </select>
                   </div>
                     <div class="field">
-                    <input type="text" placeholder="Teşhis"  required v-model="teshis">
+                    <input type="text" placeholder="Teşhis"  required>
                   </div>
                   <!-- <div class="pass-link mt-5 pass-link-two" style="border:1px solid white;width:35%;border-radius:5px;">
                     <a class="backx"  style="cursor:pointer;color:green;" @click="pageModes()">Şifremi Güncelle</a> 
@@ -69,33 +69,34 @@
               </div>
             </div>
           </div>
-              <div class="account-update profile-cart" v-if="pageMode==0" :style="{opacity:opacity}" >
+              <div class="profile-cart" v-if="pageMode==0" :style="{opacity:opacity}" >
                 <div class="container">
                   <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-6">
-                      <div class="card" style="width: 100%;box-shadow:none;">
-                        <img class="card-img-top w-100" src="../assets/user.png" alt="Card image cap" style="width:23rem;">
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6 col-lg-6">
-                      <div class="card-body" style="text-transform:capitalize;">
-                        <!-- <h3 class="card-title" style="color:rgb(15,121,108);border-bottom:1px solid black">Bilgilerim</h3> -->
-                        <div class="d-flex justify-content-start mb-2">
-                          <span>kimlik numarası:</span><p class="card-text ml-1">{{Tckn}}</p>
-                        </div>
-                        <div class="d-flex justify-content-start mb-2">
-                          <span>email:</span><p class="card-text ml-1" style="text-transform:none;">{{mail}}</p>
-                        </div>
-                        <div class="d-flex justify-content-start mb-2">
-                          <span>doğum tarihi:</span><p class="card-text ml-1">{{bdate}}</p>
-                        </div>
-                        <div class="d-flex justify-content-start mb-2">
-                          <span>teshis:</span><p class="card-text ml-1">{{teshis}}</p>
-                        </div>
-                        <div class="d-flex justify-content-start mt-5">
-                          <button class="btn w-100 text-white" style="background:rgb(33,140,127)" @click="profilUpdate()">Güncelle</button>
+                    <div class="card " style="width: 100%;" >
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-sm-6 col-md-6 col-lg-6">
+                            <img class="card-img-top mt-5 imagex" src="../assets/user.png" alt="Card image cap" style="height:200px;">
+                          </div>
+                          <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="card-body dikkat">
+                        <div class="d-flex flex-column">
+                        <h5 class="card-title">Profil bilgileri</h5>
+                        <p class="card-text">Kimlik Numarası: {{Tckn}}</p>
+                        <p class="card-text">Doğum tarihi: {{bdate}}</p>
+                        <p class="card-text">Teshis: {{teshis}}</p>
+                        <p class="card-text">email bilgisi: {{mail}}</p>
+                        <p class="card-text" v-if="gender==0">cinsiyet: erkek</p>
+                        <p class="card-text" v-if="gender==1">cinsiyet: kadın</p>
+                        <p class="card-text" v-if="gender==2">cinsiyet: belirtmekistemiyorum</p>
                         </div>
                       </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                          <a class="btn w-50 text-white" @click="profilUpdate()" style="background:rgb(28,134,122)">Go somewhere</a>
+                        </div>
                     </div>
                   </div>
                 </div>
@@ -103,15 +104,16 @@
                     
                   
               </div>
+             
               <div class="account-update mb-5" v-if="pageMode==3">
                 <div class="form-container">
                   <div class="form-inner">
                     <form  class="login">
                       <div class="field">
-                        <input type="text" placeholder="TC Kimlik No" required v-model="Tckn">
+                        <input type="text" placeholder="TC Kimlik No" required >
                       </div>
                       <div class="field">
-                        <input type="date" id="birthday" name="birthday" required v-model="bdate">
+                        <input type="date" id="birthday" name="birthday" required>
                       </div>
                       <div class="field">
                           <select class="form-control" id="exampleFormControlSelect1">
@@ -130,7 +132,7 @@
                         </select>
                       </div>
                        <div class="field">
-                        <input type="text" placeholder="Teşhis"  required v-model="teshis">
+                        <input type="text" placeholder="Teşhis"  required>
                       </div>
                        <div class="pass-link mt-5 pass-link-two" style="border:1px solid white;width:35%;border-radius:5px;">
                         <i class="fas fa-arrow-left"></i> <a class="backx"  style="cursor:pointer;color:green;" @click="geri()">Geri</a> 
@@ -359,6 +361,20 @@ img {
   position: absolute;
   right: 0;
   bottom: 0;
+}
+@media screen and (min-width: 768px) {
+  .imagex{
+    width: 100%;
+  }
+  /* .dikkat{
+    margin-left: 20%;
+    margin-right: 25%;
+  } */
+}
+@media screen and (max-width: 768px) {
+  .imagex{
+    width: 100%;
+  }
 }
 
 </style>
