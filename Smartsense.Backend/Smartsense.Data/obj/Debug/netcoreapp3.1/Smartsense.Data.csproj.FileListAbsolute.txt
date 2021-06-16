@@ -1,0 +1,17 @@
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Data.deps.json
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Data.runtimeconfig.json
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Data.runtimeconfig.dev.json
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Data.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Data.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Core.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Entity.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Core.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\bin\Debug\netcoreapp3.1\Smartsense.Entity.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.csprojAssemblyReference.cache
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.AssemblyInfoInputs.cache
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.AssemblyInfo.cs
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.csproj.CopyComplete
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Data\obj\Debug\netcoreapp3.1\Smartsense.Data.genruntimeconfig.cache

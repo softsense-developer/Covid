@@ -1,0 +1,15 @@
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Entity.deps.json
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Entity.runtimeconfig.json
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Entity.runtimeconfig.dev.json
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Entity.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Entity.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Core.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\bin\Debug\netcoreapp3.1\Smartsense.Core.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.csprojAssemblyReference.cache
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.AssemblyInfoInputs.cache
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.AssemblyInfo.cs
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.csproj.CopyComplete
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.dll
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.pdb
+C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Entity\obj\Debug\netcoreapp3.1\Smartsense.Entity.genruntimeconfig.cache

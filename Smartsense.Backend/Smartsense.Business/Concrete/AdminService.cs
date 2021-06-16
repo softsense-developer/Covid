@@ -40,8 +40,8 @@ namespace Smartsense.Business.Concrete
             _supervisorRepository = supervisorRepository;
             _hospitalRepository = hospitalRepository;
         }
-        //Rol kontrolü yap
-        //todo kullanıcı terfi ettirme ve düşürme eklenecek
+       
+   
 
         public AddHospitalResponse AddHospital(AddHospitalRequest request)
         {
