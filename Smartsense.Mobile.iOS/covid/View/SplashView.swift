@@ -19,6 +19,7 @@ struct SplashView: View {
     @ObservedObject var userAuth: UserAuth = UserAuth()
     @State var isSplash = true
     @State var isSplashVisible = false
+    
     var body: some View {
         VStack{
             if !hasTimeElapsed{

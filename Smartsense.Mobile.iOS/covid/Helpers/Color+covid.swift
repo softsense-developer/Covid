@@ -21,6 +21,10 @@ extension Color{
         return Color("TextFieldBackground")
     }
     
+    static var componentColor: Color{
+        return Color("ComponentColor")
+    }
+    
     static var backgroundColor: Color{
         return colorWhite;
     }

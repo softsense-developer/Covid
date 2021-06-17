@@ -11,6 +11,30 @@ import Alamofire
 import NotificationBannerSwift
 
 struct LoginView: View {
+   
+    @StateObject var observedLoginData = ObservedLoginData()
+    
+    
+    var body: some View {
+        if !observedLoginData.isLoggedIn && !observedLoginData.isRegistered{
+            LoginSignUpView().environmentObject(observedLoginData)
+        }else{
+            if observedLoginData.isLoggedIn{
+                MainView()
+            }else{
+                EmailVerifyView()
+            }
+        }
+    }
+    
+
+    
+}
+
+
+struct LoginSignUpView: View {
+    @EnvironmentObject var observedLoginData: ObservedLoginData
+    
     @State var name: String = ""
     @State var surname: String = ""
     @State var email: String = ""
@@ -366,10 +390,13 @@ struct LoginView: View {
                  ** like cardview
                  */
                 .padding()
-                .overlay(
+                .background(Color.componentColor)
+                .cornerRadius(15)
+                .shadow(radius: 0.5)
+                /*.overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(.sRGB, red: 150/255, green: 150/255, blue: 150/255, opacity: 0.1), lineWidth: 1)
-                )
+                )*/
                 /*
                  ** Scrollview center view
                  */
@@ -381,7 +408,7 @@ struct LoginView: View {
         }
     }
     
-
+    
     
     /*
      ** Api login method
@@ -425,8 +452,8 @@ struct LoginView: View {
             MyKeychain.userSurname = surname
             MyKeychain.userEmail = email
             MyKeychain.userPassword = password
-            print(response)
             GrowingNotificationBanner(title: NSLocalizedString("verification_info", comment: ""), style: .success).show(bannerPosition: .top)
+            observedLoginData.isRegistered = true
         }, onFail: {(data) in
             isProgressViewShowing = false
             print(data ?? "")
@@ -468,6 +495,8 @@ struct LoginView: View {
             MyKeychain.userBloodGroup = response.bloodGroup ?? ""
             
             GrowingNotificationBanner(title: NSLocalizedString("login_dot", comment: ""), style: .success).show(bannerPosition: .top)
+            
+            observedLoginData.isLoggedIn = true
         }, onFail: {(data) in
             isProgressViewShowing = false
             firstClicktoSignUpLogin = false
@@ -475,13 +504,11 @@ struct LoginView: View {
             print(data ?? "")
         })
     }
-    
-    
-    
-    
-    
-    
-    
+}
+
+class ObservedLoginData: ObservableObject {
+    @Published var isRegistered = false
+    @Published var isLoggedIn = false
 }
 
 

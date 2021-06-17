@@ -40,8 +40,8 @@ struct MainView: View {
                 }
                 .tag(Tab.medicine)
             Button("tab_other", action:{
-                MyKeychain.clear()
-                SplashView()
+                /*MyKeychain.clear()
+                SplashView()*/
             })
                 .tabItem {
                     Label("tab_other", systemImage: "ellipsis")

@@ -40,7 +40,6 @@
 "no_connection" = "İnternet bağlantısı yok.";
 
 
-
 //Api Text
 "token_refreshed" = "Token yenilendi.";
 "token_expried" = "Token süresi geçti. Yeni token alınız.";
@@ -59,6 +58,44 @@
 "tab_data" = "Kayıtlar";
 "tab_medicine" = "İlaç Takibi";
 "tab_other" = "Diğer";
+
+//Home View Text
+"location_set_wait" = "Konum belirleniyor bekleyiniz...";
+"home_title" = "Karantina konumu belirle";
+"home_hint" = "Karantina konumunuz GPS üzerinden belirlenecektir ve belirlentikten sonra konumunuzu değiştiremezsiniz.";
+"home_location_saved" = "Karantina konumu kayıt edildi.";
+
+
+
+//Email view
+"verification_info" = "Doğrulama maili gönderildi. Lütfen email adresinizi kontrol edin.";
+"email_verified" = "Doğruladım";
+"back_to_login" = "Girişe dön";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
