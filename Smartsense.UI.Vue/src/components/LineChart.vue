@@ -25,43 +25,58 @@ import Chart from 'chart.js';
 export default {
   data() {
    return {
-     oxygen:[],
+     pulses:[],
      time:[],
      chart:"",
      lastWeek:"",
      lastThree:"",
      lastDay:"",
      today:"",
-     pageMode:1
+     pageMode:1,
+     todayNight:'',
+     lastWeekNight:'',
+     lastThreeNight:'',
+     lastDayNight:''
    }
   },
   mounted() {
     this.ChartCreate();
+    this.getFavoriotToday();
   },
   methods: {
 
     getLastWeek() {
         var today = new Date();
-        var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5);
+        var lastWeekNight = new Date(today.getFullYear(), today.getMonth(), today.getDate()- 6,3,0,0);
+        var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate(),26,59,59);
         this.lastWeek=lastWeek;
+        this.lastWeekNight=lastWeekNight
         console.log(this.lastWeek);
     },
     getToday() {
         var today = new Date();
-        var todayx = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        var todayNight=new Date(today.getFullYear(),today.getMonth(),today.getDate(),3,0,0)
+        var todayx = new Date(today.getFullYear(), today.getMonth(), today.getDate() ,26,59,59);
+        // var todayx = new Date(2011, 0, 1, 2, 3, 4, 567);
         this.today=todayx;
+        this.todayNight=todayNight;
         console.log(this.today);
+        console.log(todayNight);
     },
     getLastThreeDay() {
         var today = new Date();
-        var lastThree = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3);
+        var lastThreeNight = new Date(today.getFullYear(), today.getMonth(), today.getDate()- 2,3,0,0);
+        var lastThree=new Date(today.getFullYear(), today.getMonth(), today.getDate() ,26,59,59);
         this.lastThree=lastThree;
+        this.lastThreeNight=lastThreeNight;
         console.log(this.lastThree);
     },
     getLastDay() {
         var today = new Date();
-        var lastDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+        var lastDayNight = new Date(today.getFullYear(), today.getMonth(), today.getDate()-1,3,0,0);
+        var lastDay=new Date(today.getFullYear(), today.getMonth(), today.getDate()-1 ,26,59,59);
         this.lastDay=lastDay;
+        this.lastDayNight=lastDayNight;
         console.log(this.lastDay);
     },
     getFavoriotLastWeek() {
@@ -74,8 +89,7 @@ export default {
       last_day.style.backgroundColor='#BDBDBD'
       today.style.backgroundColor='#BDBDBD';
       this.getLastWeek()
-      var now=new Date();
-      this.GlobalRequiest(this.lastWeek,now)
+      this.GlobalRequiest(this.lastWeekNight,this.lastWeek)
     },
     getFavoriotLastThreeDay() {
       var today=document.querySelector('.today');
@@ -87,8 +101,7 @@ export default {
       last_day.style.backgroundColor='#BDBDBD'
       today.style.backgroundColor='#BDBDBD'
       this.getLastThreeDay()
-      var now=new Date();
-      this.GlobalRequiest(this.lastThree,now)
+      this.GlobalRequiest(this.lastThreeNight,this.lastThree)
     },
     getFavoriotLastDay() {
       var today=document.querySelector('.today');
@@ -100,8 +113,7 @@ export default {
       last_day.style.backgroundColor='#77c0d8'
       today.style.backgroundColor='#BDBDBD'
       this.getLastDay()
-      var now=new Date();
-      this.GlobalRequiest(this.lastDay,now)
+      this.GlobalRequiest(this.lastDayNight,this.lastDay)
     },
     getFavoriotToday() {
       var todayx=document.querySelector('.today');
@@ -113,12 +125,11 @@ export default {
       last_day.style.backgroundColor='#BDBDBD'
       todayx.style.backgroundColor='#77c0d8'
       this.getToday()
-      var now=new Date();
-      this.GlobalRequiest(this.today,now)
+      this.GlobalRequiest(this.todayNight,this.today)
     },
     GlobalRequiest(x,y) {
-      this.oxygen.length=0;
-      this.time.length=0;
+      this.pulses=[];
+      this.time=[];
       var token=localStorage.getItem('token');
       var url="http://api.smartsense.com.tr/api/value/gethistorydaterange";
       var jsonObject={
@@ -131,13 +142,11 @@ export default {
           }).then(res=> {
           console.log(res.data);
           res.data.oxygen.forEach(element => {
-          this.oxygen.push(element.dataValue);
+          this.pulses.push(element.dataValue);
           this.time.push(element.saveDate.slice(11,19));
         });
-
           this.pageMode=1;
           this.updateChart();
-        
         })
     },
     ChartCreate() {
@@ -147,17 +156,16 @@ export default {
         data: {
           labels:[],
           datasets:[{
-            label:'firstDataSet',
+            label:'SpO²',
             backgroundColor:'transparent',
-            borderColor:'#77c0d8',
+            borderColor:'rgb(119,192,216)',
             data:[]
           }]
-          
-        }
+        },
       })
     },
     updateChart() {
-      this.chart.data.datasets[0].data = this.oxygen;
+      this.chart.data.datasets[0].data = this.pulses;
       this.chart.data.labels = this.time;
       this.chart.update();
     }

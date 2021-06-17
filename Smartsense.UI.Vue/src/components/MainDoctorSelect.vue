@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div id="snackbar">Some text some message..</div>
     <main class="page-content" style="background: -webkit-linear-gradient(left, rgb(241,245,248), rgb(241,245,248));">
       <div class="container">
         <div class="row mt-3" style="border-bottom:3px solid rgb(17,123,110);">
@@ -90,11 +91,32 @@ export default {
      pageMode:0
     }
   },
-  mounted(){
+  mounted() {
     this.getHospitals();
     this.getDoctorName();
   },
-  methods:{
+  methods: {
+    Toast(messages) {
+  // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    // Add the "show" class to DIV
+    x.className = "show";
+    x.style.backgroundColor='rgb(15,120,108)';
+    x.innerHTML=`<p style='color:white;'>${messages}</p>`
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  },
+
+  ToastError(messages) {
+  // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    // Add the "show" class to DIV
+    x.className = "show";
+    x.innerHTML=`<p style='color:white;'>${messages}</p>`
+    x.style.backgroundColor='#EF5350';
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  },
 
     doctorSelectDisplay() {
       this.sayac++
@@ -110,20 +132,26 @@ export default {
     },
 
    postDoctor() {
-     var url='http://api.smartsense.com.tr/api/patient/adddoctor'+`/${this.doctorId}`;
-     var token=localStorage.getItem('token');
-    axios.get(url, {
-     headers:{
-       'Authorization': `Bearer ${token}`
-     },
-    }).then(res=> {
-        console.log(res);
-        if(res.data.code==200){
-          this.flashmessage=true;
-          setTimeout(() => this.flashmessage = false
-          , 3000);
-        }
-      })
+      if(this.doctorId !=='') {
+        var url='http://api.smartsense.com.tr/api/patient/adddoctor'+`/${this.doctorId}`;
+        var token=localStorage.getItem('token');
+        axios.get(url, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+        }).then(res=> {
+            console.log(res);
+            if (res.data.code == 200) {
+              this.Toast('doktora istek başarıyla gönderildi');
+            }
+            else if (res.data.code == 400) {
+              this.ToastError(res.data.errors);
+            }
+          })
+      }
+     else {
+       this.ToastError("Bilgilerinizi kontrol ediniz")
+     } 
    },
 
    getDoctors() {
@@ -184,6 +212,7 @@ export default {
 </script>
 
 <style scoped>
+  @import '../assets/css/toast.css';
  .button {
     display: flex;
     justify-content: center;

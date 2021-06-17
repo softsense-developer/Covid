@@ -374,6 +374,7 @@ img {
 @media screen and (max-width: 768px) {
   .imagex{
     width: 100%;
+    display: none;
   }
 }
 

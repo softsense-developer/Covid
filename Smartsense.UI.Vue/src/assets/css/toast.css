@@ -3,7 +3,6 @@
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: #66BB6A; /* Black background color */
     color: white; /* White text color */
     text-align: center; /* Centered text */
     border-radius: 15px; /* Rounded borders */
@@ -23,6 +22,15 @@
   
   /* Show the snackbar when clicking on a button (class added with JavaScript) */
   #snackbar.show {
+    background-color: red; /* Black background color */
+    visibility: visible; /* Show the snackbar */
+    /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+    However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  #snackbar.showTwo {
+    background-color: green; /* Black background color */
     visibility: visible; /* Show the snackbar */
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
     However, delay the fade out process for 2.5 seconds */
