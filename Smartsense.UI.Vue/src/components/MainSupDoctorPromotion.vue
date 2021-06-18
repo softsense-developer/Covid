@@ -1,12 +1,12 @@
 <template>
 
 <main class="page-content">
-  <div class="container mt-2">
-    <div class="row d-flex justify-content-center" style="border-bottom:1px solid rgb(39,146,134);">
-      <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
-        <h5 style="color:rgb(39,146,134)">Doktor Atama Bilgileri</h5>
-      </div>
-    </div>
+  <div class="container">
+    <div class="row mt-3" style="border-bottom:3px solid rgb(17,123,110);">
+          <div class=" col-12 d-flex justify-content-center" style="pointer-events:none">
+            <h5 style="color:rgb(17,123,110);">Doktor Atama</h5>
+          </div>
+        </div>
     <div class="row mt-5">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         

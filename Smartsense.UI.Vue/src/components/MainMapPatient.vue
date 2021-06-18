@@ -1,7 +1,7 @@
 <template>
   <div>
     <main class="page-content">
-      <div class="container-fluid">
+      <div class="container">
         <div class="row mt-3" style="border-bottom:3px solid rgb(17,123,110);">
           <div class=" col-12 d-flex justify-content-center" style="pointer-events:none">
             <h5 style="color:rgb(17,123,110);">Konum Bilgileri</h5>

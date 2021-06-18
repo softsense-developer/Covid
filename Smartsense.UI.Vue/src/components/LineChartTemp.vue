@@ -104,7 +104,7 @@ export default {
       this.GlobalRequiest(this.lastThreeNight,this.lastThree)
     },
     getFavoriotLastDay() {
-      var today=document.querySelector('.todays');
+      var today=document.querySelector('.todayss');
       var last_three=document.querySelector('.last-threess');
       var last_week=document.querySelector('.last-weekss');
       var last_day=document.querySelector('.last-dayss');
@@ -145,6 +145,9 @@ export default {
           this.pulses.push(element.dataValue);
           this.time.push(element.saveDate.slice(11,19));
         });
+        if(this.pulses.length==0){
+          this.pageMode=0;
+        }
           this.pageMode=1;
           this.updateChart();
         })
@@ -153,6 +156,34 @@ export default {
       var ctx=document.getElementById('myChartPulsesss').getContext('2d');
       this.chart=new Chart(ctx, {
         type:'line',
+        options: {
+          elements: {
+          point: {
+              radius: 1.8
+          }
+        },
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display:false,
+              drawBorder: false,
+            },
+            display: true,
+            ticks: {
+              beginAtZero: true,
+              min: 33,
+              max: 40,
+              stepSize: 1 // 1 - 2 - 3 ...,
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+            display:false,
+            drawBorder: false,
+            },
+          }]
+        } 
+        },
         data: {
           labels:[],
           datasets:[{
@@ -161,7 +192,6 @@ export default {
             borderColor:'rgb(255,112,67)',
             data:[]
           }]
-          
         }
       })
     },

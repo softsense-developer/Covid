@@ -1,25 +1,27 @@
 <template>
   <div>
     <main class="page-content">
-      <div class="mt-5 text-center d-flex justify-content-center" v-if="patients.length==0">
-          <scaling-squares-spinner class="text-info"
+      <div class="container">
+        <div class="row mt-3" style="border-bottom:3px solid rgb(17,123,110);">
+          <div class=" col-12 d-flex justify-content-center" style="pointer-events:none">
+            <h5 style="color:rgb(17,123,110);">Uyarılar</h5>
+          </div>
+        </div>
+        <div class="row" v-if="pageMode==0">
+          <div class="col-sm-12 col-md-12 col-lg-12 d-flex mt-5 justify-content-center">
+            <scaling-squares-spinner class="text-info"
             :animation-duration="1000"
             :size="75"
             :color="'#0f796c'"
           />
-        </div>
-      <div class="container" v-if="patients.length!==0">
-        <div class="row d-flex justify-content-center">
-          <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" style="border-bottom:1px solid rgb(10,116,103);">
-             <h5 style="color:#607D8B;text-transform: capitalize;">Uyarılar</h5>
           </div>
         </div>
-        <div class="row mt-5">
+        <div class="row mt-5" v-if="pageMode==1">
           <div class="col-12">
             <input type="text" id="myInput" @keyup="myFunction()" placeholder="Hasta adını yazınız..." title="Type in a name">
           </div>
         </div>
-      <div class="row d-flex justify-content-center">
+      <div class="row d-flex justify-content-center" v-if="pageMode==1">
         <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center">
           <div class="card w-100">
             <div class="container">
@@ -100,7 +102,8 @@ export default {
       x:'',
       patients:[],
       time:[],
-      intervals:''
+      intervals:'',
+      pageMode:0
     }
   },
   components:{
@@ -108,6 +111,7 @@ export default {
   },
   mounted(){
     this.intervals=setInterval(this.getpatientRequiest, 2000);
+    setTimeout(() => this.pageMode=1, 2000);
     
   },
   destroyed(){

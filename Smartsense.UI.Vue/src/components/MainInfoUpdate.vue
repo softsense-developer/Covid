@@ -142,8 +142,13 @@ methods:{
      headers: {'Authorization': `Bearer ${token}`}
     }).then(res=> {
         console.log(res);
-        if(res.data.code==200){
+        if(res.data.code==200) {
+          localStorage.setItem('name',this.name);
+          localStorage.setItem('surname',this.surname);
           this.Toast(res.data.message)
+          setTimeout(()=>{
+            window.location.reload();
+          },2000)
         }
     })
   },

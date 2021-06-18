@@ -1,17 +1,17 @@
 <template>
   <div>
     <main class="page-content">
-      <div class="mt-5 text-center d-flex justify-content-center" v-if="patients.length==0">
+      <!-- <div class="mt-5 text-center d-flex justify-content-center" v-if="patients.length==0">
           <scaling-squares-spinner class="text-info"
             :animation-duration="1000"
             :size="75"
             :color="'#0f796c'"
           />
-        </div>
-      <div class="container" v-if="patients.length!==0">
-        <div class="row d-flex justify-content-center">
-          <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" style="border-bottom:1px solid rgb(10,116,103);">
-             <h5 style="color:#607D8B;text-transform: capitalize;">Uyarılar</h5>
+        </div> -->
+      <div class="container">
+        <div class="row mt-3" style="border-bottom:3px solid rgb(17,123,110);">
+          <div class=" col-12 d-flex justify-content-center" style="pointer-events:none">
+            <h5 style="color:rgb(17,123,110);">Uyarılar</h5>
           </div>
         </div>
         <div class="row mt-3">
@@ -85,7 +85,7 @@
 
 <script>
 import axios from 'axios'
-import {ScalingSquaresSpinner} from 'epic-spinners'
+// import {ScalingSquaresSpinner} from 'epic-spinners'
 
 // hasta ıd, hasta adı ve soyadı, uyarı tıpı, uyarı değerı, zaman
 // bu data zaman sıralı ve en güncelı en üstte olacak şekılde geıtırılmesı lazım
@@ -103,7 +103,7 @@ export default {
     }
   },
   components:{
-    ScalingSquaresSpinner
+    // ScalingSquaresSpinner
   },
   mounted(){
     this.intervals=setInterval(this.getpatientRequiest, 2000);

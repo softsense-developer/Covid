@@ -9,9 +9,9 @@
     <div v-if="pageMode==0">
       <div class="container">
         <div class="row">
-          <!-- <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" style="width:800px;height:200px;align-items:center;">
+          <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" style="width:800px;height:200px;align-items:center;">
             <h4>Güncel veriniz bulunmamaktadır</h4>
-          </div> -->
+          </div> 
         </div>
       </div>
     </div>
@@ -43,6 +43,7 @@ export default {
     this.ChartCreate();
     this.getFavoriotToday();
   },
+  
   methods: {
 
     getLastWeek() {
@@ -145,6 +146,9 @@ export default {
           this.pulses.push(element.dataValue);
           this.time.push(element.saveDate.slice(11,19));
         });
+        if(this.pulses.length==null){
+          this.pageMode=0;
+        }
           this.pageMode=1;
           this.updateChart();
         })
@@ -153,6 +157,35 @@ export default {
       var ctx=document.getElementById('myChartPulsess').getContext('2d');
       this.chart=new Chart(ctx, {
         type:'line',
+        options: {
+          elements: {
+          point: {
+              radius: 1.8
+          }
+        },
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display:false,
+              drawBorder: false,
+            },
+            display: true,
+            ticks: {
+              beginAtZero: true,
+              min: 85,
+              max: 100,
+              stepSize: 1 // 1 - 2 - 3 ...,
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+            display:false,
+            drawBorder: false,
+            },
+          }]
+        } 
+        },
+
         data: {
           labels:[],
           datasets:[{

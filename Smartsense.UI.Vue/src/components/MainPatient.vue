@@ -7,7 +7,16 @@
             <h5 style="color:rgb(17,123,110);">Hasta Bilgileri</h5>
           </div>
         </div>
-        <div class="row mt-3">
+        <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center" v-if="pageMode==0">
+            <scaling-squares-spinner class="text-info mt-5"
+            :animation-duration="1000"
+            :size="75"
+            :color="'#0f796c'"
+          />
+          </div>
+        </div>
+        <div class="row mt-3" v-if="pageMode==1">
           <div class="col-sm-12 col-md-4 col-lg-4 mt-3">
             <div class="small-box" style="background:#77c0d8;cursor:pointer;">
               <div class="inner">
@@ -45,7 +54,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-4">
+        <div class="row mt-4" v-if="pageMode==1">
           <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
             <div class="card"><line-chart></line-chart></div>
           </div>
@@ -62,6 +71,7 @@
 </template>
 
 <script>
+import {ScalingSquaresSpinner} from 'epic-spinners'
 import axios from 'axios'
 import LineChart from './LineChart.vue'
 import LineChartPulses from './LineChartPulses.vue'
@@ -88,7 +98,8 @@ export default {
       datetemp:"",
       datetemptwo:"",
       dateoxygen:"",
-      dateoxygentwo:""
+      dateoxygentwo:"",
+      pageMode:0
     }
   },
 
@@ -96,17 +107,18 @@ export default {
     LineChart,
     LineChartTemp,
     LineChartPulses,
+    ScalingSquaresSpinner
   },
 
   mounted() {
     this.getfavoriot();
     this.getfavoriotPulses();
     this.getfavoriotTemp();
+    setTimeout(() => this.pageMode=1, 2000);
   },
   methods: {
     deneme() {
       this.flashmessage=true
-      setTimeout(() => this.flashmessage = false, 3000);
     },
 
     getfavoriot() {

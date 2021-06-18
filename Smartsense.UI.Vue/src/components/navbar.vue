@@ -33,10 +33,7 @@
       <!-- sidebar-header  -->
       <!-- sidebar-search  -->
       <div class="sidebar-menu">
-        <ul>
-          <li class="header-menu">
-            <span>İçerik</span>
-          </li>
+        <ul class="mt-2">
           <li>
             <router-link to="/DoktorHome" tag="a" style="cursor:pointer;" v-if="roleId==2">
               <i class="fas fa-home"></i>
@@ -92,19 +89,19 @@
               <span>Hastane Ekle</span>
             </router-link>
             <router-link to="/AllDoctors" tag="a" v-if="roleId==3">
-              <i class="fas fa-hospital-user"></i>
+              <i class="fas fa-briefcase-medical"></i>
               <span>Doktorlar</span>
             </router-link>
           </li>
            <li>
             <router-link to="/SelectDoctor" tag="a" v-if="roleId==1">
-              <i class="fas fa-user"></i>
+              <i class="fas fa-briefcase-medical"></i>
               <span>Doktor Seçimi</span>
             </router-link>
           </li>
            <li class="sidebar-dropdown" style="cursor:pointer;" v-if="roleId==1 || roleId==2 || roleId==3 || roleId==4 || roleId==5" >
             <a  @click="open()">
-              <i class="fa fa-chart-line" ></i>
+              <i class="far fa-user-circle"></i>
               <span>Hesap Ayarları</span>
               <!-- <span class="badge badge-pill badge-success">2</span> -->
             </a>
@@ -124,7 +121,7 @@
           </li>
           <li class="sidebar-dropdown" style="cursor:pointer;" v-if="roleId==1" >
             <a @click="openx()">
-              <i class="fa fa-chart-line" ></i>
+              <i class="fas fa-male"></i>
               <span>Refakatçi İşlemleri</span>
               <!-- <span class="badge badge-pill badge-success">2</span> -->
             </a>
@@ -165,7 +162,7 @@
           </li>
           <li >
             <router-link to="/DoctorPromotion" tag="a" v-if="roleId==3" >
-              <i class="fa fa-globe"></i>
+              <i class="fas fa-briefcase-medical"></i>
               <span>Doktor Ata</span>
             </router-link>
           </li>
