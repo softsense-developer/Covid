@@ -5,6 +5,8 @@
   Created by SmartSense on 1.06.2021.
   
 */
+//App
+"company" = "Smartsense";
 
 //Login - Sign Up - Reset Password
 "create_account" = "Hesap Oluştur";
@@ -83,9 +85,18 @@
 "heart" = "Nabız";
 "spo2" = "SpO2";
 "temperature" = "Ateş";
+"no_measurement" = "Ölçüm yapılmadı";
 "heart_unit" = "BPM";
 "temp_unit" = "°C";
 "spo2_unit" = "%";
+
+"warning_spo2" = "SpO2 değerinizin düşük olduğu tespit edildi.";
+"warning_temp" = "Sıcaklık değerinizin yüksek olduğu tespit edildi.";
+"warning_heartrate_low" = "Nabız değerinizin düşük olduğu tespit edildi.";
+"warning_heartrate_high" = "Nabız değerinizin yüksek olduğu tespit edildi.";
+"quarantine_home_warning" = "Lütfen bir sağlık kurumu ile iletişime geçiniz.";
+"quarantine_hospital_warning" = "Lütfen bir sağlık personeli ile iletişime geçiniz.";
+"warning_spo2_plus" = "SpO2 değerinizin düşük olduğu tespit edildi. Lütfen bir sağlık kurumu ile iletişime geçiniz.";
 
 
 //Connection view

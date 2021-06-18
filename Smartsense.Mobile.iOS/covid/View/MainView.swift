@@ -41,12 +41,12 @@ struct MainView: View {
                 .tag(Tab.medicine)
             Button("tab_other", action:{
                 /*MyKeychain.clear()
-                SplashView()*/
+                 SplashView()*/
             })
-                .tabItem {
-                    Label("tab_other", systemImage: "ellipsis")
-                }
-                .tag(Tab.other)
+            .tabItem {
+                Label("tab_other", systemImage: "ellipsis")
+            }
+            .tag(Tab.other)
         }
         .accentColor(.colorPrimary)
         

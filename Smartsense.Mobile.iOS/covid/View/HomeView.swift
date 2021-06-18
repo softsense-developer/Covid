@@ -16,6 +16,9 @@ struct HomeView: View {
                     HomeHeartView()
                     HomeNoConnectionView()
                     HomeConnectedView()
+                    HomeVitalView()
+                    
+                   
                 }
             }.navigationTitle("tab_home")
             .navigationBarTitleDisplayMode(.inline)
@@ -25,6 +28,7 @@ struct HomeView: View {
                 }) {
                     Image(systemName: "gearshape.fill")
                         .accessibilityLabel("Settings")
+                        .foregroundColor(Color.colorPrimary)
                 }
             }
         }
@@ -46,7 +50,7 @@ struct HomeQuarantineView: View {
             }, label: {
                 ZStack {
                     /* For look like a cardview */
-                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color.componentColor)
                         .shadow(radius: 0.5)
                         .padding(.all, 1)
@@ -90,7 +94,7 @@ struct HomeHeartView: View {
             }, label: {
                 ZStack {
                     /* For look like a cardview */
-                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color.componentColor)
                         .shadow(radius: 0.5)
                         .padding(.all, 1)
@@ -121,7 +125,7 @@ struct HomeNoConnectionView: View {
             }, label: {
                 ZStack(alignment: .bottom) {
                     /* For look like a cardview */
-                    RoundedRectangle(cornerRadius: 15, style: .continuous)
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
                         .fill(Color.componentColor)
                         .shadow(radius: 0.5)
                         .padding(.all, 1)
@@ -143,7 +147,7 @@ struct HomeNoConnectionView: View {
                         .clipped()
                     
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 17)) /* For cardview bottom line */
+                .clipShape(RoundedRectangle(cornerRadius: 12)) /* For cardview bottom line */
                 .padding([.trailing, .leading], 16)
                 .padding([.top, .bottom], 4)
                 
@@ -157,49 +161,242 @@ struct HomeNoConnectionView: View {
 struct HomeConnectedView: View {
     
     var body: some View {
-        VStack {
-        Button(action: {
+        
+        HStack{
             
-        }, label: {
+            /* Connected Bluetooth View */
             ZStack(alignment: .bottom) {
                 /* For look like a cardview */
-                RoundedRectangle(cornerRadius: 15, style: .continuous)
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(Color.componentColor)
                     .shadow(radius: 0.5)
                     .padding(.all, 1)
                 
+                
+                VStack(alignment: .center){
+                    Text("bluetooth")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                    
+                    Image(systemName: "heart.fill")
+                        .font(.system(size: 25))
+                        .foregroundColor(.colorPrimary)
+                        .padding(.top, 1)
+                }.padding(.all, 16)
                 
                 /* For cardview bottom line */
                 Rectangle()
                     .fill(Color.passiveColor)
                     .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 5, alignment: .bottomLeading)
                     .clipped()
-                
-                
-              
-                
             }
-            .clipShape(RoundedRectangle(cornerRadius: 17)) /* For cardview bottom line */
-            .padding([.trailing, .leading], 16)
+            .clipShape(RoundedRectangle(cornerRadius: 12)) /* For cardview bottom line */
             .padding([.top, .bottom], 4)
             
-        })
             
-            /*VStack(alignment: .center){
-                Text("bluetooth")
-                    .font(.body)
-                    .foregroundColor(.primary)
+            /* Connected Wearing View */
+            ZStack(alignment: .bottom) {
+                /* For look like a cardview */
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.componentColor)
+                    .shadow(radius: 0.5)
+                    .padding(.all, 1)
                 
-                Image("bluetooth")
-                    .resizable()
-                    .frame(width: 10, height: 10, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                
+                VStack(alignment: .center){
+                    Text("wearing")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                    
+                    Image(systemName: "applewatch")
+                        .font(.system(size: 25))
+                        .foregroundColor(.colorPrimary)
+                        .padding(.top, 1)
+                }.padding(.all, 16)
+                
+                /* For cardview bottom line */
+                Rectangle()
+                    .fill(Color.passiveColor)
+                    .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 5, alignment: .bottomLeading)
+                    .clipped()
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 12)) /* For cardview bottom line */
+            .padding([.top, .bottom], 4)
+            
+            
+            
+            /* Connected Battery View */
+            ZStack(alignment: .bottom) {
+                /* For look like a cardview */
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.componentColor)
+                    .shadow(radius: 0.5)
+                    .padding(.all, 1)
                 
                 
-            }*/
-        }
+                VStack(alignment: .center){
+                    Text("battery")
+                        .font(.body)
+                        .foregroundColor(.primary)
+                    
+                    HStack{
+                        Image(systemName: "battery.100")
+                            .font(.system(size: 25))
+                            .foregroundColor(.colorPrimary)
+                            
+                        Text("%100")
+                            .font(.caption)
+                            .foregroundColor(.primary)
+                        
+                    }.padding(.top, 9)
+                    
+                }.padding([.leading, .trailing], 8)
+                .padding([.top, .bottom], 16)
+                
+                /* For cardview bottom line */
+                Rectangle()
+                    .fill(Color.passiveColor)
+                    .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 5, alignment: .bottomLeading)
+                    .clipped()
+            
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 12)) /* For cardview bottom line */
+            .padding([.top, .bottom], 4)
+            
+        }.padding([.leading, .trailing], 16)
         
     }
 }
+
+
+/* Temp, Heart rate, SpO2 last data showing in this view */
+struct HomeVitalView: View {
+    
+    var body: some View {
+        VStack {
+            
+            //Last temperature value and click see chart
+            Button(action: {
+                
+            }, label: {
+                ZStack(alignment: .leading) {
+                    
+                    /* For look like a cardview */
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.componentColor)
+                        .shadow(radius: 0.5)
+                        .padding(.all, 1)
+                    
+                    HStack(alignment: .center, spacing: 16){
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 25))
+                            .foregroundColor(.temperatureColor)
+                        
+                        VStack(alignment: .leading, spacing: 4){
+                            
+                            Text("temperature")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                            
+                            Text("no_measurement")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                        }
+                    }.padding(.all, 16)
+                }
+                .padding([.trailing, .leading], 16)
+                .padding([.top, .bottom], 4)
+                
+            })
+            
+            
+            //Last heart rate value and click see chart
+            Button(action: {
+                
+            }, label: {
+                ZStack(alignment: .leading) {
+                    
+                    /* For look like a cardview */
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.componentColor)
+                        .shadow(radius: 0.5)
+                        .padding(.all, 1)
+                    
+                    HStack(alignment: .center, spacing: 16){
+                        Image(systemName: "heart.fill")
+                            .font(.system(size: 25))
+                            .foregroundColor(.heartColor)
+                        
+                        VStack(alignment: .leading, spacing: 4){
+                            
+                            Text("heart")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                            
+                            Text("no_measurement")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                        }
+                    }.padding(.all, 16)
+                }
+                .padding([.trailing, .leading], 16)
+                .padding([.top, .bottom], 4)
+                
+            })
+            
+            
+            //Last spO2 value and click see chart
+            Button(action: {
+                
+            }, label: {
+                ZStack(alignment: .leading) {
+                    
+                    /* For look like a cardview */
+                    RoundedRectangle(cornerRadius: 10, style: .continuous)
+                        .fill(Color.componentColor)
+                        .shadow(radius: 0.5)
+                        .padding(.all, 1)
+                    
+                    HStack(alignment: .center, spacing: 16){
+                        Image(systemName: "heart.fill")
+                            .font(.system(size: 25))
+                            .foregroundColor(.SpO2Color)
+                        
+                        VStack(alignment: .leading, spacing: 4){
+                            
+                            Text("spo2")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                            
+                            Text("no_measurement")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            
+                        }
+                    }.padding(.all, 16)
+                }
+                .padding([.trailing, .leading], 16)
+                .padding([.top, .bottom], 4)
+                
+            })
+            
+            /*Button(action: {
+                
+            }, label: {
+                Text("company")
+                    .font(.body)
+                    .foregroundColor(Color.colorPrimary)
+            })*/
+             
+        }
+    }
+}
+
+
+/* If temp, heart rate, spo2 values danger show view */
+
 
 
 
