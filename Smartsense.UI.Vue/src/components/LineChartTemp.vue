@@ -85,7 +85,7 @@ export default {
       var last_week=document.querySelector('.last-weekss');
       var last_day=document.querySelector('.last-dayss');
       last_three.style.backgroundColor='#BDBDBD'
-      last_week.style.backgroundColor='#77c0d8'
+      last_week.style.backgroundColor='#ff7043'
       last_day.style.backgroundColor='#BDBDBD'
       today.style.backgroundColor='#BDBDBD';
       this.getLastWeek()
@@ -96,7 +96,7 @@ export default {
       var last_three=document.querySelector('.last-threess');
       var last_week=document.querySelector('.last-weekss');
       var last_day=document.querySelector('.last-dayss');
-      last_three.style.backgroundColor='#77c0d8'
+      last_three.style.backgroundColor='#ff7043'
       last_week.style.backgroundColor='#BDBDBD'
       last_day.style.backgroundColor='#BDBDBD'
       today.style.backgroundColor='#BDBDBD'
@@ -110,7 +110,7 @@ export default {
       var last_day=document.querySelector('.last-dayss');
       last_three.style.backgroundColor='#BDBDBD'
       last_week.style.backgroundColor='#BDBDBD'
-      last_day.style.backgroundColor='#77c0d8'
+      last_day.style.backgroundColor='#ff7043'
       today.style.backgroundColor='#BDBDBD'
       this.getLastDay()
       this.GlobalRequiest(this.lastDayNight,this.lastDay)
@@ -123,7 +123,7 @@ export default {
       last_three.style.backgroundColor='#BDBDBD'
       last_week.style.backgroundColor='#BDBDBD'
       last_day.style.backgroundColor='#BDBDBD'
-      today.style.backgroundColor='#77c0d8'
+      today.style.backgroundColor='#ff7043'
       this.getToday()
       this.GlobalRequiest(this.todayNight,this.today)
     },
