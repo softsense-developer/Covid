@@ -1,5 +1,6 @@
 <template>
   <div>
+  <div id="snackbar">Some text some message..</div>
     <main class="page-content" style="background: -webkit-linear-gradient(left, rgb(241,245,248), rgb(241,245,248));">
       <div class="container">
         <div class="row d-flex justify-content-center">
@@ -8,9 +9,6 @@
           </div>
         </div>
         <div class="card  mt-5">
-        <div class="alert alert-success" role="alert" v-if="flashHospitalAdd">
-                   Hastane Başarı bir şekilde Eklendi.
-                    </div>
            <div class="card-body">
                 <form  @submit.prevent="HospitalAdd()">
                     <div class="form-group">
@@ -18,6 +16,8 @@
                         <input type="text" v-model="hospitalName" id="hospitalName" name="hospitalName" class="form-control" :class="{ 'is-invalid': submitted && $v.hospitalName.$error }" />
                         <div v-if="submitted && $v.hospitalName.$error" class="invalid-feedback">
                         <span v-if="!$v.hospitalName.required">Hastane ismi boş olamaz</span>
+                        <span v-if="!$v.hospitalName.minLength">Hastane İsmi  minumum 6 maksimum 70 karakter olabilir</span>
+                        <span v-if="!$v.hospitalName.maxLength">Hastane İsmi  maksimum 70 karakter olabilir</span>
                        </div>
                       </div>
                      <div class="form-group">
@@ -25,6 +25,8 @@
                         <input type="text" v-model="address" id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.address.$error }" />
                         <div v-if="submitted && $v.address.$error" class="invalid-feedback">
                         <span v-if="!$v.address.required">Adres Boş Olamaz</span>
+                        <span v-if="!$v.address.minLength">Adres  minumum 2 maksimum 119 karakter olabilir</span>
+                        <span v-if="!$v.address.maxLength">Adres maksimum 119 karakter olabilir</span>
                        </div>
                       </div>
                         <div class="form-group">
@@ -32,6 +34,8 @@
                         <input type="text" v-model="hospitalCapacity" id="hospitalCapacity" name="hospitalCapacity" class="form-control" :class="{ 'is-invalid': submitted && $v.hospitalCapacity.$error }" />
                         <div v-if="submitted && $v.hospitalCapacity.$error" class="invalid-feedback">
                         <span v-if="!$v.hospitalCapacity.required">Hastane Kapasitesi Boş Olamaz</span>
+                        <span v-if="!$v.hospitalCapacity.numeric"><br>Lütfen Sayısal Karakter giriniz</span>
+                        <span v-if="!$v.hospitalCapacity.between"><br>Kapasitye minumum 2 maksimum 50.000 olabilir</span>
                        </div>
                       </div>
                       <div class="form-group mt-5 d-flex justify-content-center">
@@ -47,7 +51,7 @@
 
 <script>
 import axios from 'axios'
-import { required } from "vuelidate/lib/validators";
+import { required,minLength,maxLength ,numeric,between } from "vuelidate/lib/validators";
 
 export default {
   name:'MainHospitalAdd',
@@ -58,16 +62,43 @@ export default {
       hospitalCapacity: "",
       flashHospitalAdd:false,
       submitted: false,
+      errors:[]
     }
   },
   validations:{
-  
-    hospitalName:{required},
-    address: { required},
-    hospitalCapacity: { required }
+  hospitalName:{required,
+     minLength: minLength(6),
+     maxLength: maxLength(70)
+    },
+    address: { required,
+    minLength: minLength(2),
+    maxLength: maxLength(119)
+    },
+    hospitalCapacity: { 
+    required,
+    numeric,
+    between: between(2,50000)
+    }
   
 },
   methods: {
+    Toast(messages) {
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    x.style.backgroundColor='rgb(15,120,108)';
+    x.innerHTML=`<p style='color:white;'>${messages}</p>`
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  },
+  ToastError() {
+  // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    // Add the "show" class to DIV
+    x.className = "show";
+    x.innerHTML=`<p style='color:white;'>${this.errors}</p>`
+    x.style.backgroundColor='#EF5350';
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  },
    HospitalAdd(){
     this.submitted = true;
     // stop here if form is invalid
@@ -86,9 +117,18 @@ export default {
     axios.post(url,user,{
       headers:{'Authorization': `Bearer ${token}`}
     }).then(res=>{
+      if(res.data.code=='200'){
+        this.Toast(res.data.message);
+      }
+      else if(res.data.errors.length!==null){
+        res.data.errors.forEach(el => {
+          this.errors.push(el);
+        });
+        this.ToastError();
+      }
     console.log(res);
-      this.flashHospitalAdd=true;
-      setTimeout(() => this.flashHospitalAdd = false, 3000);
+    
+      
       
     })
     

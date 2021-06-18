@@ -1,6 +1,7 @@
 <template>
 
   <main class="page-content" style="background: -webkit-linear-gradient(left, rgb(241,245,248), rgb(241,245,248));">
+  <div id="snackbar">Some text some message..</div>
     <div id="snackbar">Some text some message..</div>
     <div class="container">
       <div class="row mt-3" style="border-bottom:3px solid rgb(17,123,110);">
@@ -42,6 +43,8 @@
                   <input type="text" v-model="objects.hospitalName" id="hospitalName" name="hospitalName" class="form-control" :class="{ 'is-invalid': submitted && $v.objects.hospitalName.$error }" />
                   <div v-if="submitted && $v.objects.hospitalName.$error" class="invalid-feedback">
                     <span v-if="!$v.objects.hospitalName.required">hastane ismi  Boş Olamaz</span>
+                   <!-- <span v-if="!$v.objects.hospitalName.minLength">Hastane İsmi  minumum 6 maksimum 70 karakter olabilir</span>
+                    <span v-if="!$v.objects.hospitalName.maxLength">Hastane İsmi  maksimum 70 karakter olabilir</span>-->
                   </div>
                 </div>
                 <div class="form-group">
@@ -49,6 +52,8 @@
                   <input type="text" v-model="objects.address" id="address" name="address" class="form-control" :class="{ 'is-invalid': submitted && $v.objects.address.$error }" />
                   <div v-if="submitted && $v.objects.address.$error" class="invalid-feedback">
                     <span v-if="!$v.objects.address.required">hastane adresi Boş Olamaz</span>
+                    <span v-if="!$v.objects.address.minLength">Adres  minumum 2 maksimum 119 karakter olabilir</span>
+                        <span v-if="!$v.objects.address.maxLength">Adres maksimum 119 karakter olabilir</span>
                   </div>
                 </div>
                 <div class="form-group">
@@ -56,6 +61,8 @@
                   <input type="text" v-model="objects.capacity" id="capacity" name="capacity" class="form-control" :class="{ 'is-invalid': submitted && $v.objects.capacity.$error }" />
                   <div v-if="submitted && $v.objects.capacity.$error" class="invalid-feedback">
                     <span v-if="!$v.objects.capacity.required">hastane kapasitesi  Boş Olamaz</span>
+                     <span v-if="!$v.objects.capacity.numeric"><br>Lütfen Sayısal Karakter giriniz</span>
+                        <span v-if="!$v.objects.capacity.between"><br>Kapasitye minumum 2 maksimum 50.000 olabilir</span>
                 </div>
                 </div>
               <div class="card-text text-right mt-3 d-flex justify-content-between">
@@ -76,7 +83,7 @@
 <script>
 import {ScalingSquaresSpinner} from 'epic-spinners'
 import axios from 'axios'
-import { required } from "vuelidate/lib/validators";
+import { required ,minLength,maxLength ,numeric,between  } from "vuelidate/lib/validators";
 export default {
     name:'mainsuphospital',
 
@@ -86,12 +93,12 @@ export default {
       objects: {
         hospitalName:'',
         address:'',
-        capacity:''
+        capacity:'',
       },
       hospitalName:'',
       address:'',
       capacity:'',
-
+      errors:[],
       submitted: false,
       flashmessage:false
     }
@@ -102,23 +109,39 @@ export default {
 
     validations:{
       objects: {
-        hospitalName:{required },
-        address: { required},
-        capacity: { required }
+        hospitalName:{required,
+         minLength: minLength(6),
+         maxLength: maxLength(70)
+         },
+        address: { required,
+        minLength: minLength(2),
+        maxLength: maxLength(119)
+        },
+        capacity: { required,
+        numeric,
+        between: between(2,50000)
+        }
       }
     },
 
     methods: {
 
       Toast(messages) {
-        // Get the snackbar DIV
-        var x = document.getElementById("snackbar");
-        // Add the "show" class to DIV
-        x.className = "show";
-        x.style.backgroundColor='rgb(15,120,108)';
-        x.innerHTML=`<p style='color:white;'>${messages}</p>`
-        // After 3 seconds, remove the show class from DIV
-        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    x.style.backgroundColor='rgb(15,120,108)';
+    x.innerHTML=`<p style='color:white;'>${messages}</p>`
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    },
+      ToastError() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
+    // Add the "show" class to DIV
+    x.className = "show";
+    x.innerHTML=`<p style='color:white;'>${this.errors}</p>`
+    x.style.backgroundColor='#EF5350';
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
       },
 
       pageModes(){
@@ -166,16 +189,20 @@ export default {
           headers:{'Authorization': `Bearer ${token}`}
         }).then(res=>{
         console.log(res);
-        this.flashmessage=true;
-        setTimeout(() => this.flashmessage = false, 3000);
           if(res.data.code==200) {
             this.pageMode=3;
-            this.Toast(res.data.message)
+            this.Toast(res.data.message);
             setTimeout(() => {
               this.pageMode=0
             }, 2000);    
           }
-          })
+          else if(res.data.errors.length!==null){
+            res.data.errors.forEach(el => {
+            this.errors.push(el);
+            });
+            this.ToastError();
+          }
+        })
       },
     },
 
