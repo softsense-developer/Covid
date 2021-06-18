@@ -25,6 +25,26 @@ extension Color{
         return Color("ComponentColor")
     }
     
+    static var passiveColor: Color{
+        return Color("PassiveColor")
+    }
+    
+    static var heartColor: Color{
+        return Color("HeartColor")
+    }
+    
+    static var temperatureColor: Color{
+        return Color("TemperatureColor")
+    }
+    
+    static var SpO2Color: Color{
+        return Color("SpO2Color")
+    }
+    
+    static var cardActiveColor: Color{
+        return Color("CardActiveColor")
+    }
+    
     static var backgroundColor: Color{
         return colorWhite;
     }

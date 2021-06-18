@@ -22,7 +22,9 @@ struct SplashView: View {
     
     var body: some View {
         VStack{
+            /* Splash time when elapsed */
             if !hasTimeElapsed{
+                /* Splash logo */
                 Image("logo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -40,22 +42,22 @@ struct SplashView: View {
                     }
             }else{
                 if userAuth.isLoggedin {
-                    //User logged in
+                    /* User logged in */
                     if userAuth.isEmailValid{
-                        //User email verified
+                        /* User email verified */
                         if userAuth.isConnectionHave{
-                            //Internet connection have
+                            /* Internet connection have */
                             MainView()
                         }else{
-                            //Internet connection have not
+                            /* Internet connection have not */
                             MainView()
                         }
                     }else{
-                        //User email not verified
+                        /* User email not verified */
                         LoginView()
                     }
                 }else {
-                    //User not logged in
+                    /* User not logged in */
                     LoginView()
                 }
             }
@@ -67,6 +69,7 @@ struct SplashView: View {
         
     }
     
+    /* Splash view 2 second and refresh token */
     private func delaySplashAndGetApiData() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             hasTimeElapsed = true
@@ -75,7 +78,7 @@ struct SplashView: View {
         refreshToken()
     }
     
-    
+    /* Refresh token */
     private func refreshToken() {
         let request = TokenRefreshRequest(email: MyKeychain.userEmail,
                                           password: MyKeychain.userPassword,
@@ -90,7 +93,7 @@ struct SplashView: View {
         })
     }
     
-    
+    /* Get quarantine status when app opened */
     private func getQuarantineStatus() {
         apiService.getPatientQuarantineStatus(onSuccess: {(response) in
             print("quarantineStatus \(response)")
@@ -102,6 +105,7 @@ struct SplashView: View {
     
 }
 
+/* For pass paramaters view to view */
 class UserAuth: ObservableObject {
     @Published var isLoggedin = false
     @Published var isEmailValid = false
@@ -128,7 +132,7 @@ class UserAuth: ObservableObject {
             //Internet connection have
             //refresh token
             self.isConnectionHave = true
-           
+            
         }
         print("connectionHave: \(isConnectionHave)")
     }

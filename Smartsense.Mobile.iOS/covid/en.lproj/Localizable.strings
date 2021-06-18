@@ -40,6 +40,12 @@
 "no_connection" = "İnternet bağlantısı yok.";
 
 
+//Email view
+"verification_info" = "Doğrulama maili gönderildi. Lütfen email adresinizi kontrol edin.";
+"email_verified" = "Doğruladım";
+"back_to_login" = "Girişe dön";
+
+
 //Api Text
 "token_refreshed" = "Token yenilendi.";
 "token_expried" = "Token süresi geçti. Yeni token alınız.";
@@ -65,12 +71,31 @@
 "home_hint" = "Karantina konumunuz GPS üzerinden belirlenecektir ve belirlentikten sonra konumunuzu değiştiremezsiniz.";
 "home_location_saved" = "Karantina konumu kayıt edildi.";
 
+"bluetooth_connection_status" = "Bağlantı Durumu";
+"bluetooth" = "Bluetooth";
+"connection_active" = "Aktif";
+"connection_pasive" = "Pasif";
+"wearing" = "Bağlantı";
+"battery" = "Batarya";
+"bluetooth_no_connection" = "Bağlantı yok";
+"bluetooth_no_connection_click" = "Bağlantı yok. Buraya tıklayarak bağlantı yapabilirsiniz.";
+
+"heart" = "Nabız";
+"spo2" = "SpO2";
+"temperature" = "Ateş";
+"heart_unit" = "BPM";
+"temp_unit" = "°C";
+"spo2_unit" = "%";
 
 
-//Email view
-"verification_info" = "Doğrulama maili gönderildi. Lütfen email adresinizi kontrol edin.";
-"email_verified" = "Doğruladım";
-"back_to_login" = "Girişe dön";
+//Connection view
+"smartsense_band" = "SmartSense Band";
+"connected" = "bağlandı";
+"not_connected" = "bağlanamadı";
+"disconnect" = "Bağlantıyı Kes";
+"disconnect_pairing" = "Eşleştirmeyi Kes";
+
+
 
 
 

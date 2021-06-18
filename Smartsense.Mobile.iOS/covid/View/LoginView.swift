@@ -481,6 +481,9 @@ struct LoginSignUpView: View {
     }
     
     
+    /*
+     ** If user logged in get user patient info
+     */
     private func getPatientInfo() {
         apiService.getPatientInfo(onSuccess: {(response) in
             isProgressViewShowing = false

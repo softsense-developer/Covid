@@ -20,7 +20,6 @@
 		F54488AB2670EC7D005334F7 /* BaseApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488AA2670EC7D005334F7 /* BaseApiRequest.swift */; };
 		F54488AE2670EE44005334F7 /* ApiConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488AD2670EE44005334F7 /* ApiConstant.swift */; };
 		F54488B12670EF1D005334F7 /* ApiConstantText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488B02670EF1D005334F7 /* ApiConstantText.swift */; };
-		F56FF3E5267B286E00B6CA56 /* DialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56FF3E4267B286E00B6CA56 /* DialogView.swift */; };
 		F5716F23267389EA00722E8A /* UserRegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5716F22267389EA00722E8A /* UserRegisterRequest.swift */; };
 		F5716F2626738A7900722E8A /* UserRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5716F2526738A7900722E8A /* UserRegisterResponse.swift */; };
 		F5716F2C26738B7700722E8A /* UserPassForgetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5716F2B26738B7700722E8A /* UserPassForgetRequest.swift */; };
@@ -71,7 +70,6 @@
 		F54488AA2670EC7D005334F7 /* BaseApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiRequest.swift; sourceTree = "<group>"; };
 		F54488AD2670EE44005334F7 /* ApiConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstant.swift; sourceTree = "<group>"; };
 		F54488B02670EF1D005334F7 /* ApiConstantText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstantText.swift; sourceTree = "<group>"; };
-		F56FF3E4267B286E00B6CA56 /* DialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogView.swift; sourceTree = "<group>"; };
 		F5716F22267389EA00722E8A /* UserRegisterRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterRequest.swift; sourceTree = "<group>"; };
 		F5716F2526738A7900722E8A /* UserRegisterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterResponse.swift; sourceTree = "<group>"; };
 		F5716F2B26738B7700722E8A /* UserPassForgetRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPassForgetRequest.swift; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 				F5E4E3382679EC51003B7F2E /* MedicineView.swift */,
 				F5E4E33B2679ED3D003B7F2E /* DataView.swift */,
 				F5E4E33E2679F777003B7F2E /* EmailVerifyView.swift */,
-				F56FF3E4267B286E00B6CA56 /* DialogView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -350,7 +347,6 @@
 				F5D7CBBE2678B1820084CD32 /* PatientInfoResponse.swift in Sources */,
 				F5E4E34B2679FA15003B7F2E /* LottieView.swift in Sources */,
 				F5E4E3392679EC52003B7F2E /* MedicineView.swift in Sources */,
-				F56FF3E5267B286E00B6CA56 /* DialogView.swift in Sources */,
 				F5D7CBC42678CA8E0084CD32 /* SplashView.swift in Sources */,
 				F522AF1926665C7600691BF3 /* ContentView.swift in Sources */,
 				F5A0D97D2667C142003F2D1E /* Validation+covid.swift in Sources */,
