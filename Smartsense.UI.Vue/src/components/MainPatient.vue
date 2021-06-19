@@ -16,44 +16,6 @@
           />
           </div>
         </div>
-        <div class="row mt-3" v-if="pageMode==1">
-          <div class="col-sm-12 col-md-4 col-lg-4 mt-3">
-            <div class="small-box" style="background:#77c0d8;cursor:pointer;">
-              <div class="inner">
-                <h5 style="color:#F5F5F5;">{{lastValueOxygen}}<sup style="font-size: 15px">%</sup></h5>
-                <p style="color:#F5F5F5;">{{dateoxygen}}</p>
-                <p style="color:#F5F5F5;">{{dateoxygentwo}}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-tint" style="color:#F5F5F5;" ></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-4 col-lg-4 mt-3">
-            <div class="small-box" style="background:#FF7043;cursor:pointer;">
-              <div class="inner">
-                <h5 style="color:#F5F5F5;;">{{lastValueTemp.toFixed(1)}}<sup style="font-size: 15px">C°</sup></h5>
-                <p style="color:#F5F5F5;;">{{datetemp}}</p>
-                <p style="color:#F5F5F5;;">{{datetemptwo}}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-temperature-low" style="color:#F5F5F5;"></i>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-12 col-md-4 col-lg-4 mt-3">
-            <div class="small-box" style="background:#EF5350;cursor:pointer;">
-              <div class="inner">
-                <h5 style="color:#F5F5F5;">{{lastValuePulses}}<sup style="font-size: 10px">BPM</sup></h5>
-                <p style="color:#F5F5F5;">{{datePulses}}</p>
-                <p style="color:#F5F5F5;">{{datePulsesTwo}}</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-heartbeat" style="color:#F5F5F5;"></i>
-              </div>
-            </div>
-          </div>
-        </div>
         <div class="row mt-4" v-if="pageMode==1">
           <div class="col-sm-12 col-md-12 col-lg-12 mt-2">
             <div class="card"><line-chart></line-chart></div>
