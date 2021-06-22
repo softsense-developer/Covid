@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from "vue-router"
 import App from './App.vue'
 import Login from './views/Login'
+import LoginMobile from './views/LoginMobile'
 import HomePagePatient from './views/HomePagePatient'
 import HomePageDoctor from './views/HomePageDoctor'
 import Location from './views/PatientLocation'
@@ -71,6 +72,11 @@ export const router=new VueRouter({
            next("/Login");
          }
        }
+    },
+    {
+      path: '/LoginMobile',
+      name: 'LoginMobile',
+      component: LoginMobile,
     },
     {
       path: '/SupDetails/:Pid',

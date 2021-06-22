@@ -1,8 +1,17 @@
 <template>
  <div class="container">
+     <div class="row">
+          <div class="col-sm-12 col-md-12 col-lg-12 d-flex mt-5 justify-content-center">
+            <scaling-squares-spinner class="text-info"
+            :animation-duration="1000"
+            :size="75"
+            :color="'#0f796c'"
+          />
+          </div>
+      </div>
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-center mt-5 y">
-      <div class="wrapper" v-if="pageMode==1">
+      <div class="wrapper" v-if="pageMode==1" style="opacity:0;pointer-events:none;">
         <div class="title-text">
           <div class="title login">
             <img src="https://smartsense.com.tr/img/ss-logo.PNG" alt="" width="75px" height="75px">
@@ -117,6 +126,7 @@
 </template>
 
 <script>
+import {ScalingSquaresSpinner} from 'epic-spinners'
 import { required,email, minLength } from "vuelidate/lib/validators";
 import axios from 'axios'
 export default {
@@ -137,6 +147,8 @@ data(){
     password: "",
     
     },
+    page_type:'',
+    page_typetwo:'',
      reg: {
       
        email:'',
@@ -165,6 +177,18 @@ validations:{
 
   
 },
+mounted(){
+  const queryString = window.location.search;
+  console.log(queryString);
+  const urlParams = new URLSearchParams(queryString);
+  this.page_type = urlParams.get('email')
+  this.page_typetwo = urlParams.get('pass')
+  this.logIn(this.page_type,this.page_typetwo)
+  
+},
+components:{
+    ScalingSquaresSpinner
+},
 methods:{
     handleSubmit(){
     this.submitted = true;
@@ -173,33 +197,30 @@ methods:{
     if (this.$v.$invalid){
       return;
     }
-    
     var url='http://api.smartsense.com.tr/api/auth/register'
-    var user={
+    var user = {
     "name":this.userPass.name,
     "surname":this.userPass.surname,
     "email":this.userPass.email,
     "password": this.userPass.password
-    
     }
     console.log(user);
     axios.post(url,user,{
     }).then(res=>{
     console.log(res);
-    if(res.data.code==200){
-      this.flashMessage=0
+    if(res.data.code == 200){
+      this.flashMessage = 0
        setTimeout(() => this.flashMessage = 2, 3000);
     }else{
-      this.flashMessage=1
-      setTimeout(() => this.flashMessage = 2, 3000);
-       
+      this.flashMessage = 1
+      setTimeout(() => this.flashMessage = 2, 3000); 
     }
     })
     // alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.user));
     console.log("hello");
   },
 
-  signInButtonPressed(e) {
+  signInButtonPressed (e) {
     console.log("Sign In Button Pressed");
     e.preventDefault();
   },
@@ -218,22 +239,18 @@ methods:{
     console.log("hello");
   },
   
-returnLogin(){
-this.pageMode=1
-},
- forgotPass(){
-
+ returnLogin(){
+  this.pageMode=1
+ },
+ forgotPass() {
   this.pageMode=2;
-
-  
-  
   },
 
 
 
-logIn() {
-  var emailx=this.user.email;
-  var passx=this.user.password;
+logIn(x,y) {
+  var emailx=x;
+  var passx=y;
   var url='http://api.smartsense.com.tr/api/auth/login';
   var jsonObject={
     "email":emailx,
@@ -258,10 +275,9 @@ logIn() {
         this.$router.push('/HomeSupervisor');
         }else if((localStorage.getItem('token')==res.data.token)&&(res.data.roleId==5)){
         this.$router.push('/CompHome');
-        }
-      else{
-        this.err=(res.data.errors);
-        setTimeout(() => this.err = [], 3000);
+        }else{
+        setTimeout(this.$router.push('/Login'), 3000);
+        
       }
   })
 },
