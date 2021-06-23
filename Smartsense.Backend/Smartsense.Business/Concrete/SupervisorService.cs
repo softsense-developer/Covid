@@ -141,7 +141,7 @@ namespace Smartsense.Business.Concrete
 
                    }
 
-
+                   model.diagnosis= _patientRepository.Get(p => p.UserId == user.Id).Diagnosis;
 
                     doktorlarInfoModel.HastalarInfoModels.Add(model);
 

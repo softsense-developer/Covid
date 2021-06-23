@@ -128,7 +128,7 @@ namespace Smartsense.Business.Concrete
             
 
             _valueRepository.Add(value);
-        //    DummyData();
+           // DummyData();
          response.Code = "200";
          response.Message = "Veri başarıyla eklendi.";
          return response;
@@ -139,40 +139,42 @@ namespace Smartsense.Business.Concrete
         //{
         //    Random rastgele = new Random();
 
-        //    DateTime tarih = DateTime.Now.AddDays(-2);
-        //  DateTime[] dizi = new DateTime[100];
-        //  for (int j = 0; j < dizi.Length; j++)
-        //  {
-        //      var x = DateTime.Now.AddDays(-2).AddMinutes(j * 5);
-        //      dizi[j] = x;
-        //  }
-
-        //  for (int i = 0; i < 100; i++)
+        //    DateTime tarih = DateTime.Now.AddHours(2).AddMinutes(15);
+        //    //DateTime tarih = DateTime.Now.AddHours(-10);
+        //    DateTime[] dizi = new DateTime[100];
+        //    for (int j = 0; j < dizi.Length; j++)
         //    {
-        //        tarih.AddMinutes(i*5);
+        //        var x = DateTime.Now.AddHours(2).AddMinutes(15).AddMinutes(j * 5);
+        //       // var x = DateTime.Now.AddMinutes(j * 5);
+        //        dizi[j] = x;
+        //    }
+
+        //    for (int i = 0; i < 100; i++)
+        //    {
+        //        tarih.AddMinutes(i * 5);
         //        var value = new Value();
-        //        value.UserId = 40;
+        //        value.UserId = 43;
         //        value.DataType = DataValueType.OXYGEN;
         //        value.DataValue = rastgele.Next(93, 99);
         //        value.SaveDate = dizi[i];
         //        value.CreatedDate = dizi[i];
 
         //        var value2 = new Value();
-        //        value2.UserId = 40;
+        //        value2.UserId = 43;
         //        value2.DataType = DataValueType.PULSE;
         //        value2.DataValue = rastgele.Next(76, 88);
         //        value2.SaveDate = dizi[i];
         //        value2.CreatedDate = dizi[i];
         //        var value3 = new Value();
-        //        value3.UserId = 40;
+        //        value3.UserId = 43;
         //        value3.DataType = DataValueType.TEMPERATURE;
-        //        value3.DataValue = rastgele.Next(36,38)+rastgele.NextDouble();
+        //        value3.DataValue = rastgele.Next(36, 38) + rastgele.NextDouble();
         //        value3.SaveDate = dizi[i];
         //        value3.CreatedDate = dizi[i];
 
 
-        //       // tarih.AddMinutes(5.0);
-                
+        //        // tarih.AddMinutes(5.0);
+
 
         //        _valueRepository.Add(value);
         //        _valueRepository.Add(value2);
@@ -244,8 +246,11 @@ namespace Smartsense.Business.Concrete
             response.Name = user.Name;
             response.Surname = user.Surname;
             response.Oxygen = values.Where(p => p.DataType == DataValueType.OXYGEN).ToList();
+            response.Oxygen = response.Oxygen.OrderBy(o=>o.SaveDate).ToList();
             response.Pulses = values.Where(p => p.DataType == DataValueType.PULSE).ToList();
+            response.Pulses = response.Pulses.OrderBy(o => o.SaveDate).ToList();
             response.Temperatures = values.Where(p => p.DataType == DataValueType.TEMPERATURE).ToList();
+            response.Temperatures = response.Temperatures.OrderBy(o => o.SaveDate).ToList();
 
             response.Code = "200";
             response.Message = "Hastaya ait veriler getirildi.";
