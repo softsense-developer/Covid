@@ -40,7 +40,7 @@
 "sending_dot" = "Gönderiliyor…";
 "verification_info" = "Doğrulama emaili gönderildi. Lütfen email adresinizi kontrol ediniz.";
 "no_connection" = "İnternet bağlantısı yok.";
-
+"ok" = "Tamam";
 
 //Email view
 "verification_info" = "Doğrulama maili gönderildi. Lütfen email adresinizi kontrol edin.";
@@ -90,8 +90,11 @@
 "temp_unit" = "°C";
 "spo2_unit" = "%";
 
+"warning_spo2_title" = "SpO2 Uyarı";
 "warning_spo2" = "SpO2 değerinizin düşük olduğu tespit edildi.";
+"warning_temp_title" = "Ateş Uyarı";
 "warning_temp" = "Sıcaklık değerinizin yüksek olduğu tespit edildi.";
+"warning_heartrate_title" = "Nabız Uyarı";
 "warning_heartrate_low" = "Nabız değerinizin düşük olduğu tespit edildi.";
 "warning_heartrate_high" = "Nabız değerinizin yüksek olduğu tespit edildi.";
 "quarantine_home_warning" = "Lütfen bir sağlık kurumu ile iletişime geçiniz.";
@@ -108,9 +111,8 @@
 
 
 
-
-
-
+//Medicine View Text
+"medicine_reminder_notify" = "İlaç hatırlartma";
 
 
 

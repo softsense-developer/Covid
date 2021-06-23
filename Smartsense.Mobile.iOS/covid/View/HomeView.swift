@@ -16,9 +16,11 @@ struct HomeView: View {
                     HomeHeartView()
                     HomeNoConnectionView()
                     HomeConnectedView()
+                    //HomeMedicineReminderView()
+                    HomeAlertView()
                     HomeVitalView()
                     
-                   
+                    
                 }
             }.navigationTitle("tab_home")
             .navigationBarTitleDisplayMode(.inline)
@@ -157,6 +159,7 @@ struct HomeNoConnectionView: View {
     }
 }
 
+
 /* If connected a bluetooth this view */
 struct HomeConnectedView: View {
     
@@ -178,10 +181,14 @@ struct HomeConnectedView: View {
                         .font(.body)
                         .foregroundColor(.primary)
                     
-                    Image(systemName: "heart.fill")
-                        .font(.system(size: 25))
-                        .foregroundColor(.colorPrimary)
+                    Image("bluetooth")
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundColor(Color.colorPrimary)
+                        .scaledToFit()
+                        .frame(width: 25, height: 25)
                         .padding(.top, 1)
+                    
                 }.padding(.all, 16)
                 
                 /* For cardview bottom line */
@@ -243,7 +250,7 @@ struct HomeConnectedView: View {
                         Image(systemName: "battery.100")
                             .font(.system(size: 25))
                             .foregroundColor(.colorPrimary)
-                            
+                        
                         Text("%100")
                             .font(.caption)
                             .foregroundColor(.primary)
@@ -258,12 +265,187 @@ struct HomeConnectedView: View {
                     .fill(Color.passiveColor)
                     .frame(minWidth: 0, maxWidth: .infinity, maxHeight: 5, alignment: .bottomLeading)
                     .clipped()
-            
+                
             }
             .clipShape(RoundedRectangle(cornerRadius: 12)) /* For cardview bottom line */
             .padding([.top, .bottom], 4)
             
         }.padding([.leading, .trailing], 16)
+        
+    }
+}
+
+
+/* If have a vital alert show this view */
+struct HomeAlertView: View {
+    @State var alertVitalType = Constant.SpO2
+    var alertImageName = "spo2"
+    var alertData = "%90"
+    var alertDate = "22/06 12:51"
+    var quarantineType = Constant.QuarantineAtHome
+    @State var quarantineWarningText: String = ""
+    
+    var body: some View {
+        VStack {
+            ZStack(alignment: .bottom) {
+                /* For look like a cardview */
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.componentColor)
+                    .shadow(radius: 0.5)
+                    .padding(.all, 1)
+                
+                
+                let alertText = NSLocalizedString("warning_spo2", comment: "")
+                    + " " + NSLocalizedString("quarantine_home_warning", comment: "")
+                
+                /*if alertVitalType == Constant.SpO2{
+                    if quarantineType == Constant.QuarantineInHospital{
+                        quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
+                    }else{
+                        quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
+                    }
+                    
+                    var alertText = NSLocalizedString("warning_spo2", comment: "")
+                        + " " + quarantineWarningText
+                    
+                }else if alertVitalType == Constant.HeartRate{
+                    if quarantineType == Constant.QuarantineInHospital{
+                        quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
+                    }else{
+                        quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
+                    }
+                    
+                    var alertText = NSLocalizedString("warning_heartrate_low", comment: "")
+                        + " " + quarantineWarningText
+                }else{
+                    if quarantineType == Constant.QuarantineInHospital{
+                        quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
+                    }else{
+                        quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
+                    }
+                    
+                    var alertText = NSLocalizedString("warning_temp", comment: "")
+                        + " " + quarantineWarningText
+                }*/
+                
+            
+              
+                
+                VStack(alignment: .leading, spacing: 16){
+                    
+                    HStack(alignment: .center) {
+                        Image(alertImageName)
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(Color.SpO2Color)
+                            .frame(width: 20, height: 20)
+                            .padding(.top, 1)
+                        
+                        if alertVitalType == Constant.SpO2{
+                            Text("warning_spo2_title")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                        }else if alertVitalType == Constant.HeartRate{
+                            Text("warning_heartrate_title")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                        }else{
+                            Text("warning_temp_title")
+                                .font(.body)
+                                .foregroundColor(.primary)
+                        }
+                        
+                        Spacer()
+                        
+                        Text(alertData)
+                            .font(.subheadline)
+                            .foregroundColor(.red)
+                        
+                        Spacer()
+                        
+                        Text(alertDate)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Text(alertText)
+                        .font(.subheadline)
+                        .foregroundColor(.primary)
+                    
+                    Button(action: {
+                        print("ok clicked")
+                    }, label: {
+                        Text("ok")
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 40)
+                    }).accentColor(.colorPrimary)
+                    
+                }.padding([.trailing, .leading], 16)
+                .padding([.top, .bottom], 16)
+                
+            }
+            .padding([.trailing, .leading], 16)
+            .padding([.top, .bottom], 4)
+            
+            
+        }
+        
+    }
+}
+
+/* If user have a medicine reminder show this view */
+struct HomeMedicineReminderView: View {
+    
+    var body: some View {
+        VStack {
+            ZStack(alignment: .bottom) {
+                
+                /* For look like a cardview */
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(Color.componentColor)
+                    .shadow(radius: 0.5)
+                    .padding(.all, 1)
+                
+                VStack(alignment: .leading, spacing: 16){
+                    
+                    HStack(alignment: .center) {
+                        Image("medicine")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(Color.colorPrimary)
+                            .frame(width: 20, height: 20)
+                            .padding(.top, 1)
+                        
+                        Text("medicine_reminder_notify")
+                            .font(.body)
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                        
+                        Text("10/04 10:56")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    
+                    Button(action: {
+                        print("ok clicked")
+                    }, label: {
+                        Text("ok")
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 40)
+                    }).accentColor(.colorPrimary)
+                    
+                }.padding([.trailing, .leading], 16)
+                .padding([.top, .bottom], 16)
+                
+            }
+            .padding([.trailing, .leading], 16)
+            .padding([.top, .bottom], 4)
+            
+            
+        }
         
     }
 }
@@ -287,10 +469,15 @@ struct HomeVitalView: View {
                         .shadow(radius: 0.5)
                         .padding(.all, 1)
                     
-                    HStack(alignment: .center, spacing: 16){
-                        Image(systemName: "flame.fill")
-                            .font(.system(size: 25))
-                            .foregroundColor(.temperatureColor)
+                    HStack(alignment: .center, spacing: 11){
+                        
+                        Image("thermometer")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(Color.temperatureColor)
+                            .frame(width: 30, height: 30)
+                            .padding(.top, 1)
                         
                         VStack(alignment: .leading, spacing: 4){
                             
@@ -324,9 +511,15 @@ struct HomeVitalView: View {
                         .padding(.all, 1)
                     
                     HStack(alignment: .center, spacing: 16){
-                        Image(systemName: "heart.fill")
-                            .font(.system(size: 25))
-                            .foregroundColor(.heartColor)
+                        
+                        Image("heart")
+                            .resizable()
+                            .renderingMode(.template)
+                            .scaledToFit()
+                            .foregroundColor(Color.heartColor)
+                            .frame(width: 25, height: 25)
+                            .padding(.top, 1)
+                        
                         
                         VStack(alignment: .leading, spacing: 4){
                             
@@ -360,9 +553,14 @@ struct HomeVitalView: View {
                         .padding(.all, 1)
                     
                     HStack(alignment: .center, spacing: 16){
-                        Image(systemName: "heart.fill")
-                            .font(.system(size: 25))
-                            .foregroundColor(.SpO2Color)
+                        
+                        Image("spo2")
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundColor(Color.SpO2Color)
+                            .scaledToFit()
+                            .frame(width: 25, height: 25)
+                            .padding(.top, 1)
                         
                         VStack(alignment: .leading, spacing: 4){
                             
@@ -383,13 +581,13 @@ struct HomeVitalView: View {
             })
             
             /*Button(action: {
-                
-            }, label: {
-                Text("company")
-                    .font(.body)
-                    .foregroundColor(Color.colorPrimary)
-            })*/
              
+             }, label: {
+             Text("company")
+             .font(.body)
+             .foregroundColor(Color.colorPrimary)
+             })*/
+            
         }
     }
 }
@@ -402,7 +600,7 @@ struct HomeVitalView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        //HomeView()
         HomeView()
             .preferredColorScheme(.dark)
     }

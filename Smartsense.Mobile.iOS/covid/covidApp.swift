@@ -13,6 +13,7 @@ struct covidApp: App {
     
     var body: some Scene {
         WindowGroup {
+            //LoginView()
             MainView()
             //SplashView()
             //EmailVerifyView()
