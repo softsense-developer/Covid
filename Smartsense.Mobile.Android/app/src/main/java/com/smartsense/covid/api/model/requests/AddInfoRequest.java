@@ -7,7 +7,7 @@ public class AddInfoRequest extends BaseApiRequest{
     private String dateOfBirth;
     private int userStatus;
     private String diagnosis;
-
+    private String bloodGroup;
 
     public String getIdentityNumber() {
         return identityNumber;
@@ -49,6 +49,14 @@ public class AddInfoRequest extends BaseApiRequest{
         this.diagnosis = diagnosis;
     }
 
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
     @Override
     public String toString() {
         return "AddInfoRequest{" +
@@ -57,6 +65,7 @@ public class AddInfoRequest extends BaseApiRequest{
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", userStatus=" + userStatus +
                 ", diagnosis='" + diagnosis + '\'' +
+                ", bloodGroup='" + bloodGroup + '\'' +
                 '}';
     }
 }

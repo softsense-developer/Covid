@@ -16,6 +16,7 @@ public class PatientInfoResponse extends BaseApiResponse{
     private String diagnosis;
     private String hospitalName;
     private String doctorName;
+    private String bloodGroup;
 
     public PatientInfoResponse(List<String> errors) {
         super(errors);
@@ -115,5 +116,13 @@ public class PatientInfoResponse extends BaseApiResponse{
 
     public void setDoctorName(String doctorName) {
         this.doctorName = doctorName;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 }

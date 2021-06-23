@@ -50,11 +50,11 @@ import retrofit2.Response;
 public class UserSettingsActivity extends AppCompatActivity {
 
 
-    private TextInputLayout userName, userSurname, userPhone, userIdentity, userBirthDate;
+    private TextInputLayout userName, userSurname, userPhone, userIdentity, userBirthDate, userBloodGroup;
     private PrefManager prefManager;
     private MaterialButton userDataSave, patientDataSave;
     private boolean isSave = true;
-    private String userNameText, userSurnameText, userPhoneText, identityNumberText, dateOfBirthText;
+    private String userNameText, userSurnameText, userPhoneText, identityNumberText, dateOfBirthText, bloodGroupText;
     private ApiConstantText apiText;
     private String TAG = "Smartsense";
     private Dialog loadingDialog;
@@ -74,6 +74,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         userBirthDate = findViewById(R.id.userBirthDateTIL);
         genderSpinner = findViewById(R.id.userGenderSpinner);
         contactSpinner = findViewById(R.id.contactSpinner);
+        userBloodGroup = findViewById(R.id.userBloodGroupTIL);
         userDataSave = findViewById(R.id.userDataSaveButton);
         patientDataSave = findViewById(R.id.patientDataSaveButton);
 
@@ -103,6 +104,13 @@ public class UserSettingsActivity extends AppCompatActivity {
             isSave = false;
             patientDataSave.setText(getString(R.string.update));
         }
+
+        if (prefManager.getUserBloodGroup() != null) {
+            userBloodGroup.getEditText().setText(prefManager.getUserBloodGroup());
+            isSave = false;
+            patientDataSave.setText(getString(R.string.update));
+        }
+
         if (prefManager.getUserBirthday() != -1) {
             userBirthDate.getEditText().setText(convertTimestampToDate(prefManager.getUserBirthday()));
             isSave = false;
@@ -120,6 +128,7 @@ public class UserSettingsActivity extends AppCompatActivity {
             userPhone.getEditText().setText(savedInstanceState.getString("userPhone"));
             userIdentity.getEditText().setText(savedInstanceState.getString("userIdentity"));
             userBirthDate.getEditText().setText(savedInstanceState.getString("userBirthDate"));
+            userBloodGroup.getEditText().setText(savedInstanceState.getString("userBloodGroup"));
             genderSpinner.setSelection(savedInstanceState.getInt("userGender"));
             contactSpinner.setSelection(savedInstanceState.getInt("userContact"));
         }
@@ -237,6 +246,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
             identityNumberText = userIdentity.getEditText().getText().toString().trim();
             dateOfBirthText = userBirthDate.getEditText().getText().toString();
+            bloodGroupText = userBloodGroup.getEditText().getText().toString();
 
             if (!identityNumberText.isEmpty() && !dateOfBirthText.isEmpty()) {
                 if (identityNumberText.length() == 11) {
@@ -249,7 +259,8 @@ public class UserSettingsActivity extends AppCompatActivity {
                         addInfoRequest.setGender(genderType);
                         addInfoRequest.setDateOfBirth(convertTimestampToIso8601(convertDateToTimestamp(dateOfBirthText)));
                         addInfoRequest.setUserStatus(contactType);
-                        addInfoRequest.setDiagnosis("0");
+                        addInfoRequest.setBloodGroup(bloodGroupText);
+                        addInfoRequest.setDiagnosis("-");
 
                         if (prefManager.getUserIdentity() != null) {
                             updatePatientInfo(addInfoRequest);
@@ -377,6 +388,7 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 prefManager.setDoctorID(response.body().getDoctorId());
                                 prefManager.setDoctorNameSurname(response.body().getDoctorName());
                                 prefManager.setHospitalName(response.body().getHospitalName());
+                                prefManager.setUserBloodGroup(response.body().getBloodGroup());
 
                                 genderType = response.body().getGender();
                                 contactType = response.body().getUserStatus();
@@ -504,6 +516,7 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 prefManager.setUserBirthday(convertIso8601DateToTimestamp(request.getDateOfBirth()));
                                 prefManager.setUserTrackingType(request.getUserStatus());
                                 prefManager.setUserDiagnosis(request.getDiagnosis());
+                                prefManager.setUserBloodGroup(request.getBloodGroup());
                                 genderType = request.getGender();
                                 contactType = request.getUserStatus();
 
@@ -573,6 +586,7 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 prefManager.setUserBirthday(convertIso8601DateToTimestamp(request.getDateOfBirth()));
                                 prefManager.setUserTrackingType(request.getUserStatus());
                                 prefManager.setUserDiagnosis(request.getDiagnosis());
+                                prefManager.setUserBloodGroup(request.getBloodGroup());
 
                                 genderType = request.getGender();
                                 contactType = request.getUserStatus();
@@ -718,6 +732,7 @@ public class UserSettingsActivity extends AppCompatActivity {
                 userSurname.setError(null);
                 userIdentity.setError(null);
                 userBirthDate.setError(null);
+                userBloodGroup.setError(null);
             }
         }, 4000);
     }
@@ -739,6 +754,7 @@ public class UserSettingsActivity extends AppCompatActivity {
         outState.putString("userPhone", userPhone.getEditText().getText().toString().trim());
         outState.putString("userIdentity", userIdentity.getEditText().getText().toString().trim());
         outState.putString("userBirthDate", userBirthDate.getEditText().getText().toString().trim());
+        outState.putString("userBloodGroup", userBloodGroup.getEditText().getText().toString().trim());
         outState.putInt("userGender", genderType);
         outState.putInt("userContact", contactType);
     }

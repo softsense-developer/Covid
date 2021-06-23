@@ -24,6 +24,7 @@ public class PrefManager {
     private static final String USER_GENDER = "userGender";
     private static final String USER_TRACKING_TYPE = "userTrackingType";
     private static final String USER_DIAGNOSIS= "userDiagnosis";
+    private static final String USER_BLOOD_GROUP= "userBloodGroup";
     private static final String USER_ID = "userID";
     private static final String USER_ROLE = "userRole";
     private static final String DOCTOR_ID = "doctorID";
@@ -375,6 +376,15 @@ public class PrefManager {
         return pref.getInt(PACKAGE_NAME + "." + USER_ROLE, MyConstant.PATIENT_ROLE);
     }
 
+
+    public void setUserBloodGroup(String val) {
+        editor.putString(PACKAGE_NAME + "." + USER_BLOOD_GROUP, val);
+        editor.apply();
+    }
+
+    public String getUserBloodGroup() {
+        return pref.getString(PACKAGE_NAME + "." + USER_BLOOD_GROUP, null);
+    }
 
 
 

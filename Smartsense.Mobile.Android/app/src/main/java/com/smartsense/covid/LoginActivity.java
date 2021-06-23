@@ -345,15 +345,6 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.body() != null) {
                             if (response.body().getCode().equals("200")) {
                                 Log.i(TAG, "logged in");
-                                if(response.body().getRoleId() == MyConstant.DOCTOR_ROLE){
-                                    getLongToast(getString(R.string.login_role_doctor));
-                                }else if(response.body().getRoleId() == MyConstant.SUPERVISOR_ROLE){
-                                    getLongToast(getString(R.string.login_role_supervisor));
-                                }else if(response.body().getRoleId() == MyConstant.ADMIN_ROLE){
-                                    getLongToast(getString(R.string.login_role_admin));
-                                }else if(response.body().getRoleId() == MyConstant.COMPANION_ROLE){
-                                    getLongToast(getString(R.string.login_role_companion));
-                                }
 
                                 prefManager.setUserRole(response.body().getRoleId());
                                 prefManager.setAuthToken(response.body().getToken());
@@ -365,7 +356,26 @@ public class LoginActivity extends AppCompatActivity {
                                 prefManager.setUserEmail(request.getEmail());
                                 prefManager.setUserPass(request.getPassword());
 
-                                getPatientInfo();
+                                if(response.body().getRoleId() != MyConstant.PATIENT_ROLE){
+                                    Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    getPatientInfo();
+                                }
+
+                                /*if(response.body().getRoleId() == MyConstant.DOCTOR_ROLE){
+                                    //getLongToast(getString(R.string.login_role_doctor));
+                                    Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                                    startActivity(intent);
+                                }else if(response.body().getRoleId() == MyConstant.SUPERVISOR_ROLE){
+                                    //getLongToast(getString(R.string.login_role_supervisor));
+                                }else if(response.body().getRoleId() == MyConstant.ADMIN_ROLE){
+                                    //getLongToast(getString(R.string.login_role_admin));
+                                }else if(response.body().getRoleId() == MyConstant.COMPANION_ROLE){
+                                    //getLongToast(getString(R.string.login_role_companion));
+                                }else{
+                                    getPatientInfo();
+                                }*/
 
                             } else if (response.body().getCode().equals("400")) {
                                 StringBuilder errors = new StringBuilder();

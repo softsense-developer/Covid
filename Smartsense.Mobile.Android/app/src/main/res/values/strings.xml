@@ -172,6 +172,7 @@
     <string name="user_date_of_birth">Doğum Tarihi</string>
     <string name="user_quarantine_status">Karantina Türü</string>
     <string name="user_diagnosis">Hastalık Türü</string>
+    <string name="user_blood_group">Kan Grubu</string>
     <string name="doctor_id">Doktor ID</string>
     <string name="save">Kaydet</string>
     <string name="update">Güncelle</string>

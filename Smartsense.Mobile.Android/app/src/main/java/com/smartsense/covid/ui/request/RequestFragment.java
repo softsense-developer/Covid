@@ -3,6 +3,7 @@ package com.smartsense.covid.ui.request;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,9 +24,11 @@ import android.widget.Toast;
 import com.google.android.material.internal.NavigationMenu;
 import com.google.android.material.navigation.NavigationView;
 import com.smartsense.covid.CovidMainActivity;
+import com.smartsense.covid.LoginActivity;
 import com.smartsense.covid.MyConstant;
 import com.smartsense.covid.PrefManager;
 import com.smartsense.covid.R;
+import com.smartsense.covid.SplashActivity;
 import com.smartsense.covid.adapters.requestAdapter.DerpAdapter;
 import com.smartsense.covid.adapters.requestAdapter.DerpData;
 import com.smartsense.covid.adapters.requestAdapter.Promotion;
@@ -35,6 +38,7 @@ import com.smartsense.covid.api.model.requests.PatientConnectionRequest;
 import com.smartsense.covid.api.model.responses.GetPromotionsResponse;
 import com.smartsense.covid.api.model.responses.PatientConnectionResponse;
 import com.smartsense.covid.api.service.RetrofitClient;
+import com.smartsense.covid.settings.SettingsActivity;
 
 import java.util.ArrayList;
 
@@ -113,6 +117,10 @@ public class RequestFragment extends Fragment implements DerpAdapter.ItemClickCa
                                 if (isAccepted) {
                                     prefManager.setUserRole(MyConstant.DOCTOR_ROLE);
                                     getLongToast(getString(R.string.request_role_doctor));
+
+                                    Intent intent = new Intent(getActivity(), SplashActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
 
                                     try {
                                         ((CovidMainActivity)getContext()).setNotPatientNavigationDrawer();

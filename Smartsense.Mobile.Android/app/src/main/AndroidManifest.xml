@@ -101,6 +101,11 @@
                 android:value="com.smartsense.covid.settings.SettingsActivity" />
         </activity>
 
+        <activity
+            android:name=".WebViewActivity"
+            android:label="@string/smartsense">
+        </activity>
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

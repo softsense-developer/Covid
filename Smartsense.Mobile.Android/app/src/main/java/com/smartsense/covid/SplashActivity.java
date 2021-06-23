@@ -40,16 +40,26 @@ public class SplashActivity extends AppCompatActivity {
     private void splashWait() {
         if (prefManager.isLoggedIn()) {
             if (prefManager.getEmailVerified()) {
-                if (isConnectionHas()) {
-                    refreshToken();
-                } else {
+                if (prefManager.getUserRole() != MyConstant.PATIENT_ROLE) {
                     Handler handler2 = new Handler();
                     handler2.postDelayed(() -> {
-                        Intent intent = new Intent(SplashActivity.this, CovidMainActivity.class);
+                        Intent intent = new Intent(SplashActivity.this, WebViewActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                     }, 500);
+                } else {
+                    if (isConnectionHas()) {
+                        refreshToken();
+                    } else {
+                        Handler handler2 = new Handler();
+                        handler2.postDelayed(() -> {
+                            Intent intent = new Intent(SplashActivity.this, CovidMainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                        }, 500);
+                    }
                 }
             } else {
                 Handler handler2 = new Handler();
@@ -60,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }, 500);
             }
-        }else {
+        } else {
             Handler handler2 = new Handler();
             handler2.postDelayed(() -> {
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
