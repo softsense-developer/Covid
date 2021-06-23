@@ -33,7 +33,7 @@
 "terms_of_conditions" = "Hizmet Şartları";
 "privacy_policy" = "Gizlilik Politakası";
 "error_occurred" = "Bir hata oluştu. Hata kodu:";
-"logout" = "Oturumu kapat";
+"logout" = "Çıkış Yap";
 "login_dot" = "Oturum açılıyor…";
 "register_dot" = "Kaydolunuyor…";
 "password_reset_info" = "Şifre sıfırlama maili gönderildi. Lütfen email adresinizi kontrol ediniz.";
@@ -113,28 +113,129 @@
 
 //Medicine View Text
 "medicine_reminder_notify" = "İlaç hatırlartma";
+"medicine_reminder_add" = "Hatırlatma zamanı ekle";
+"medicine_add" = "İlaç Ekle";
+"medicine_name" = "İlaç Adı";
+"medicine_dose" = "Doz";
+"medicine_time" = "Kullanma Saati";
+"time" = "Zaman";
+"doses_empty" = "Doz miktarı boş olamaz";
+"reminder_empty" = "En az 1 hatırlatma zamanı eklemeniz gerekmektedir.";
+"reminder_delete" = "Hatırlatmayı sil";
+"use_your_medicine" = "Lütfen en kısa sürede ilacınızı kullanınız. Uygulamayı açarak kullandığınızı onaylamayı unutmayınız.";
+"medicine_used" = "Kullandım";
+"notify_medicine_not_used" = "Lütfen ilacınızı kullanmayı daha fazla geciktirmeyiniz. Eğer kullandıysanız uygulamayı açarak kullandığınızı onaylayınız.";
+"medicine_should_used_time" = "İlacın kullanılması gereken saat:";
+"no_medicine_text" = "İlaç verisi bulunamadı.\n\nİlaç hatırlatıcıyı kullanmak için + butonuna tıklayıp ilacını kayıt edebilirsin.";
+
+
+//Companion View Text
+"companion" = "Refakatçi";
+"companion_add" = "Refakatçi ekle";
+"companion_name" = "Refakatçi Adı";
+"companion_surname" = "Refakatçi Soyadı";
+"companion_email" = "Refakatçi E-mail";
+"companion_password" = "Refakatçi Şifre";
+"no_companion" = "Refakatçi verisi bulunamadı.\n\nRefakatçi eklemek için + butonuna tıklayıp refakatçi ekleyebilirsiniz.";
+"companion_info" = "Refakatçi olarak birini eklemek o kişiyle verilerinizi paylaşmanızı sağlar.";
+"companion_password_info" = "Refakatçiniz daha önce kayıt olmadıysa belirlediğiniz e-mail ve şifre ile giriş yapacaktır. Eğer kayıtlıysa kendi belirlediği şifresiyle giriş yapacaktır.";
+"companion_delete" = "Refakatçinizi silmek istediğinize emin misiniz?";
+"companion_added" = "Refakatçi eklendi.";
+
+//Request View Text
+"request" = "İstekler";
+"doctor_request_text" = "sizi Doktor rolüne terfi ettirdi.";
+"no_request_text" = "Herhangi bir istek bulunmamaktadır.";
+"request_accepted" = "İstek kabul edildi";
+"request_refuse" = "İstek kabul edilmedi.";
+"request_role_doctor" = "Doktor rolüne yükseltildiniz. Doktor arayüzüne erişmek için lütfen internet sitemizden oturum açınız.";
+
+//Add Doctor View Text
+"doctor" = "Doktor";
+"select_hospital" = "Hastane seçimi";
+"hospital" = "Hastane";
+"select_doctor" = "Doktor seçimi";
+"add_doctor" = "Doktor ekle";
+"add_doctor_info" = "Doktor ekleyerek verilerinizi doktorunuz ile paylaşabilirsiniz.";
+"add_doctor_info_before" = "Not: Doktor ekleyebilmek için lütfen \"Ayarlar\" - \"Hasta Bilgileri\" bölümünden bilgilerinizi doldurunuz.";
+"add_doctor_toast" = "Doktor eklendi.";
+"change_doctor" = "Doktor değiştir";
+"select_doctor_not_empty" = "Doktor ve hastene seçimi boş olamaz.";
+
+
+//User-emergency settings View Text
+"user_data" = "Kullanıcı Bilgileri";
+"patient_data" = "Hasta Bilgileri";
+"user_name" = "Ad Soyad";
+"user_phone" = "Telefon";
+"user_phone_hint" = "Telefon (5...)";
+"user_email" = "E-mail";
+"user_identity" = "T.C. Kimlik No";
+"user_gender" = "Cinsiyet";
+"user_date_of_birth" = "Doğum Tarihi";
+"user_quarantine_status" = "Karantina Türü";
+"user_diagnosis" = "Hastalık Türü";
+"doctor_id" = "Doktor ID";
+"save" = "Kaydet";
+"update" = "Güncelle";
+"not_empty" = "Bu alan boş olamaz.";
+"phone_must_length" = "Telefon numarası 10 karakter olmalıdır.";
+"identity_must_length" = "T.C. Kimlik No 11 karakter olmalıdır.";
+"email_not_valid" = "E-mail adresi hatalı.";
+"data_saved" = "Kayıt edildi.";
+"data_updating" = "Güncelleniyor...";
+"dont_specify" = "Belirtmek istemiyorum";
+"male" = "Erkek";
+"female" = "Kadın";
+
+//Password Change View Text
+"current_password" = "Şu anki şifreniz";
+"new_password" = "Yeni şifreniz";
+"password_change" = "Şifre Değiştir";
+
+
+
+//Measurement settings text
+"temp_schedule" = "Ateş Ölçüm Aralığı (Dakika)";
+"schedule_helper_text" = "5 ile 360 dakika arasında bir süre belirleyebilirsiniz.";
+"heart_schedule" = "Nabız Ölçüm Aralığı (Dakika)";
+"spo2_schedule" = "SpO2 Ölçüm Aralığı (Dakika)";
+"server_data_sent_status" = "Sunucuya verileri gönderme durumu";
+"server_data_sent" = "Gönder";
+"measurement_settings" = "Ölçüm Ayarları";
+"measurement_empty" = "Boş olamaz.";
+
+
+//Chart view text
+"max_heart_rate" = "Max Nabız";
+"min_heart_rate" = "Min Nabız";
+"avg_heart_rate" = "Ort Nabız";
+"max_temp" = "Max Ateş";
+"min_temp" = "Min Ateş";
+"avg_temp" = "Ort Ateş";
+"max_spo2" = "Max SpO2";
+"min_spo2" = "Min SpO2";
+"avg_spo2" = "Ort SpO2";
+"manual_measure" = "Ölçüm Yap";
+"manual_measurment" = "Manuel Ölçümler";
+"measurment" = "Ölçümler";
+"no_heart_data" = "Nabız verisi yok";
+"no_temp_data" = "Ateş verisi yok";
+"no_spo2_data" = "SpO2 verisi yok";
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//General
+"accept" = "Kabul et";
+"refuse" = "Reddet";
+"search" = "Ara";
+"select" = "Seç";
+"cancel" = "İptal";
+"settings" = "Ayarlar";
+"account" = "Hesap";
+"today" = "Bugün";
+"yesterday" = "Dün";
 
 
 

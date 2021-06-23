@@ -45,6 +45,31 @@ extension Color{
         return Color("CardActiveColor")
     }
     
+    static var greyColor: Color{
+        return Color("GreyColor")
+    }
+    
+    static var blue500: Color{
+        return Color("Blue500")
+    }
+    
+    static var orange500: Color{
+        return Color("Orange500")
+    }
+    
+    static var green500: Color{
+        return Color("Green500")
+    }
+    
+    static var red500: Color{
+        return Color("Red500")
+    }
+    
+    static var purple500: Color{
+        return Color("Purple500")
+    }
+
+    
     static var backgroundColor: Color{
         return colorWhite;
     }
