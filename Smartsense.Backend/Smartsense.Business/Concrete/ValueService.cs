@@ -128,7 +128,7 @@ namespace Smartsense.Business.Concrete
             
 
             _valueRepository.Add(value);
-           // DummyData();
+         //   DummyData();
          response.Code = "200";
          response.Message = "Veri başarıyla eklendi.";
          return response;
@@ -138,14 +138,14 @@ namespace Smartsense.Business.Concrete
         //public void DummyData()
         //{
         //    Random rastgele = new Random();
-
-        //    DateTime tarih = DateTime.Now.AddHours(2).AddMinutes(15);
+        //    long id = 92;
+        //    DateTime tarih = DateTime.Now.AddDays(-6);
         //    //DateTime tarih = DateTime.Now.AddHours(-10);
         //    DateTime[] dizi = new DateTime[100];
         //    for (int j = 0; j < dizi.Length; j++)
         //    {
-        //        var x = DateTime.Now.AddHours(2).AddMinutes(15).AddMinutes(j * 5);
-        //       // var x = DateTime.Now.AddMinutes(j * 5);
+        //       // var x = DateTime.Now;
+        //         var x = DateTime.Now.AddDays(-6).AddMinutes(j * 9).AddSeconds(j*13);
         //        dizi[j] = x;
         //    }
 
@@ -153,27 +153,31 @@ namespace Smartsense.Business.Concrete
         //    {
         //        tarih.AddMinutes(i * 5);
         //        var value = new Value();
-        //        value.UserId = 43;
+        //        value.UserId = id;
         //        value.DataType = DataValueType.OXYGEN;
-        //        value.DataValue = rastgele.Next(93, 99);
+        //        value.DataValue = rastgele.Next(95, 99);
         //        value.SaveDate = dizi[i];
         //        value.CreatedDate = dizi[i];
 
         //        var value2 = new Value();
-        //        value2.UserId = 43;
+        //        value2.UserId = id;
         //        value2.DataType = DataValueType.PULSE;
-        //        value2.DataValue = rastgele.Next(76, 88);
+        //        value2.DataValue = rastgele.Next(75, 96);
         //        value2.SaveDate = dizi[i];
         //        value2.CreatedDate = dizi[i];
         //        var value3 = new Value();
-        //        value3.UserId = 43;
+        //        value3.UserId = id;
         //        value3.DataType = DataValueType.TEMPERATURE;
-        //        value3.DataValue = rastgele.Next(36, 38) + rastgele.NextDouble();
+        //        value3.DataValue = rastgele.Next(35, 37) + rastgele.NextDouble();
         //        value3.SaveDate = dizi[i];
         //        value3.CreatedDate = dizi[i];
 
+        //        DummyAlert(value, id);
+        //        DummyAlert(value2,id);
+        //        DummyAlert(value3, id);
 
-        //        // tarih.AddMinutes(5.0);
+
+
 
 
         //        _valueRepository.Add(value);
@@ -183,6 +187,75 @@ namespace Smartsense.Business.Concrete
 
 
         //}
+
+        //public void DummyAlert(Value request,long id)
+        //{
+            
+        //    var PatientStatus = _patientRepository.Get(p => p.UserId == id).UserStatus;
+
+        //    var warning = new Warning();
+        //    if (request.DataType == DataValueType.OXYGEN && PatientStatus == UserStatus.QUARANTINE_AT_HOME && request.DataValue <= 92)
+        //    {
+        //        warning.UserId = id;
+        //        warning.SaveDate = request.CreatedDate;
+        //        warning.WarningData = WarningType.OXYGEN;
+        //        warning.WarningValue = (decimal)request.DataValue;
+        //        warning.Status = true;
+        //        warning.CreatedDate = request.CreatedDate;
+        //        _warningRepository.Add(warning);
+        //    }
+        //    if (request.DataType == DataValueType.OXYGEN && PatientStatus == UserStatus.QUARANTINE_IN_HOSPITAL && request.DataValue <= 90)
+        //    {
+        //        warning.UserId = id;
+        //        warning.SaveDate = request.CreatedDate;
+        //        warning.WarningData = WarningType.OXYGEN;
+        //        warning.WarningValue = (decimal)request.DataValue;
+        //        warning.Status = true;
+        //        warning.CreatedDate = request.CreatedDate;
+        //        _warningRepository.Add(warning);
+        //    }
+        //    if (request.DataType == DataValueType.TEMPERATURE && PatientStatus == UserStatus.QUARANTINE_AT_HOME && request.DataValue >= 38)
+        //    {
+        //        warning.UserId = id;
+        //        warning.SaveDate = request.CreatedDate;
+        //        warning.WarningData = WarningType.TEMPERATURE;
+        //        warning.WarningValue = (decimal)request.DataValue;
+        //        warning.Status = true;
+        //        warning.CreatedDate = request.CreatedDate;
+        //        _warningRepository.Add(warning);
+        //    }
+        //    if (request.DataType == DataValueType.TEMPERATURE && PatientStatus == UserStatus.QUARANTINE_IN_HOSPITAL && request.DataValue >= 38.3)
+        //    {
+        //        warning.UserId = id;
+        //        warning.SaveDate = request.CreatedDate;
+        //        warning.WarningData = WarningType.TEMPERATURE;
+        //        warning.WarningValue = (decimal)request.DataValue;
+        //        warning.Status = true;
+        //        warning.CreatedDate = request.CreatedDate;
+        //        _warningRepository.Add(warning);
+        //    }
+        //    if (request.DataType == DataValueType.PULSE && PatientStatus == UserStatus.QUARANTINE_AT_HOME && (request.DataValue >= 110 || request.DataValue <= 50))
+        //    {
+        //        warning.UserId = id;
+        //        warning.SaveDate = request.CreatedDate;
+        //        warning.WarningData = WarningType.PULSE;
+        //        warning.WarningValue = (decimal)request.DataValue;
+        //        warning.Status = true;
+        //        warning.CreatedDate = request.CreatedDate;
+        //        _warningRepository.Add(warning);
+        //    }
+        //    if (request.DataType == DataValueType.PULSE && PatientStatus == UserStatus.QUARANTINE_IN_HOSPITAL && (request.DataValue >= 110 || request.DataValue <= 50))
+        //    {
+        //        warning.UserId = id;
+        //        warning.SaveDate = request.CreatedDate;
+        //        warning.WarningData = WarningType.PULSE;
+        //        warning.WarningValue = (decimal)request.DataValue;
+        //        warning.Status = true;
+        //        warning.CreatedDate = request.CreatedDate;
+        //        _warningRepository.Add(warning);
+        //    }
+        //}
+
         public ValueHistoryResponse GetHistory(ValueHistoryRequest request)
         {
             var response = new ValueHistoryResponse();

@@ -303,6 +303,7 @@ namespace Smartsense.Business.Concrete
             response.Name = user.Name;
             response.Surname = user.Surname;
             response.UserStatus = patient.UserStatus;
+            response.BloodGroup = patient.BloodGroup;
             var doktor = _userRepository.Get(p => p.Id == patient.DoctorId);
             if (doktor == null)
             {
