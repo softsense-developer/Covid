@@ -25,11 +25,11 @@
             <div class="form-container">
               <div class="form-inner">
                 <form  class="login">
-                  <div class="field">
-                    <input type="text" placeholder="TC Kimlik No" required>
+                  <div class="field" >
+                    <input type="text" placeholder="TC Kimlik No" v-model="Tckn" required>
                   </div>
                   <div class="field">
-                    <input type="date" id="birthday" name="birthday" required>
+                    <input type="date" id="birthday" name="birthday" v-model="bdate" required>
                   </div>
                   <div class="field">
                       <!-- <label for="exampleFormControlSelect1">Cinsiyet Seçiniz</label> -->
@@ -50,7 +50,7 @@
                       </select>
                   </div>
                     <div class="field">
-                    <input type="text" placeholder="Teşhis"  required>
+                    <input type="text" placeholder="Teşhis" v-model="teshis"  required>
                   </div>
                   <!-- <div class="pass-link mt-5 pass-link-two" style="border:1px solid white;width:35%;border-radius:5px;">
                     <a class="backx"  style="cursor:pointer;color:green;" @click="pageModes()">Şifremi Güncelle</a> 
@@ -233,7 +233,8 @@ methods:{
       "identityNumber": this.Tckn,
       "gender": Number(selectkutu_value),
       "userStatus": Number(selectkutu_value1),
-      "diagnosis": this.teshis
+      "diagnosis": this.teshis,
+      "bloodGroup": "string"
     }
     console.log(JsonObjectsx);
     axios.put(url,JsonObjectsx,{
@@ -288,7 +289,9 @@ methods:{
       "gender": Number(selectkutu_value),
       "dateOfBirth": this.bdate,
       "userStatus": Number(selectkutu_value1),
-      "diagnosis": this.teshis
+      "diagnosis": this.teshis,
+      "bloodGroup": "abrh+"
+      
     }
     console.log(JsonObjects);
     axios.post(url,JsonObjects,{
