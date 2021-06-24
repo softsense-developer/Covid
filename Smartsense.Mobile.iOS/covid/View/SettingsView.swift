@@ -12,13 +12,13 @@ struct SettingsView: View {
         
         
         
-            ScrollView(.vertical) {
-                VStack{
-                    SettingBodyView()
-                }
-            }.navigationTitle("settings")
-            .navigationBarTitleDisplayMode(.inline)
-            
+        ScrollView(.vertical) {
+            VStack{
+                SettingBodyView()
+            }
+        }.navigationTitle("settings")
+        .navigationBarTitleDisplayMode(.inline)
+        
         
         
         
@@ -41,152 +41,177 @@ struct SettingBodyView: View {
                     .font(.title.weight(Font.Weight.regular))
                     .padding(.bottom, 16)
                 
-                //Companion view
-                HStack(alignment: .center, spacing: 16){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.greyColor)
-                            .opacity(0.1)
+                //Profile view
+                NavigationLink(
+                    destination: ProfileView(),
+                    label: {
                         
-                        Image(systemName: "person.fill")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                    
-                    VStack{
-                        Text("Gökhan Dağtekin")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                            .padding(.leading, 16)
+                        //Profile view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.greyColor)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "person.fill")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                            
+                            VStack{
+                                Text("Gökhan Dağtekin")
+                                    .foregroundColor(.primary)
+                                    .font(.title3)
+                                    .padding(.leading, 16)
+                                
+                                Text("user_data")
+                                    .foregroundColor(.secondary)
+                                    .font(.body)
+                            }
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
                         
-                        Text("user_data")
-                            .foregroundColor(.secondary)
-                            .font(.body)
-                    }
-                   
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
-                        
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
+                    })
+                
                 
                 //Patient data view
-                HStack(alignment: .center, spacing: 16){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.green500)
-                            .opacity(0.1)
+                NavigationLink(
+                    destination: PatientProfileView(),
+                    label: {
                         
-                        Image(systemName: "heart.text.square.fill")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.green500)
-                    }
-                    
-                    Text("patient_data")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.leading, 16)
-                    
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
+                        //Patient data view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.green500)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "heart.text.square.fill")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.green500)
+                            }
+                            
+                            Text("patient_data")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
                         
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
+                    })
                 
                 
                 //Password change view
-                HStack(alignment: .center, spacing: 16){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.blue500)
-                            .opacity(0.1)
+                NavigationLink(
+                    destination: PasswordChangeView(),
+                    label: {
                         
-                        Image(systemName: "lock.fill")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.blue500)
-                    }
-                    
-                    Text("password_change")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.leading, 16)
-                    
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
+                        //Password change view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.blue500)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "lock.fill")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.blue500)
+                            }
+                            
+                            Text("password_change")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
                         
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
-                
+                    })
                 
                 Text("settings")
                     .foregroundColor(.primary)
                     .font(.title.weight(Font.Weight.regular))
                     .padding([.top, .bottom], 16)
                 
-                
                 //Measurement settings view
-                HStack(alignment: .center, spacing: 16){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.purple500)
-                            .opacity(0.1)
+                NavigationLink(
+                    destination: MeasurementView(),
+                    label: {
                         
-                        Image(systemName: "timer")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.purple500)
-                    }
-                    
-                    Text("measurement_settings")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.leading, 16)
-                    
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
+                        //Measurement settings view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.purple500)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "timer")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.purple500)
+                            }
+                            
+                            Text("measurement_settings")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
                         
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
+                    })
                 
-                
-              
                 //Logout view
-                HStack(alignment: .center, spacing: 16){
+                HStack(alignment: .center, spacing: 8){
                     ZStack{
                         Circle()
                             .frame(width: circleSize, height: circleSize)

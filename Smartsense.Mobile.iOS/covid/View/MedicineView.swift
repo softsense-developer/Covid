@@ -9,7 +9,26 @@ import SwiftUI
 
 struct MedicineView: View {
     var body: some View {
-        Text("Medicine View")
+        NavigationView{
+            ScrollView(.vertical) {
+                VStack{
+                  Text("medicine view")
+                    
+                    
+                }
+            }.navigationTitle("tab_medicine")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(
+                        destination: SettingsView(),
+                        label: {
+                            Label("Settings", systemImage: "gearshape.fill")
+                                .foregroundColor(Color.colorPrimary)
+                        })
+                }
+            }
+        }
     }
 }
 

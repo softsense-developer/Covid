@@ -17,6 +17,10 @@ extension Color{
         return Color("ColorPrimary")
     }
     
+    static var navigationBarColor: Color{
+        return Color("NavigationBarColor")
+    }
+    
     static var textFieldBackground: Color{
         return Color("TextFieldBackground")
     }

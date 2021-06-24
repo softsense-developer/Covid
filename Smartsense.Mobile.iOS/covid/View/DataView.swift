@@ -9,7 +9,24 @@ import SwiftUI
 
 struct DataView: View {
     var body: some View {
-        Text("Dataview")
+        NavigationView{
+            ScrollView(.vertical) {
+                VStack{
+                  Text("data view")                    
+                }
+            }.navigationTitle("tab_data")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar{
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(
+                        destination: SettingsView(),
+                        label: {
+                            Label("Settings", systemImage: "gearshape.fill")
+                                .foregroundColor(Color.colorPrimary)
+                        })
+                }
+            }
+        }
     }
 }
 

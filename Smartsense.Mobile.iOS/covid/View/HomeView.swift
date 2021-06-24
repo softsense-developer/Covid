@@ -25,12 +25,13 @@ struct HomeView: View {
             }.navigationTitle("tab_home")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                Button(action: {
-                    
-                }) {
-                    Image(systemName: "gearshape.fill")
-                        .accessibilityLabel("Settings")
-                        .foregroundColor(Color.colorPrimary)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(
+                        destination: SettingsView(),
+                        label: {
+                            Label("Settings", systemImage: "gearshape.fill")
+                                .foregroundColor(Color.colorPrimary)
+                        })
                 }
             }
         }
@@ -602,6 +603,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         //HomeView()
         HomeView()
-            .preferredColorScheme(.dark)
+            //.preferredColorScheme(.dark)
     }
 }

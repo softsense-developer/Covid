@@ -99,12 +99,13 @@ struct ConnectionView: View {
             }.navigationTitle("tab_connection")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
-                Button(action: {
-                    
-                }) {
-                    Image(systemName: "gearshape.fill")
-                        .accessibilityLabel("Settings")
-                        .foregroundColor(Color.colorPrimary)
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink(
+                        destination: SettingsView(),
+                        label: {
+                            Label("Settings", systemImage: "gearshape.fill")
+                                .foregroundColor(Color.colorPrimary)
+                        })
                 }
             }
         }

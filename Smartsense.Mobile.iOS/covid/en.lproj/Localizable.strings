@@ -26,10 +26,11 @@
 "sign_up_legal_3" = " ve";
 "sign_up_legal_4" = " Gizlilik Politakasını";
 "sign_up_legal_5" = " kabul etmiş olursunuz.";
-"enter_valid_name" = "Geçerli bir ad giriniz";
-"enter_valid_surname" = "Geçerli bir soyad giriniz";
-"enter_valid_email" = "Lütfen geçerli bir e-mail adresi giriniz";
-"enter_valid_password" = "Lütfen minimum 6 karakter bir şifre giriniz";
+"enter_valid_name" = "Geçerli bir ad giriniz.";
+"enter_valid_surname" = "Geçerli bir soyad giriniz.";
+"enter_valid_email" = "Lütfen geçerli bir e-mail adresi giriniz.";
+"enter_valid_password" = "Lütfen minimum 6 karakter bir şifre giriniz.";
+"enter_valid_phone" = "Lütfen geçerli bir numara adresi giriniz.";
 "terms_of_conditions" = "Hizmet Şartları";
 "privacy_policy" = "Gizlilik Politakası";
 "error_occurred" = "Bir hata oluştu. Hata kodu:";

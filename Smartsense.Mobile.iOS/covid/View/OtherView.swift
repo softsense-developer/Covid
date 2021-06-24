@@ -9,8 +9,6 @@ import SwiftUI
 
 struct OtherView: View {
     var body: some View {
-        
-        
         NavigationView{
             ScrollView(.vertical) {
                 VStack{
@@ -27,12 +25,10 @@ struct OtherView: View {
                                 .foregroundColor(Color.colorPrimary)
                         })
                 }
-                
-                
             }
+            //.navigationBarColor(UIColor(Color.navigationBarColor))
+            
         }
-        
-        
         
     }
 }
@@ -47,102 +43,125 @@ struct OtherNew: View {
         GeometryReader { geo in
             VStack(alignment: .leading, spacing: 8){
                 
-                //Companion view
-                HStack(alignment: .center, spacing: 32){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.orange500)
-                            .opacity(0.1)
-                        
-                        Image(systemName: "person.fill.badge.plus")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.orange500)
-                    }
-                    
-                    Text("companion")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                    
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
-                        
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
                 
+                //Companion view
+                NavigationLink(
+                    destination: CompanionView(),
+                    label: {
+                        
+                        //Companion view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.orange500)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "person.fill.badge.plus")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.orange500)
+                            }
+                            
+                            Text("companion")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
+                        
+                    })
                 
                 //Requests view
-                HStack(alignment: .center, spacing: 32){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.blue500)
-                            .opacity(0.1)
+                NavigationLink(
+                    destination: RequestView(),
+                    label: {
                         
-                        Image(systemName: "bell.fill")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.blue500)
-                    }
-                    
-                    Text("request")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                    
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
+                        //Requests view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.blue500)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "bell.fill")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.blue500)
+                            }
+                            
+                            Text("request")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
                         
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
+                    })
+                
                 
                 
                 //Select doktor view
-                HStack(alignment: .center, spacing: 32){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.green500)
-                            .opacity(0.1)
+                NavigationLink(
+                    destination: DoctorSelectView(),
+                    label: {
                         
-                        Image(systemName: "heart.text.square.fill")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.green500)
-                    }
-                    
-                    Text("doctor")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                    
-                    Spacer()
-                    
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.greyColor)
-                            .frame(width: rectSize, height: rectSize)
-                            .opacity(0.2)
+                        //Select doktor view
+                        HStack(alignment: .center, spacing: 8){
+                            ZStack{
+                                Circle()
+                                    .frame(width: circleSize, height: circleSize)
+                                    .foregroundColor(.green500)
+                                    .opacity(0.1)
+                                
+                                Image(systemName: "heart.text.square.fill")
+                                    .font(.system(size: iconSize))
+                                    .foregroundColor(.green500)
+                            }
+                            
+                            Text("doctor")
+                                .foregroundColor(.primary)
+                                .font(.title3)
+                                .padding(.leading, 16)
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.greyColor)
+                                    .frame(width: rectSize, height: rectSize)
+                                    .opacity(0.2)
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: rectIconSize))
+                                    .foregroundColor(.greyColor)
+                            }
+                        }.padding(.bottom, 8)
                         
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: rectIconSize))
-                            .foregroundColor(.greyColor)
-                    }
-                }.padding(.bottom, 8)
-                
-                
+                    })
                 
                 
             }.padding(.leading, 32)
@@ -155,78 +174,9 @@ struct OtherNew: View {
 }
 
 
-struct OtherOld: View {
-    var body: some View{
-        GeometryReader { geo in
-            
-            VStack(alignment: .leading, spacing: 8){
-                Spacer()
-                HStack(alignment: .bottom, spacing: 24){
-                    
-                    VStack(alignment: .center, spacing: 8){
-                        ZStack{
-                            Circle()
-                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
-                                .foregroundColor(.colorPrimary)
-                            
-                            Image(systemName: "person")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Text("Profile")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                    }
-                    
-                    
-                    VStack(alignment: .center, spacing: 8){
-                        ZStack{
-                            Circle()
-                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
-                                .foregroundColor(.colorPrimary)
-                            
-                            Image(systemName: "bell")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Text("Profile")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                    }
-                    
-                    
-                    VStack(alignment: .center, spacing: 8){
-                        ZStack{
-                            Circle()
-                                .frame(width: geo.size.width / 4.5, height: geo.size.width / 4.5)
-                                .foregroundColor(.colorPrimary)
-                            
-                            Image(systemName: "person.2")
-                                .font(.system(size: 40))
-                                .foregroundColor(.white)
-                        }
-                        
-                        Text("Profile")
-                            .foregroundColor(.primary)
-                            .font(.title3)
-                    }
-                    
-                    
-                }
-                .cornerRadius(15)
-            }
-            .frame(width: geo.size.width, height: nil, alignment: .center)
-            
-        }
-    }
-}
-
-
 struct OtherView_Previews: PreviewProvider {
     static var previews: some View {
         OtherView()
-        //.preferredColorScheme(.dark)
+         //.preferredColorScheme(.dark)
     }
 }

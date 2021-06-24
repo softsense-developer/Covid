@@ -18,6 +18,7 @@ struct MainView: View {
         case medicine
         case other
     }
+    
     var body: some View {
         TabView(selection: $selectedTab){
             HomeView()
@@ -61,3 +62,6 @@ struct MainView_Previews: PreviewProvider {
         //.preferredColorScheme(.dark)
     }
 }
+
+
+

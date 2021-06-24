@@ -23,6 +23,15 @@
 		F54488AB2670EC7D005334F7 /* BaseApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488AA2670EC7D005334F7 /* BaseApiRequest.swift */; };
 		F54488AE2670EE44005334F7 /* ApiConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488AD2670EE44005334F7 /* ApiConstant.swift */; };
 		F54488B12670EF1D005334F7 /* ApiConstantText.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488B02670EF1D005334F7 /* ApiConstantText.swift */; };
+		F55E948C268467A300F9E98C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E948B268467A300F9E98C /* ProfileView.swift */; };
+		F55E948F26846BCD00F9E98C /* PatientProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E948E26846BCD00F9E98C /* PatientProfileView.swift */; };
+		F55E949126846D9B00F9E98C /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949026846D9B00F9E98C /* PasswordChangeView.swift */; };
+		F55E949326846E6900F9E98C /* MeasurementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949226846E6900F9E98C /* MeasurementView.swift */; };
+		F55E949526846EC500F9E98C /* CompanionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949426846EC500F9E98C /* CompanionView.swift */; };
+		F55E949726846EF800F9E98C /* RequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949626846EF800F9E98C /* RequestView.swift */; };
+		F55E949926846F3300F9E98C /* DoctorSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949826846F3300F9E98C /* DoctorSelectView.swift */; };
+		F55E949B26848E1E00F9E98C /* NavigationBarModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949A26848E1E00F9E98C /* NavigationBarModifier.swift */; };
+		F55E949D2684BCF600F9E98C /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F55E949C2684BCF500F9E98C /* ModalView.swift */; };
 		F5716F23267389EA00722E8A /* UserRegisterRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5716F22267389EA00722E8A /* UserRegisterRequest.swift */; };
 		F5716F2626738A7900722E8A /* UserRegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5716F2526738A7900722E8A /* UserRegisterResponse.swift */; };
 		F5716F2C26738B7700722E8A /* UserPassForgetRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5716F2B26738B7700722E8A /* UserPassForgetRequest.swift */; };
@@ -75,6 +84,15 @@
 		F54488AA2670EC7D005334F7 /* BaseApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiRequest.swift; sourceTree = "<group>"; };
 		F54488AD2670EE44005334F7 /* ApiConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstant.swift; sourceTree = "<group>"; };
 		F54488B02670EF1D005334F7 /* ApiConstantText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConstantText.swift; sourceTree = "<group>"; };
+		F55E948B268467A300F9E98C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F55E948E26846BCD00F9E98C /* PatientProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientProfileView.swift; sourceTree = "<group>"; };
+		F55E949026846D9B00F9E98C /* PasswordChangeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
+		F55E949226846E6900F9E98C /* MeasurementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
+		F55E949426846EC500F9E98C /* CompanionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanionView.swift; sourceTree = "<group>"; };
+		F55E949626846EF800F9E98C /* RequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
+		F55E949826846F3300F9E98C /* DoctorSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorSelectView.swift; sourceTree = "<group>"; };
+		F55E949A26848E1E00F9E98C /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
+		F55E949C2684BCF500F9E98C /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		F5716F22267389EA00722E8A /* UserRegisterRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterRequest.swift; sourceTree = "<group>"; };
 		F5716F2526738A7900722E8A /* UserRegisterResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterResponse.swift; sourceTree = "<group>"; };
 		F5716F2B26738B7700722E8A /* UserPassForgetRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPassForgetRequest.swift; sourceTree = "<group>"; };
@@ -175,6 +193,17 @@
 			path = Requests;
 			sourceTree = "<group>";
 		};
+		F55E948D26846B8800F9E98C /* SettingViews */ = {
+			isa = PBXGroup;
+			children = (
+				F55E948B268467A300F9E98C /* ProfileView.swift */,
+				F55E949026846D9B00F9E98C /* PasswordChangeView.swift */,
+				F55E948E26846BCD00F9E98C /* PatientProfileView.swift */,
+				F55E949226846E6900F9E98C /* MeasurementView.swift */,
+			);
+			path = SettingViews;
+			sourceTree = "<group>";
+		};
 		F5A9B869266FA1F400576DFF /* Api */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +258,8 @@
 				F5A0D97F2667C156003F2D1E /* Formatter+covid.swift */,
 				F5A0D97826678CEF003F2D1E /* Constant.swift */,
 				F5E4E34A2679FA15003B7F2E /* LottieView.swift */,
+				F55E949A26848E1E00F9E98C /* NavigationBarModifier.swift */,
+				F55E949C2684BCF500F9E98C /* ModalView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -236,6 +267,7 @@
 		F5E4E3332679E32C003B7F2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F55E948D26846B8800F9E98C /* SettingViews */,
 				F5D7CBC32678CA8E0084CD32 /* SplashView.swift */,
 				F522AF26266664B800691BF3 /* LoginView.swift */,
 				F5D7CBC82678D9C20084CD32 /* MainView.swift */,
@@ -246,6 +278,9 @@
 				F5E4E33E2679F777003B7F2E /* EmailVerifyView.swift */,
 				F518064726834FF50039D796 /* OtherView.swift */,
 				F5180649268361840039D796 /* SettingsView.swift */,
+				F55E949426846EC500F9E98C /* CompanionView.swift */,
+				F55E949626846EF800F9E98C /* RequestView.swift */,
+				F55E949826846F3300F9E98C /* DoctorSelectView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -345,8 +380,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				F54488AE2670EE44005334F7 /* ApiConstant.swift in Sources */,
+				F55E948C268467A300F9E98C /* ProfileView.swift in Sources */,
 				F5D7CBC92678D9C20084CD32 /* MainView.swift in Sources */,
 				F580BB172678A8E7009C6CD9 /* NetworkMonitor.swift in Sources */,
+				F55E948F26846BCD00F9E98C /* PatientProfileView.swift in Sources */,
+				F55E949326846E6900F9E98C /* MeasurementView.swift in Sources */,
 				F522AF27266664B800691BF3 /* LoginView.swift in Sources */,
 				F5A9B867266F9AD100576DFF /* ApiService.swift in Sources */,
 				F580BB1226788A95009C6CD9 /* GenericDialog.swift in Sources */,
@@ -357,16 +395,19 @@
 				F5D7CBBE2678B1820084CD32 /* PatientInfoResponse.swift in Sources */,
 				F5E4E34B2679FA15003B7F2E /* LottieView.swift in Sources */,
 				F5E4E3392679EC52003B7F2E /* MedicineView.swift in Sources */,
+				F55E949B26848E1E00F9E98C /* NavigationBarModifier.swift in Sources */,
 				F5D7CBC42678CA8E0084CD32 /* SplashView.swift in Sources */,
 				F522AF1926665C7600691BF3 /* ContentView.swift in Sources */,
 				F5A0D97D2667C142003F2D1E /* Validation+covid.swift in Sources */,
 				F5716F2C26738B7700722E8A /* UserPassForgetRequest.swift in Sources */,
 				F518064826834FF50039D796 /* OtherView.swift in Sources */,
+				F55E949126846D9B00F9E98C /* PasswordChangeView.swift in Sources */,
 				F58D2E8F2672234D00F802B5 /* MyKeychain.swift in Sources */,
 				F54488B12670EF1D005334F7 /* ApiConstantText.swift in Sources */,
 				F58D2E81267210AD00F802B5 /* CustomBannerColors.swift in Sources */,
 				F5E4E3312679E31F003B7F2E /* HomeView.swift in Sources */,
 				F5A0D9802667C156003F2D1E /* Formatter+covid.swift in Sources */,
+				F55E949926846F3300F9E98C /* DoctorSelectView.swift in Sources */,
 				F54488A12670A76A005334F7 /* UserLoginRequest.swift in Sources */,
 				F54488AB2670EC7D005334F7 /* BaseApiRequest.swift in Sources */,
 				F5716F23267389EA00722E8A /* UserRegisterRequest.swift in Sources */,
@@ -374,14 +415,17 @@
 				F522AF1726665C7600691BF3 /* covidApp.swift in Sources */,
 				F5716F2626738A7900722E8A /* UserRegisterResponse.swift in Sources */,
 				F5A9B86F266FA28400576DFF /* UserLoginResponse.swift in Sources */,
+				F55E949526846EC500F9E98C /* CompanionView.swift in Sources */,
 				F5E4E32D2679DBDB003B7F2E /* TokenRefreshResponse.swift in Sources */,
 				F5E4E3352679EB7D003B7F2E /* ConnectionView.swift in Sources */,
 				F5D7CBC12678B41B0084CD32 /* QuarantineStatusResponse.swift in Sources */,
 				F5716F2F26738B9F00722E8A /* UserPassForgetResponse.swift in Sources */,
 				F5E4E32A2679DB84003B7F2E /* TokenRefreshRequest.swift in Sources */,
+				F55E949726846EF800F9E98C /* RequestView.swift in Sources */,
 				F522AF362666720D00691BF3 /* Color+covid.swift in Sources */,
 				F54488A82670DD5C005334F7 /* ApiServiceProtocol.swift in Sources */,
 				F518064A268361840039D796 /* SettingsView.swift in Sources */,
+				F55E949D2684BCF600F9E98C /* ModalView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
