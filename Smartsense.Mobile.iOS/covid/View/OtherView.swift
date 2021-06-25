@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct OtherView: View {
+    @State private var showingSetting = false
+    
     var body: some View {
         NavigationView{
             ScrollView(.vertical) {
@@ -18,15 +20,24 @@ struct OtherView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(
+                    /*NavigationLink(
                         destination: SettingsView(),
                         label: {
                             Label("Settings", systemImage: "gearshape.fill")
                                 .foregroundColor(Color.colorPrimary)
-                        })
+                        })*/
+                    Button(action: { showingSetting.toggle() }) {
+                        Image(systemName: "gearshape.fill")
+                            .accessibilityLabel("Settings")
+                    }
+                    
+                }
+                
+            }.sheet(isPresented: $showingSetting) {
+                NavigationView{
+                    SettingsView()
                 }
             }
-            //.navigationBarColor(UIColor(Color.navigationBarColor))
             
         }
         
@@ -34,10 +45,11 @@ struct OtherView: View {
 }
 
 struct OtherNew: View {
-    let circleSize: CGFloat = 60
-    let rectSize: CGFloat = 45
-    let rectIconSize: CGFloat = 15
-    let iconSize: CGFloat = 25
+    let circleSize: CGFloat = 55
+    let iconSize: CGFloat = 22
+    let rectSize: CGFloat = 40
+    let rectIconSize: CGFloat = 12
+    
     
     var body: some View{
         GeometryReader { geo in
@@ -70,7 +82,7 @@ struct OtherNew: View {
                             Spacer()
                             
                             ZStack{
-                                RoundedRectangle(cornerRadius: 20)
+                                RoundedRectangle(cornerRadius: 15)
                                     .fill(Color.greyColor)
                                     .frame(width: rectSize, height: rectSize)
                                     .opacity(0.2)
@@ -109,7 +121,7 @@ struct OtherNew: View {
                             Spacer()
                             
                             ZStack{
-                                RoundedRectangle(cornerRadius: 20)
+                                RoundedRectangle(cornerRadius: 15)
                                     .fill(Color.greyColor)
                                     .frame(width: rectSize, height: rectSize)
                                     .opacity(0.2)
@@ -150,7 +162,7 @@ struct OtherNew: View {
                             Spacer()
                             
                             ZStack{
-                                RoundedRectangle(cornerRadius: 20)
+                                RoundedRectangle(cornerRadius: 15)
                                     .fill(Color.greyColor)
                                     .frame(width: rectSize, height: rectSize)
                                     .opacity(0.2)

@@ -15,4 +15,7 @@ protocol ApiServiceProtocol {
     func getPatientInfo(onSuccess: @escaping (PatientInfoResponse) -> Void, onFail: @escaping (String?) -> Void)
     func getPatientQuarantineStatus(onSuccess: @escaping (QuarantineStatusResponse) -> Void, onFail: @escaping (String?) -> Void)
     func refreshToken(request: TokenRefreshRequest, onSuccess: @escaping (TokenRefreshResponse) -> Void, onFail: @escaping (String?) -> Void)
+    func passwordChange(request: PasswordChangeRequest, onSuccess: @escaping (PasswordChangeResponse) -> Void, onFail: @escaping (String?) -> Void)
+    func userInfoChange(request: UserInfoChangeRequest, onSuccess: @escaping (UserInfoChangeResponse) -> Void, onFail: @escaping (String?) -> Void)
+    func updatePatientInfo(request: PutPatientInfoRequest, onSuccess: @escaping (PutPatientInfoResponse) -> Void, onFail: @escaping (String?) -> Void)
 }

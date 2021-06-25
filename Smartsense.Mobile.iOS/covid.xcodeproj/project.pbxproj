@@ -45,6 +45,13 @@
 		F5A0D97926678CEF003F2D1E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A0D97826678CEF003F2D1E /* Constant.swift */; };
 		F5A0D97D2667C142003F2D1E /* Validation+covid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A0D97C2667C142003F2D1E /* Validation+covid.swift */; };
 		F5A0D9802667C156003F2D1E /* Formatter+covid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A0D97F2667C156003F2D1E /* Formatter+covid.swift */; };
+		F5A5752B2685B73E00BA8491 /* StyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A5752A2685B73E00BA8491 /* StyleView.swift */; };
+		F5A5752D2685DBCA00BA8491 /* PasswordChangeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A5752C2685DBCA00BA8491 /* PasswordChangeRequest.swift */; };
+		F5A5752F2685DC1300BA8491 /* PasswordChangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A5752E2685DC1300BA8491 /* PasswordChangeResponse.swift */; };
+		F5A575312685DD1600BA8491 /* UserInfoChangeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A575302685DD1600BA8491 /* UserInfoChangeRequest.swift */; };
+		F5A575332685DD4900BA8491 /* UserInfoChangeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A575322685DD4900BA8491 /* UserInfoChangeResponse.swift */; };
+		F5A575352685ECE700BA8491 /* PutPatientInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A575342685ECE700BA8491 /* PutPatientInfoRequest.swift */; };
+		F5A575372685ED4300BA8491 /* PutPatientInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A575362685ED4300BA8491 /* PutPatientInfoResponse.swift */; };
 		F5A9B864266F977800576DFF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = F5A9B863266F977800576DFF /* Alamofire */; };
 		F5A9B867266F9AD100576DFF /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A9B866266F9AD100576DFF /* ApiService.swift */; };
 		F5A9B86F266FA28400576DFF /* UserLoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A9B86E266FA28400576DFF /* UserLoginResponse.swift */; };
@@ -63,6 +70,7 @@
 		F5E4E3432679F986003B7F2E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F5E4E3422679F986003B7F2E /* Lottie */; };
 		F5E4E3472679F9B8003B7F2E /* emailverify.json in Resources */ = {isa = PBXBuildFile; fileRef = F5E4E3462679F9B8003B7F2E /* emailverify.json */; };
 		F5E4E34B2679FA15003B7F2E /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E4E34A2679FA15003B7F2E /* LottieView.swift */; };
+		F5F2CD4D26860E4E00E069F2 /* LoadingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F2CD4C26860E4E00E069F2 /* LoadingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +112,13 @@
 		F5A0D97826678CEF003F2D1E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		F5A0D97C2667C142003F2D1E /* Validation+covid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Validation+covid.swift"; sourceTree = "<group>"; };
 		F5A0D97F2667C156003F2D1E /* Formatter+covid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+covid.swift"; sourceTree = "<group>"; };
+		F5A5752A2685B73E00BA8491 /* StyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleView.swift; sourceTree = "<group>"; };
+		F5A5752C2685DBCA00BA8491 /* PasswordChangeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordChangeRequest.swift; sourceTree = "<group>"; };
+		F5A5752E2685DC1300BA8491 /* PasswordChangeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordChangeResponse.swift; sourceTree = "<group>"; };
+		F5A575302685DD1600BA8491 /* UserInfoChangeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoChangeRequest.swift; sourceTree = "<group>"; };
+		F5A575322685DD4900BA8491 /* UserInfoChangeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoChangeResponse.swift; sourceTree = "<group>"; };
+		F5A575342685ECE700BA8491 /* PutPatientInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutPatientInfoRequest.swift; sourceTree = "<group>"; };
+		F5A575362685ED4300BA8491 /* PutPatientInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutPatientInfoResponse.swift; sourceTree = "<group>"; };
 		F5A9B866266F9AD100576DFF /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		F5A9B86E266FA28400576DFF /* UserLoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginResponse.swift; sourceTree = "<group>"; };
 		F5A9B872266FA2A600576DFF /* BaseApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseApiResponse.swift; sourceTree = "<group>"; };
@@ -120,6 +135,7 @@
 		F5E4E33E2679F777003B7F2E /* EmailVerifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerifyView.swift; sourceTree = "<group>"; };
 		F5E4E3462679F9B8003B7F2E /* emailverify.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = emailverify.json; sourceTree = "<group>"; };
 		F5E4E34A2679FA15003B7F2E /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		F5F2CD4C26860E4E00E069F2 /* LoadingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +201,9 @@
 			isa = PBXGroup;
 			children = (
 				F54488A02670A76A005334F7 /* UserLoginRequest.swift */,
+				F5A5752C2685DBCA00BA8491 /* PasswordChangeRequest.swift */,
+				F5A575302685DD1600BA8491 /* UserInfoChangeRequest.swift */,
+				F5A575342685ECE700BA8491 /* PutPatientInfoRequest.swift */,
 				F5E4E3292679DB84003B7F2E /* TokenRefreshRequest.swift */,
 				F5716F2B26738B7700722E8A /* UserPassForgetRequest.swift */,
 				F5716F22267389EA00722E8A /* UserRegisterRequest.swift */,
@@ -241,6 +260,9 @@
 				F5D7CBC02678B41B0084CD32 /* QuarantineStatusResponse.swift */,
 				F5D7CBBD2678B1820084CD32 /* PatientInfoResponse.swift */,
 				F5716F2526738A7900722E8A /* UserRegisterResponse.swift */,
+				F5A5752E2685DC1300BA8491 /* PasswordChangeResponse.swift */,
+				F5A575322685DD4900BA8491 /* UserInfoChangeResponse.swift */,
+				F5A575362685ED4300BA8491 /* PutPatientInfoResponse.swift */,
 				F5716F2E26738B9F00722E8A /* UserPassForgetResponse.swift */,
 				F5A9B872266FA2A600576DFF /* BaseApiResponse.swift */,
 			);
@@ -260,6 +282,8 @@
 				F5E4E34A2679FA15003B7F2E /* LottieView.swift */,
 				F55E949A26848E1E00F9E98C /* NavigationBarModifier.swift */,
 				F55E949C2684BCF500F9E98C /* ModalView.swift */,
+				F5A5752A2685B73E00BA8491 /* StyleView.swift */,
+				F5F2CD4C26860E4E00E069F2 /* LoadingButton.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -385,20 +409,27 @@
 				F580BB172678A8E7009C6CD9 /* NetworkMonitor.swift in Sources */,
 				F55E948F26846BCD00F9E98C /* PatientProfileView.swift in Sources */,
 				F55E949326846E6900F9E98C /* MeasurementView.swift in Sources */,
+				F5A5752B2685B73E00BA8491 /* StyleView.swift in Sources */,
 				F522AF27266664B800691BF3 /* LoginView.swift in Sources */,
 				F5A9B867266F9AD100576DFF /* ApiService.swift in Sources */,
 				F580BB1226788A95009C6CD9 /* GenericDialog.swift in Sources */,
 				F5E4E33C2679ED3D003B7F2E /* DataView.swift in Sources */,
+				F5A575332685DD4900BA8491 /* UserInfoChangeResponse.swift in Sources */,
 				F5E4E33F2679F777003B7F2E /* EmailVerifyView.swift in Sources */,
 				F54488A52670DBCF005334F7 /* Encodable.swift in Sources */,
+				F5A575312685DD1600BA8491 /* UserInfoChangeRequest.swift in Sources */,
 				F5A9B873266FA2A600576DFF /* BaseApiResponse.swift in Sources */,
 				F5D7CBBE2678B1820084CD32 /* PatientInfoResponse.swift in Sources */,
+				F5F2CD4D26860E4E00E069F2 /* LoadingButton.swift in Sources */,
 				F5E4E34B2679FA15003B7F2E /* LottieView.swift in Sources */,
 				F5E4E3392679EC52003B7F2E /* MedicineView.swift in Sources */,
 				F55E949B26848E1E00F9E98C /* NavigationBarModifier.swift in Sources */,
+				F5A575372685ED4300BA8491 /* PutPatientInfoResponse.swift in Sources */,
 				F5D7CBC42678CA8E0084CD32 /* SplashView.swift in Sources */,
+				F5A575352685ECE700BA8491 /* PutPatientInfoRequest.swift in Sources */,
 				F522AF1926665C7600691BF3 /* ContentView.swift in Sources */,
 				F5A0D97D2667C142003F2D1E /* Validation+covid.swift in Sources */,
+				F5A5752F2685DC1300BA8491 /* PasswordChangeResponse.swift in Sources */,
 				F5716F2C26738B7700722E8A /* UserPassForgetRequest.swift in Sources */,
 				F518064826834FF50039D796 /* OtherView.swift in Sources */,
 				F55E949126846D9B00F9E98C /* PasswordChangeView.swift in Sources */,
@@ -408,6 +439,7 @@
 				F5E4E3312679E31F003B7F2E /* HomeView.swift in Sources */,
 				F5A0D9802667C156003F2D1E /* Formatter+covid.swift in Sources */,
 				F55E949926846F3300F9E98C /* DoctorSelectView.swift in Sources */,
+				F5A5752D2685DBCA00BA8491 /* PasswordChangeRequest.swift in Sources */,
 				F54488A12670A76A005334F7 /* UserLoginRequest.swift in Sources */,
 				F54488AB2670EC7D005334F7 /* BaseApiRequest.swift in Sources */,
 				F5716F23267389EA00722E8A /* UserRegisterRequest.swift in Sources */,

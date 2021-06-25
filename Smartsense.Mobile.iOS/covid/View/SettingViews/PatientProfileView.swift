@@ -12,17 +12,28 @@ import NotificationBannerSwift
 
 struct PatientProfileView: View {
     
-    @State var name: String = ""
-    @State var surname: String = ""
-    @State var phone: String = ""
-    @State var email: String = ""
+    init() {
+        
+        //this changes the "thumb" that selects between items
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(.componentColor)
+        
+        //and this changes the color for the whole "bar" background
+        UISegmentedControl.appearance().backgroundColor = UIColor(.textFieldBackground)
+
+        //this will change the font size
+        UISegmentedControl.appearance().setTitleTextAttributes([.font : UIFont.preferredFont(forTextStyle: .largeTitle)], for: .normal)
+
+        //these lines change the text color for various states
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor(.colorPrimary)], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor(.secondary)], for: .normal)
+    }
     
-    @State var isNameValid: Bool = false
-    @State var isSurnameValid: Bool = false
-    @State var isPhoneValid: Bool = false
+    @State var userIdentity: String = ""
+    
+    @State var isIdentityValid: Bool = false
     
     @State var firstClickToChange: Bool = false
-    @State var isProgressViewShowing = false
+    @State var isLoading: Bool = false
     @State var progressViewText = ""
     
     private let apiService: ApiServiceProtocol = ApiService()
@@ -32,7 +43,22 @@ struct PatientProfileView: View {
     @State var selectedDate: Date = Date.init()
     
     @State private var selectedGender = NSLocalizedString("dont_specify", comment: "")
-    let strengths = [NSLocalizedString("dont_specify", comment: ""), NSLocalizedString("female", comment: ""), NSLocalizedString("male", comment: "")]
+    let genders = [NSLocalizedString("dont_specify", comment: ""),
+                   NSLocalizedString("female", comment: ""),
+                   NSLocalizedString("male", comment: "")]
+    
+    @State private var selectedTrackingStatus = NSLocalizedString("home_quarantine", comment: "")
+    let trackingTypes = [NSLocalizedString("home_quarantine", comment: ""),
+                         NSLocalizedString("hospital_quarantine", comment: ""),
+                         NSLocalizedString("contact_quarantine", comment: ""),
+                         NSLocalizedString("being_discharged", comment: ""),
+                         NSLocalizedString("status_other", comment: "")]
+    
+    @State private var selectedBloodGroup = "A"
+    let bloodGroups = ["A", "B", "AB", "0"]
+    
+    @State private var selectedBloodGroupRh = "+"
+    let bloodGroupRh = ["+", "-"]
     
     var body: some View {
         ScrollView(.vertical) {
@@ -47,7 +73,6 @@ struct PatientProfileView: View {
                             .padding(.leading, 75)
                         
                         HStack {
-                            
                             ZStack{
                                 Circle()
                                     .frame(width: 55, height: 55)
@@ -56,21 +81,22 @@ struct PatientProfileView: View {
                                 Image(systemName: "person")
                                     .font(.system(size: 20))
                                     .foregroundColor(.secondary)
-                            }
+                            }.padding(.trailing, 8)
                             
-                            TextField("user_identity", text: $name)
-                                .foregroundColor(.primary)
-                                .onReceive(Just(name), perform: { newValue in
-                                    isNameValid = validation.validateName(name: name)
-                                }).padding()
-                                .background(Capsule().fill(Color.textFieldBackground))
+                            TextField("user_identity", text: $userIdentity)
+                                .keyboardType(.numberPad)
+                                .textFieldStyle(CapsuleTextFieldStyle())
+                                .onReceive(Just(userIdentity), perform: { newValue in
+                                    isIdentityValid = validation.validateTCIdentity(tc: userIdentity)
+                                })
+                                
                         }
                         
-                        if !isNameValid && firstClickToChange{
-                            Text("enter_valid_name")
+                        if !isIdentityValid && firstClickToChange{
+                            Text("enter_valid_identity")
                                 .font(.caption)
                                 .foregroundColor(.red)
-                                .padding(.leading, 10)
+                                .padding(.leading, 75)
                         }
                         
                     }
@@ -83,7 +109,7 @@ struct PatientProfileView: View {
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .padding(.leading, 75)
-                        
+                            .offset(y: 10)
                         
                         HStack {
                             ZStack{
@@ -96,28 +122,14 @@ struct PatientProfileView: View {
                                     .font(.system(size: 20))
                                     .foregroundColor(.secondary)
                                 
-                            }
+                            }.padding(.trailing, 12)
                             
                             
                             DatePicker("", selection: $selectedDate, in: ...Date(), displayedComponents: .date)
                                 .accentColor(.colorPrimary)
-                                .padding()
                                 .labelsHidden()
                             
                             Spacer()
-                            /*TextField("user_date_of_birth", text: $surname)
-                             .foregroundColor(.primary)
-                             .onReceive(Just(surname), perform: { newValue in
-                             isSurnameValid = validation.validateName(name: surname)
-                             }).padding()
-                             .background(Capsule().fill(Color.textFieldBackground))*/
-                        }
-                        
-                        if !isSurnameValid && firstClickToChange{
-                            Text("enter_valid_surname")
-                                .font(.caption)
-                                .foregroundColor(.red)
-                                .padding(.leading, 10)
                         }
                         
                     }
@@ -132,22 +144,25 @@ struct PatientProfileView: View {
                             .padding(.leading, 75)
                         
                         HStack {
-                            
                             ZStack{
                                 Circle()
                                     .frame(width: 50, height: 50)
                                     .foregroundColor(.textFieldBackground)
                                     .opacity(1)
                                 
-                                Image(systemName: "phone")
-                                    .font(.system(size: 20))
+                                Image("gender")
+                                    .resizable()
+                                    .renderingMode(.template)
                                     .foregroundColor(.secondary)
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
+                                    .padding(.top, 1)
                                 
-                            }.padding(.trailing, 18)
+                            }.padding(.trailing, 12)
                             
                             
                             Picker(selectedGender, selection: $selectedGender) {
-                                ForEach(strengths, id: \.self) {
+                                ForEach(genders, id: \.self) {
                                     Text($0)
                                 }
                             }
@@ -158,51 +173,104 @@ struct PatientProfileView: View {
                                             .fill(Color.greyColor)
                                             .frame(height: 40)
                                             .opacity(0.2))
-                            
-                            
                             Spacer()
-                        }
-                        
-                        if !isPhoneValid && firstClickToChange{
-                            Text("enter_valid_phone")
-                                .font(.caption)
-                                .foregroundColor(.red)
-                                .padding(.leading, 10)
                         }
                     }
                     //Gender view end
                     
                     
-                    //Email view start
+                    //User Status view start
                     VStack(alignment: .leading, spacing: 4.0){
-                        Text("email")
+                        Text("contact_status")
                             .font(.subheadline)
                             .foregroundColor(.secondary)
-                            .padding(.leading, 10)
+                            .padding(.leading, 75)
                         
                         HStack {
-                            Image(systemName: "envelope")
-                                .foregroundColor(.secondary)
+                            ZStack{
+                                Circle()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.textFieldBackground)
+                                    .opacity(1)
+                                
+                                Image(systemName: "staroflife")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.secondary)
+                                
+                            }.padding(.trailing, 12)
                             
-                            TextField("email", text: $email)
-                                .foregroundColor(.primary)
-                                .disabled(true)
                             
-                        }.padding()
-                        .background(Capsule().fill(Color.textFieldBackground))
+                            Picker(selectedTrackingStatus, selection: $selectedTrackingStatus) {
+                                ForEach(trackingTypes, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            .pickerStyle(MenuPickerStyle())
+                            .accentColor(.colorPrimary)
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.greyColor)
+                                            .frame(height: 40)
+                                            .opacity(0.2))
+                            Spacer()
+                        }
                     }
-                    //Email view end
+                    //User Status view end
                     
                     
-                    Button(action: {
+                    //User Status view start
+                    VStack(alignment: .leading, spacing: 4.0){
+                        Text("user_blood_group")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .padding(.leading, 75)
+                            .padding(.bottom, 8)
+                        
+                        HStack (alignment: .top){
+                            ZStack{
+                                Circle()
+                                    .frame(width: 50, height: 50)
+                                    .foregroundColor(.textFieldBackground)
+                                    .opacity(1)
+                                
+                                Image(systemName: "drop")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.secondary)
+                                
+                            }.padding(.trailing, 12)
+                            
+                            VStack{
+                                Picker(selectedBloodGroup, selection: $selectedBloodGroup) {
+                                    ForEach(bloodGroups, id: \.self) {
+                                        Text($0)
+                                    }
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                                
+                                Picker(selectedBloodGroupRh, selection: $selectedBloodGroupRh) {
+                                    ForEach(bloodGroupRh, id: \.self) {
+                                        Text($0)
+                                    }
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                            
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                    //User Status view end
+                    
+                    
+                    /*Button(action: {
                         firstClickToChange = true
                         if 1 == 1{
-                            if isNameValid && isSurnameValid && isPhoneValid {
+                            if isIdentityValid {
                                 //let request =  UserRegisterRequest(name: name, surname: surname,email: email, password: password)
                                 //register(request: request)
                             }
                         }else if 1 == 2{
-                            if isNameValid && isSurnameValid && isPhoneValid{
+                            if isIdentityValid {
                                 //let request =  UserLoginRequest(email: email, password: password, isRemember: true)
                                 //login(request: request)
                             }
@@ -210,23 +278,37 @@ struct PatientProfileView: View {
                     }, label: {
                         Text("update")
                             .frame(maxWidth: .infinity)
-                            .frame(height: 50.0)
-                        
-                        
+                            .frame(height: 15.0)
                     })
-                    .buttonStyle(BorderlessButtonStyle())
-                    .font(.title3)
-                    .foregroundColor(.white)
-                    .background(Color.buttonBackground)
-                    .cornerRadius(90.0)
-                    .padding(.top, 10)
+                    .buttonStyle(FilledButtonStyle())
+                    .padding(.top, 10)*/
                     
+                    
+                    LoadingButton(action: {
+                        firstClickToChange = true
+                        if 1 == 1{
+                            if isIdentityValid {
+                                //let request =  UserRegisterRequest(name: name, surname: surname,email: email, password: password)
+                                //register(request: request)
+                            }
+                        }else if 1 == 2{
+                            if isIdentityValid {
+                                //let request =  UserLoginRequest(email: email, password: password, isRemember: true)
+                                //login(request: request)
+                            }
+                        }
+                    }, isLoading: $isLoading) {
+                        Text("update")
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 15.0)
+                            .foregroundColor(Color.white)
+                    }.padding(.top, 10)
                     
                     
                 }.padding(24)
             }
         }.navigationTitle("patient_data")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.automatic)
         /*.modal(isPresented: $modalIsDisplayed) {
          
          }*/
@@ -236,6 +318,7 @@ struct PatientProfileView: View {
 struct PatientProfileView_Previews: PreviewProvider {
     static var previews: some View {
         PatientProfileView()
+        //.preferredColorScheme(.dark)
     }
 }
 

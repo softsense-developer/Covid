@@ -21,8 +21,7 @@ struct ProfileView: View {
     @State var isPhoneValid: Bool = false
     
     @State var firstClickToChange: Bool = false
-    @State var isProgressViewShowing = false
-    @State var progressViewText = ""
+    @State var isLoading: Bool = false
     
     private let apiService: ApiServiceProtocol = ApiService()
     private let apiText = ApiConstantText()
@@ -56,18 +55,17 @@ struct ProfileView: View {
                         }
                         
                         TextField("name", text: $name)
-                            .foregroundColor(.primary)
+                            .textFieldStyle(CapsuleTextFieldStyle())
                             .onReceive(Just(name), perform: { newValue in
                                 isNameValid = validation.validateName(name: name)
-                            }).padding()
-                            .background(Capsule().fill(Color.textFieldBackground))
+                            })
                     }
                     
                     if !isNameValid && firstClickToChange{
                         Text("enter_valid_name")
                             .font(.caption)
                             .foregroundColor(.red)
-                            .padding(.leading, 10)
+                            .padding(.leading, 75)
                     }
                     
                 }
@@ -94,18 +92,17 @@ struct ProfileView: View {
                         }
                         
                         TextField("surname", text: $surname)
-                            .foregroundColor(.primary)
+                            .textFieldStyle(CapsuleTextFieldStyle())
                             .onReceive(Just(surname), perform: { newValue in
                                 isSurnameValid = validation.validateName(name: surname)
-                            }).padding()
-                            .background(Capsule().fill(Color.textFieldBackground))
+                            })
                     }
                     
                     if !isSurnameValid && firstClickToChange{
                         Text("enter_valid_surname")
                             .font(.caption)
                             .foregroundColor(.red)
-                            .padding(.leading, 10)
+                            .padding(.leading, 75)
                     }
                     
                 }
@@ -133,12 +130,11 @@ struct ProfileView: View {
                         }
                         
                         TextField("user_phone_hint", text: $phone)
-                            .foregroundColor(.primary)
+                            .textFieldStyle(CapsuleTextFieldStyle())
                             .keyboardType(.phonePad)
                             .onReceive(Just(phone), perform: { newValue in
                                 isPhoneValid = validation.validaPhoneNumber(phoneNumber: phone)
-                            }).padding()
-                            .background(Capsule().fill(Color.textFieldBackground))
+                            })
                         
                     }
                     
@@ -146,7 +142,7 @@ struct ProfileView: View {
                         Text("enter_valid_phone")
                             .font(.caption)
                             .foregroundColor(.red)
-                            .padding(.leading, 10)
+                            .padding(.leading, 75)
                     }
                 }
                 //Phone view end
@@ -173,17 +169,15 @@ struct ProfileView: View {
                         }
                         
                         TextField("email", text: $email)
-                            .foregroundColor(.primary)
+                            .textFieldStyle(CapsuleTextFieldStyle())
                             .disabled(true)
-                            .padding()
-                            .background(Capsule().fill(Color.textFieldBackground))
                         
                     }
                 }
                 //Email view end
                 
                 
-                Button(action: {
+                /*Button(action: {
                     firstClickToChange = true
                     if 1 == 1{
                         if isNameValid && isSurnameValid && isPhoneValid {
@@ -199,16 +193,31 @@ struct ProfileView: View {
                 }, label: {
                     Text("update")
                         .frame(maxWidth: .infinity)
-                        .frame(height: 50.0)
-                    
-                    
+                        .frame(height: 15.0)
                 })
-                .buttonStyle(BorderlessButtonStyle())
-                .font(.title3)
-                .foregroundColor(.white)
-                .background(Color.buttonBackground)
-                .cornerRadius(90.0)
+                .buttonStyle(FilledButtonStyle())
                 .padding(.top, 10)
+                .foregroundColor(Color.white)*/
+                
+                LoadingButton(action: {
+                    firstClickToChange = true
+                    if 1 == 1{
+                        if isNameValid && isSurnameValid && isPhoneValid {
+                            //let request =  UserRegisterRequest(name: name, surname: surname,email: email, password: password)
+                            //register(request: request)
+                        }
+                    }else if 1 == 2{
+                        if isNameValid && isSurnameValid && isPhoneValid{
+                            //let request =  UserLoginRequest(email: email, password: password, isRemember: true)
+                            //login(request: request)
+                        }
+                    }
+                }, isLoading: $isLoading) {
+                    Text("update")
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 15.0)
+                        .foregroundColor(Color.white)
+                }.padding(.top, 10)
                 
                 
                 
@@ -216,7 +225,6 @@ struct ProfileView: View {
             
         }.navigationBarTitleDisplayMode(.large)
         .navigationTitle("user_data")
-        
         .padding(.top, 4)
         .padding(.bottom, 4)
         
@@ -228,6 +236,7 @@ struct ProfileView: View {
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
         ProfileView()
+        //.preferredColorScheme(.dark)
     }
 }
 

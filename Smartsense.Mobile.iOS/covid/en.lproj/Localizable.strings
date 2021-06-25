@@ -29,8 +29,9 @@
 "enter_valid_name" = "Geçerli bir ad giriniz.";
 "enter_valid_surname" = "Geçerli bir soyad giriniz.";
 "enter_valid_email" = "Lütfen geçerli bir e-mail adresi giriniz.";
-"enter_valid_password" = "Lütfen minimum 6 karakter bir şifre giriniz.";
+"enter_valid_password" = "Lütfen 6-18 karakter arası bir şifre giriniz.";
 "enter_valid_phone" = "Lütfen geçerli bir numara adresi giriniz.";
+"enter_valid_identity" = "T.C. Kimlik No 11 nümerik karakter olmalıdır.";
 "terms_of_conditions" = "Hizmet Şartları";
 "privacy_policy" = "Gizlilik Politakası";
 "error_occurred" = "Bir hata oluştu. Hata kodu:";
@@ -176,6 +177,7 @@
 "user_date_of_birth" = "Doğum Tarihi";
 "user_quarantine_status" = "Karantina Türü";
 "user_diagnosis" = "Hastalık Türü";
+"user_blood_group" = "Kan Grubu";
 "doctor_id" = "Doktor ID";
 "save" = "Kaydet";
 "update" = "Güncelle";
@@ -189,12 +191,23 @@
 "male" = "Erkek";
 "female" = "Kadın";
 
+"contact_status" = "Gözlem türü";
+"home_quarantine" = "Evde karantina";
+"hospital_quarantine" = "Hastanede gözlem";
+"contact_quarantine" = "Temaslı kişi";
+"being_discharged" = "Taburcu";
+"status_other" = "Diğer";
+
+
 //Password Change View Text
 "current_password" = "Şu anki şifreniz";
 "new_password" = "Yeni şifreniz";
+"new_password_again" = "Yeni şifreniz tekrar";
 "password_change" = "Şifre Değiştir";
-
-
+"password_changed" = "Şifreniz değiştirildi.";
+"password_changing" = "Changing…";
+"old_new_password_same" = "Eski şifre ve yeni şifre aynı olamaz.";
+"password_new_again_not_same" = "Yeni şifre ve yeni şifre tekrarı aynı olmalıdır.";
 
 //Measurement settings text
 "temp_schedule" = "Ateş Ölçüm Aralığı (Dakika)";

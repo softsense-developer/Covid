@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
+    @State private var showingSetting = false
+    
     var body: some View {
         NavigationView{
             ScrollView(.vertical) {
@@ -26,12 +29,22 @@ struct HomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(
+                    /*NavigationLink(
                         destination: SettingsView(),
                         label: {
                             Label("Settings", systemImage: "gearshape.fill")
                                 .foregroundColor(Color.colorPrimary)
-                        })
+                        })*/
+                    Button(action: { showingSetting.toggle() }) {
+                        Image(systemName: "gearshape.fill")
+                            .accessibilityLabel("Settings")
+                    }
+                    
+                }
+                
+            }.sheet(isPresented: $showingSetting) {
+                NavigationView{
+                    SettingsView()
                 }
             }
         }
@@ -300,37 +313,37 @@ struct HomeAlertView: View {
                     + " " + NSLocalizedString("quarantine_home_warning", comment: "")
                 
                 /*if alertVitalType == Constant.SpO2{
-                    if quarantineType == Constant.QuarantineInHospital{
-                        quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
-                    }else{
-                        quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
-                    }
-                    
-                    var alertText = NSLocalizedString("warning_spo2", comment: "")
-                        + " " + quarantineWarningText
-                    
-                }else if alertVitalType == Constant.HeartRate{
-                    if quarantineType == Constant.QuarantineInHospital{
-                        quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
-                    }else{
-                        quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
-                    }
-                    
-                    var alertText = NSLocalizedString("warning_heartrate_low", comment: "")
-                        + " " + quarantineWarningText
-                }else{
-                    if quarantineType == Constant.QuarantineInHospital{
-                        quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
-                    }else{
-                        quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
-                    }
-                    
-                    var alertText = NSLocalizedString("warning_temp", comment: "")
-                        + " " + quarantineWarningText
-                }*/
+                 if quarantineType == Constant.QuarantineInHospital{
+                 quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
+                 }else{
+                 quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
+                 }
+                 
+                 var alertText = NSLocalizedString("warning_spo2", comment: "")
+                 + " " + quarantineWarningText
+                 
+                 }else if alertVitalType == Constant.HeartRate{
+                 if quarantineType == Constant.QuarantineInHospital{
+                 quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
+                 }else{
+                 quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
+                 }
+                 
+                 var alertText = NSLocalizedString("warning_heartrate_low", comment: "")
+                 + " " + quarantineWarningText
+                 }else{
+                 if quarantineType == Constant.QuarantineInHospital{
+                 quarantineWarningText = NSLocalizedString("quarantine_hospital_warning", comment: "")
+                 }else{
+                 quarantineWarningText = NSLocalizedString("quarantine_home_warning", comment: "")
+                 }
+                 
+                 var alertText = NSLocalizedString("warning_temp", comment: "")
+                 + " " + quarantineWarningText
+                 }*/
                 
-            
-              
+                
+                
                 
                 VStack(alignment: .leading, spacing: 16){
                     
@@ -589,7 +602,7 @@ struct HomeVitalView: View {
              .foregroundColor(Color.colorPrimary)
              })*/
             
-        }
+        }.padding(.bottom, 8)
     }
 }
 
@@ -603,6 +616,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         //HomeView()
         HomeView()
-            //.preferredColorScheme(.dark)
+        //.preferredColorScheme(.dark)
     }
 }

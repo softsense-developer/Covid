@@ -14,8 +14,8 @@ struct covidApp: App {
     var body: some Scene {
         WindowGroup {
             //LoginView()
-            MainView()
-            //SplashView()
+            //MainView()
+            SplashView()
             //EmailVerifyView()
         }/*.onChange(of: scenePhase){ phase in
             switch phase{

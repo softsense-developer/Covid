@@ -17,6 +17,16 @@ class Validation{
         let isValidateName = validateName.evaluate(with: trimmedString)
         return isValidateName
     }
+    
+    public func validateTCIdentity(tc: String) ->Bool {
+        // Length be 11 characters
+        let nameRegex = "^[0-9]{11}$"
+        let trimmedString = tc.trimmingCharacters(in: .whitespaces)
+        let validateTCIdentity = NSPredicate(format: "SELF MATCHES %@", nameRegex)
+        let isValidateTCIdentity = validateTCIdentity.evaluate(with: trimmedString)
+        return isValidateTCIdentity
+    }
+    
     public func validaPhoneNumber(phoneNumber: String) -> Bool {
         let phoneNumberRegex = "^[6-9]\\d{9}$"
         let trimmedString = phoneNumber.trimmingCharacters(in: .whitespaces)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MedicineView: View {
+    @State private var showingSetting = false
+    
     var body: some View {
         NavigationView{
             ScrollView(.vertical) {
@@ -20,12 +22,22 @@ struct MedicineView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(
+                    /*NavigationLink(
                         destination: SettingsView(),
                         label: {
                             Label("Settings", systemImage: "gearshape.fill")
                                 .foregroundColor(Color.colorPrimary)
-                        })
+                        })*/
+                    Button(action: { showingSetting.toggle() }) {
+                        Image(systemName: "gearshape.fill")
+                            .accessibilityLabel("Settings")
+                    }
+                    
+                }
+                
+            }.sheet(isPresented: $showingSetting) {
+                NavigationView{
+                    SettingsView()
                 }
             }
         }

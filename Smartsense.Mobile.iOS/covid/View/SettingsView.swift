@@ -9,28 +9,23 @@ import SwiftUI
 
 struct SettingsView: View {
     var body: some View {
-        
-        
-        
         ScrollView(.vertical) {
             VStack{
                 SettingBodyView()
             }
-        }.navigationTitle("settings")
+        }
+        
+        .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.inline)
-        
-        
-        
-        
         
     }
 }
 
 struct SettingBodyView: View {
-    let circleSize: CGFloat = 60
-    let rectSize: CGFloat = 45
-    let rectIconSize: CGFloat = 15
-    let iconSize: CGFloat = 25
+    let circleSize: CGFloat = 55
+    let iconSize: CGFloat = 22
+    let rectSize: CGFloat = 40
+    let rectIconSize: CGFloat = 12
     
     var body: some View{
         GeometryReader { geo in

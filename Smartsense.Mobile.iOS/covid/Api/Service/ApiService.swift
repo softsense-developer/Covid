@@ -29,6 +29,9 @@ enum Path: String {
     case PATIENT_GET_INFO = "/api/patient/getinfo"
     case PATIENT_GET_QUARANTINE_STATUS = "/api/patient/quarantinestatus"
     case TOKEN_REFRESH = "/api/auth/refreshtoken"
+    case PASSWORD_CHANGE = "/api/auth/changepassword"
+    case USER_INFO_CHANGE = "/api/auth/putinfo"
+    case PATIENT_INFO_UPDATE = "/api/patient/putinfo"
 }
 
 public enum ErrorCode: Int  {
@@ -38,6 +41,9 @@ public enum ErrorCode: Int  {
     case PATIENT_GET_INFO = 130
     case PATIENT_GET_QUARANTINE_STATUS = 140
     case TOKEN_REFRESH = 150
+    case PASSWORD_CHANGE = 160
+    case USER_INFO_CHANGE = 170
+    case PATIENT_INFO_UPDATE = 180
 }
 
 struct ApiService: ApiServiceProtocol {
@@ -183,7 +189,81 @@ struct ApiService: ApiServiceProtocol {
     }
     
     
+    func passwordChange(request: PasswordChangeRequest, onSuccess: @escaping (PasswordChangeResponse) -> Void, onFail: @escaping (String?) -> Void) {
+        if Connectivity.isConnectedToInternet{
+            AF.request(Path.PASSWORD_CHANGE.withBaseUrl(), method: .post, parameters: request.toJson, encoding: JSONEncoding.default, headers: headers).responseJSON{ response in
+                guard response.data != nil else {
+                    onFail(response.debugDescription)
+                    return
+                }
+                responseHandler(errorCode: ErrorCode.PASSWORD_CHANGE.rawValue + 2, response: response, onSuccess: {(responseHandled) in
+                    do{
+                        let responseData = try JSONDecoder().decode(PasswordChangeResponse.self, from: response.data!)
+                        onSuccess(responseData)
+                    }catch{
+                        print(error.localizedDescription)
+                        NotificationBanner(title: NSLocalizedString("error_occurred", comment: "") + " " + String(ErrorCode.PASSWORD_CHANGE.rawValue + 1), style: .danger).show(bannerPosition: .top)
+                    }
+                },onFail: {(data) in
+                    onFail(data ?? "")
+                })
+            }
+        }else{
+            onFail("")
+            StatusBarNotificationBanner(title: NSLocalizedString("no_connection", comment: ""), style: .danger).show()
+        }
+    }
     
+    func userInfoChange(request: UserInfoChangeRequest, onSuccess: @escaping (UserInfoChangeResponse) -> Void, onFail: @escaping (String?) -> Void) {
+        if Connectivity.isConnectedToInternet{
+            AF.request(Path.USER_INFO_CHANGE.withBaseUrl(), method: .post, parameters: request.toJson, encoding: JSONEncoding.default, headers: headers).responseJSON{ response in
+                guard response.data != nil else {
+                    onFail(response.debugDescription)
+                    return
+                }
+                responseHandler(errorCode: ErrorCode.USER_INFO_CHANGE.rawValue + 2, response: response, onSuccess: {(responseHandled) in
+                    do{
+                        let responseData = try JSONDecoder().decode(UserInfoChangeResponse.self, from: response.data!)
+                        onSuccess(responseData)
+                    }catch{
+                        print(error.localizedDescription)
+                        NotificationBanner(title: NSLocalizedString("error_occurred", comment: "") + " " + String(ErrorCode.USER_INFO_CHANGE.rawValue + 1), style: .danger).show(bannerPosition: .top)
+                    }
+                },onFail: {(data) in
+                    onFail(data ?? "")
+                })
+            }
+        }else{
+            onFail("")
+            StatusBarNotificationBanner(title: NSLocalizedString("no_connection", comment: ""), style: .danger).show()
+        }
+    }
+    
+    
+    func updatePatientInfo(request: PutPatientInfoRequest, onSuccess: @escaping (PutPatientInfoResponse) -> Void, onFail: @escaping (String?) -> Void) {
+        if Connectivity.isConnectedToInternet{
+            AF.request(Path.PATIENT_INFO_UPDATE.withBaseUrl(), method: .put, parameters: request.toJson, encoding: JSONEncoding.default, headers: headers).responseJSON{ response in
+                guard response.data != nil else {
+                    onFail(response.debugDescription)
+                    return
+                }
+                responseHandler(errorCode: ErrorCode.PATIENT_INFO_UPDATE.rawValue + 2, response: response, onSuccess: {(responseHandled) in
+                    do{
+                        let responseData = try JSONDecoder().decode(PutPatientInfoResponse.self, from: response.data!)
+                        onSuccess(responseData)
+                    }catch{
+                        print(error.localizedDescription)
+                        NotificationBanner(title: NSLocalizedString("error_occurred", comment: "") + " " + String(ErrorCode.PATIENT_INFO_UPDATE.rawValue + 1), style: .danger).show(bannerPosition: .top)
+                    }
+                },onFail: {(data) in
+                    onFail(data ?? "")
+                })
+            }
+        }else{
+            onFail("")
+            StatusBarNotificationBanner(title: NSLocalizedString("no_connection", comment: ""), style: .danger).show()
+        }
+    }
     
     
     

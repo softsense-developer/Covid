@@ -201,7 +201,7 @@ struct LoginSignUpView: View {
                                         })
                                 }
                                 Button(action: { self.showPassword.toggle()}) {
-                                    Image(systemName: "eye")
+                                    Image(systemName: showPassword ?  "eye.slash" : "eye")
                                         .foregroundColor(.secondary)
                                 }
                             }.padding()
@@ -418,6 +418,7 @@ struct LoginSignUpView: View {
         isProgressViewShowing = true
         
         apiService.login(request: request, onSuccess: {(response) in
+            print(response)
             MyKeychain.userID = String(response.userId ?? -1)
             MyKeychain.userName = response.name ?? ""
             MyKeychain.userSurname = response.surname ?? ""
@@ -447,6 +448,8 @@ struct LoginSignUpView: View {
         isProgressViewShowing = true
         
         apiService.register(request: request, onSuccess: {(response) in
+            print(response)
+            
             isProgressViewShowing = false
             MyKeychain.userName = name
             MyKeychain.userSurname = surname
@@ -518,8 +521,8 @@ class ObservedLoginData: ObservableObject {
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-        LoginView()
-            .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)
+        /*LoginView()
+            .preferredColorScheme(/*@START_MENU_TOKEN@*/.dark/*@END_MENU_TOKEN@*/)*/
     }
 }
 
