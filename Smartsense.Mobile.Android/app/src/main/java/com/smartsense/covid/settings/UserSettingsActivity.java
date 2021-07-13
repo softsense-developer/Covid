@@ -34,6 +34,8 @@ import com.smartsense.covid.api.model.requests.UserInfoRequest;
 import com.smartsense.covid.api.model.responses.UserInfoResponse;
 import com.smartsense.covid.api.service.RetrofitClient;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,7 +58,7 @@ public class UserSettingsActivity extends AppCompatActivity {
     private boolean isSave = true;
     private String userNameText, userSurnameText, userPhoneText, identityNumberText, dateOfBirthText, bloodGroupText;
     private ApiConstantText apiText;
-    private String TAG = "Smartsense";
+    private String TAG = "UserSettingsActivity";
     private Dialog loadingDialog;
     private Spinner genderSpinner, contactSpinner;
     private int contactType = 0, genderType = 0;
@@ -214,15 +216,12 @@ public class UserSettingsActivity extends AppCompatActivity {
                         request.setPhone(userPhoneText);
                         updateProfileInfo(request);
                     } else {
-                        Toast.makeText(UserSettingsActivity.this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show();
+                        getShortToast(getString(R.string.noConnection));
                     }
 
                     hideKeyboard(UserSettingsActivity.this);
                 } else {
-                    if (userPhoneText.length() != 10) {
-                        userPhone.setError(getString(R.string.phone_must_length));
-                    }
-
+                    userPhone.setError(getString(R.string.phone_must_length));
                     errorNull();
                 }
 
@@ -268,14 +267,12 @@ public class UserSettingsActivity extends AppCompatActivity {
                             addPatientInfo(addInfoRequest);
                         }
                     } else {
-                        Toast.makeText(UserSettingsActivity.this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show();
+                        getShortToast(getString(R.string.noConnection));
                     }
 
                     hideKeyboard(UserSettingsActivity.this);
                 } else {
-                    if (identityNumberText.length() != 11) {
-                        userIdentity.setError(getString(R.string.identity_must_length));
-                    }
+                    userIdentity.setError(getString(R.string.identity_must_length));
                     errorNull();
                 }
 
@@ -291,8 +288,13 @@ public class UserSettingsActivity extends AppCompatActivity {
         });
 
 
-        getUserInfo();
-        if(prefManager.getUserIdentity()!=null){
+        if (isConnectionHas()) {
+            getUserInfo();
+        } else {
+            getShortToast(getString(R.string.noConnection));
+        }
+
+        if (prefManager.getUserIdentity() != null) {
             getPatientInfo();
         }
 
@@ -312,7 +314,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<UserInfoResponse>() {
             @Override
-            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
+            public void onResponse(@NotNull Call<UserInfoResponse> call, @NotNull Response<UserInfoResponse> response) {
                 if (response.code() == 200) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -350,18 +352,18 @@ public class UserSettingsActivity extends AppCompatActivity {
                         } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
                             getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 265");
+                            getShortToast(getString(R.string.occurred_error) + " 263");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        getShortToast(getString(R.string.occurred_error) + " 266");
+                        getShortToast(getString(R.string.occurred_error) + " 264");
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
-                Toast.makeText(UserSettingsActivity.this, getString(R.string.occurred_error) + " 263", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<UserInfoResponse> call, @NotNull Throwable t) {
+                getShortToast(getString(R.string.occurred_error) + " 265");
             }
         });
     }
@@ -373,7 +375,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<PatientInfoResponse>() {
             @Override
-            public void onResponse(Call<PatientInfoResponse> call, Response<PatientInfoResponse> response) {
+            public void onResponse(@NotNull Call<PatientInfoResponse> call, @NotNull Response<PatientInfoResponse> response) {
                 if (response.code() == 200) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -408,10 +410,10 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 getLongToast(errors.toString());
                             }
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 261");
+                            getShortToast(getString(R.string.occurred_error) + " 271");
                         }
                     } else {
-                        getShortToast(getString(R.string.occurred_error) + " 262");
+                        getShortToast(getString(R.string.occurred_error) + " 272");
                     }
                 } else {
                     try {
@@ -424,18 +426,18 @@ public class UserSettingsActivity extends AppCompatActivity {
                         } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
                             getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 265");
+                            getShortToast(getString(R.string.occurred_error) + " 273");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        getShortToast(getString(R.string.occurred_error) + " 266");
+                        getShortToast(getString(R.string.occurred_error) + " 274");
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<PatientInfoResponse> call, Throwable t) {
-                Toast.makeText(UserSettingsActivity.this, getString(R.string.occurred_error) + " 263", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<PatientInfoResponse> call, @NotNull Throwable t) {
+                getShortToast(getString(R.string.occurred_error) + " 275");
             }
         });
     }
@@ -446,7 +448,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<UserInfoResponse>() {
             @Override
-            public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
+            public void onResponse(@NotNull Call<UserInfoResponse> call, @NotNull Response<UserInfoResponse> response) {
                 if (response.code() == 200) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -465,10 +467,10 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 getLongToast(errors.toString());
                             }
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 261");
+                            getShortToast(getString(R.string.occurred_error) + " 281");
                         }
                     } else {
-                        getShortToast(getString(R.string.occurred_error) + " 262");
+                        getShortToast(getString(R.string.occurred_error) + " 282");
                     }
                 } else {
                     try {
@@ -481,19 +483,19 @@ public class UserSettingsActivity extends AppCompatActivity {
                         } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
                             getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 265");
+                            getShortToast(getString(R.string.occurred_error) + " 283");
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
-                        getShortToast(getString(R.string.occurred_error) + " 266");
+                        getShortToast(getString(R.string.occurred_error) + " 284");
                     }
                 }
                 loadingDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<UserInfoResponse> call, Throwable t) {
-                Toast.makeText(UserSettingsActivity.this, getString(R.string.occurred_error) + " 263", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<UserInfoResponse> call, @NotNull Throwable t) {
+                getShortToast(getString(R.string.occurred_error) + " 285");
                 loadingDialog.dismiss();
             }
         });
@@ -505,7 +507,7 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<AddInfoResponse>() {
             @Override
-            public void onResponse(Call<AddInfoResponse> call, Response<AddInfoResponse> response) {
+            public void onResponse(@NotNull Call<AddInfoResponse> call, @NotNull Response<AddInfoResponse> response) {
                 if (response.code() == 200) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -531,22 +533,27 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 getLongToast(errors.toString());
                             }
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 261");
+                            getShortToast(getString(R.string.occurred_error) + " 291");
                         }
                     } else {
-                        getShortToast(getString(R.string.occurred_error) + " 262");
+                        getShortToast(getString(R.string.occurred_error) + " 292");
                     }
                 } else {
-                    if (response.code() == ApiConstant.BAD_REQUEST) {
-                        getShortToast(apiText.getText(ApiConstant.BAD_REQUEST));
-                    } else if (response.code() == ApiConstant.UNAUTHORIZED) {
-                        getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED));
-                    } else if (response.code() == ApiConstant.FORBIDDEN) {
-                        getShortToast(apiText.getText(ApiConstant.FORBIDDEN));
-                    } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
-                        getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
-                    } else {
-                        getShortToast(getString(R.string.occurred_error) + " 265");
+                    try {
+                        if (response.code() == ApiConstant.BAD_REQUEST) {
+                            getShortToast(apiText.getText(ApiConstant.BAD_REQUEST));
+                        } else if (response.code() == ApiConstant.UNAUTHORIZED) {
+                            getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED));
+                        } else if (response.code() == ApiConstant.FORBIDDEN) {
+                            getShortToast(apiText.getText(ApiConstant.FORBIDDEN));
+                        } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
+                            getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
+                        } else {
+                            getShortToast(getString(R.string.occurred_error) + " 293");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        getShortToast(getString(R.string.occurred_error) + " 294");
                     }
 
                 }
@@ -554,8 +561,8 @@ public class UserSettingsActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<AddInfoResponse> call, Throwable t) {
-                Toast.makeText(UserSettingsActivity.this, getString(R.string.occurred_error) + " 263", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<AddInfoResponse> call, @NotNull Throwable t) {
+                getShortToast(getString(R.string.occurred_error) + " 295");
                 Log.i(TAG, "onFailure: ");
                 loadingDialog.dismiss();
             }
@@ -570,13 +577,10 @@ public class UserSettingsActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<AddInfoResponse>() {
             @Override
-            public void onResponse(Call<AddInfoResponse> call, Response<AddInfoResponse> response) {
+            public void onResponse(@NotNull Call<AddInfoResponse> call, @NotNull Response<AddInfoResponse> response) {
                 if (response.code() == 200) {
-                    Log.i(TAG, "onResponse: 200");
                     if (response.isSuccessful()) {
-                        Log.i(TAG, "onResponse: successful");
                         if (response.body() != null) {
-                            Log.i(TAG, "onResponse: body!=null");
                             if (response.body().getCode().equals("200")) {
                                 Log.i(TAG, "updatePatientInfo: 200");
                                 Log.i(TAG, "updatePatientInfo: " + request.toString());
@@ -596,7 +600,6 @@ public class UserSettingsActivity extends AppCompatActivity {
 
                             } else if (response.body().getCode().equals("400")) {
                                 StringBuilder errors = new StringBuilder();
-                                Log.i(TAG, "updatePatientInfo: 400");
                                 for (int i = 0; i < response.body().getErrors().size(); i++) {
                                     errors.append(response.body().getErrors().get(response.body().getErrors().size() - 1 - i));
                                     errors.append("\n");
@@ -604,34 +607,35 @@ public class UserSettingsActivity extends AppCompatActivity {
                                 getLongToast(errors.toString());
                             }
                         } else {
-                            getShortToast(getString(R.string.occurred_error) + " 261");
+                            getShortToast(getString(R.string.occurred_error) + " 301");
                         }
                     } else {
-                        getShortToast(getString(R.string.occurred_error) + " 262");
+                        getShortToast(getString(R.string.occurred_error) + " 302");
                     }
                 } else {
-                    Log.i(TAG, "else: " + response.code());
-                    Log.i(TAG, "else: " + response.errorBody().toString());
-
-                    if (response.code() == ApiConstant.BAD_REQUEST) {
-                        getShortToast(apiText.getText(ApiConstant.BAD_REQUEST));
-                    } else if (response.code() == ApiConstant.UNAUTHORIZED) {
-                        getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED));
-                    } else if (response.code() == ApiConstant.FORBIDDEN) {
-                        getShortToast(apiText.getText(ApiConstant.FORBIDDEN));
-                    } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
-                        getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
-                    } else {
-                        getShortToast(getString(R.string.occurred_error) + " 265");
+                    try {
+                        if (response.code() == ApiConstant.BAD_REQUEST) {
+                            getShortToast(apiText.getText(ApiConstant.BAD_REQUEST));
+                        } else if (response.code() == ApiConstant.UNAUTHORIZED) {
+                            getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED));
+                        } else if (response.code() == ApiConstant.FORBIDDEN) {
+                            getShortToast(apiText.getText(ApiConstant.FORBIDDEN));
+                        } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
+                            getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
+                        } else {
+                            getShortToast(getString(R.string.occurred_error) + " 303");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        getShortToast(getString(R.string.occurred_error) + " 304");
                     }
-
                 }
                 loadingDialog.dismiss();
             }
 
             @Override
-            public void onFailure(Call<AddInfoResponse> call, Throwable t) {
-                Toast.makeText(UserSettingsActivity.this, getString(R.string.occurred_error) + " 263", Toast.LENGTH_SHORT).show();
+            public void onFailure(@NotNull Call<AddInfoResponse> call, @NotNull Throwable t) {
+                getShortToast(getString(R.string.occurred_error) + " 305");
                 Log.i(TAG, "onFailure: ");
                 loadingDialog.dismiss();
             }
@@ -725,15 +729,13 @@ public class UserSettingsActivity extends AppCompatActivity {
 
     private void errorNull() {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                userName.setError(null);
-                userPhone.setError(null);
-                userSurname.setError(null);
-                userIdentity.setError(null);
-                userBirthDate.setError(null);
-                userBloodGroup.setError(null);
-            }
+        handler.postDelayed(() -> {
+            userName.setError(null);
+            userPhone.setError(null);
+            userSurname.setError(null);
+            userIdentity.setError(null);
+            userBirthDate.setError(null);
+            userBloodGroup.setError(null);
         }, 4000);
     }
 

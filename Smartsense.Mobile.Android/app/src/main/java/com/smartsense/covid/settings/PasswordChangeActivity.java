@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -15,13 +14,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
-import com.smartsense.covid.api.ApiConstant;
-import com.smartsense.covid.api.ApiConstantText;
 import com.smartsense.covid.PrefManager;
 import com.smartsense.covid.R;
+import com.smartsense.covid.Validation;
+import com.smartsense.covid.api.ApiConstant;
+import com.smartsense.covid.api.ApiConstantText;
 import com.smartsense.covid.api.model.requests.PasswordChangeRequest;
 import com.smartsense.covid.api.model.responses.PasswordChangeResponse;
 import com.smartsense.covid.api.service.RetrofitClient;
+
+import org.jetbrains.annotations.NotNull;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -35,8 +37,9 @@ public class PasswordChangeActivity extends AppCompatActivity {
     private String oldPassText, newPassText;
     private PrefManager prefManager;
     private ApiConstantText apiText;
-    private String TAG = "Smartsense";
+    private final String TAG = "Smartsense";
     private Dialog loadingDialog;
+    private Validation validation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,46 +60,40 @@ public class PasswordChangeActivity extends AppCompatActivity {
         loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         loadingDialog.getWindow().setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        updatePass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                oldPassText = oldPass.getEditText().getText().toString().trim();
-                newPassText = newPass.getEditText().getText().toString().trim();
+        updatePass.setOnClickListener(view -> {
+            oldPassText = oldPass.getEditText().getText().toString().trim();
+            newPassText = newPass.getEditText().getText().toString().trim();
 
-                if (!oldPassText.isEmpty() && !newPassText.isEmpty()) {
-                    if (passwordCheck(oldPassText) && passwordCheck(newPassText)) {
-                        if (!oldPassText.equals(newPassText)) {
-                            if (isConnectionHas()) {
-                                if (loadingDialog != null && !loadingDialog.isShowing()) {
-                                    loadingDialog.show();
-                                }
-                                PasswordChangeRequest request = new PasswordChangeRequest();
-                                request.setOldPassword(oldPassText);
-                                request.setNewPassword(newPassText);
-                                request.setConfirmPassword(newPassText);
-                                changePassword(request);
-                            } else {
-                                Toast.makeText(PasswordChangeActivity.this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            Toast.makeText(PasswordChangeActivity.this, getString(R.string.old_pass_same_new), Toast.LENGTH_SHORT).show();
+            if (validation.isValidPassword(oldPassText, false) &&
+                    validation.isValidPassword(newPassText, false)) {
+
+                if (!oldPassText.equals(newPassText)) {
+                    if (isConnectionHas()) {
+                        if (loadingDialog != null && !loadingDialog.isShowing()) {
+                            loadingDialog.show();
                         }
-                    } else if (!passwordCheck(oldPassText)) {
-                        oldPass.setError(getString(R.string.error_invalid_password));
-                        errorNull();
+
+                        PasswordChangeRequest request = new PasswordChangeRequest();
+                        request.setOldPassword(oldPassText);
+                        request.setNewPassword(newPassText);
+                        request.setConfirmPassword(newPassText);
+                        changePassword(request);
                     } else {
-                        newPass.setError(getString(R.string.error_invalid_password));
-                        errorNull();
+                        getShortToast(getString(R.string.noConnection));
                     }
                 } else {
-                    if (oldPassText.isEmpty()) {
-                        oldPass.setError(getString(R.string.not_empty));
-                    }
-                    if (newPassText.isEmpty()) {
-                        newPass.setError(getString(R.string.not_empty));
-                    }
-                    errorNull();
+                    getShortToast(getString(R.string.old_pass_same_new));
                 }
+            } else {
+                if (!validation.isValidPassword(oldPassText, false)) {
+                    oldPass.setError(getString(R.string.enter_valid_password));
+                    oldPass.requestFocus();
+                }
+                if (!validation.isValidPassword(newPassText, false)) {
+                    newPass.setError(getString(R.string.enter_valid_password));
+                    newPass.requestFocus();
+                }
+                errorNull();
             }
         });
     }
@@ -108,7 +105,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<PasswordChangeResponse>() {
             @Override
-            public void onResponse(Call<PasswordChangeResponse> call, Response<PasswordChangeResponse> response) {
+            public void onResponse(@NotNull Call<PasswordChangeResponse> call, @NotNull Response<PasswordChangeResponse> response) {
                 if (response.code() == 200) {
                     if (response.isSuccessful()) {
                         if (response.body() != null) {
@@ -153,7 +150,7 @@ public class PasswordChangeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<PasswordChangeResponse> call, Throwable t) {
+            public void onFailure(@NotNull Call<PasswordChangeResponse> call, @NotNull Throwable t) {
                 getShortToast(getString(R.string.occurred_error) + " 273");
                 loadingDialog.dismiss();
             }
@@ -169,7 +166,11 @@ public class PasswordChangeActivity extends AppCompatActivity {
     }
 
 
-    //TODO Old api
+    /**
+     * Old api request deprecated
+     *
+     * @deprecated use {@link #changePassword(PasswordChangeRequest)}  instead.
+     */
     private void updatePassword(String old, String newPass) {
         Call<ResponseBody> call = RetrofitClient.getInstance().getApi(getApplicationContext())
                 .updatePassword(old, newPass, newPass);
@@ -203,17 +204,12 @@ public class PasswordChangeActivity extends AppCompatActivity {
 
     private void errorNull() {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                oldPass.setError(null);
-                newPass.setError(null);
-            }
+        handler.postDelayed(() -> {
+            oldPass.setError(null);
+            newPass.setError(null);
         }, 4000);
     }
 
-    public boolean passwordCheck(String pass) {
-        return pass.length() >= 6;
-    }
 
     private boolean isConnectionHas() {
         ConnectivityManager cm =

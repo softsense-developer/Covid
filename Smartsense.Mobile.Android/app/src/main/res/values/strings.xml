@@ -37,6 +37,10 @@
     <string name="pass_empty">Şifre boş olamaz</string>
     <string name="name_empty">Ad soyad boş olamaz</string>
     <string name="phone_empty">Telefon numarası boş olamaz</string>
+    <string name="enter_valid_name">Geçerli bir ad giriniz.</string>
+    <string name="enter_valid_surname">Geçerli bir soyad giriniz.</string>
+    <string name="enter_valid_email">Lütfen geçerli bir e-mail adresi giriniz.</string>
+    <string name="enter_valid_password">Lütfen 6–18 karakter arası bir şifre giriniz.</string>
     <string name="doctor_id_empty">Doktor ID boş olamaz</string>
     <string name="register_dot">Kaydolunuyor…</string>
     <string name="password_reset_info">Şifre sıfırlama maili gönderildi. Lütfen email adresinizi kontrol edin!</string>

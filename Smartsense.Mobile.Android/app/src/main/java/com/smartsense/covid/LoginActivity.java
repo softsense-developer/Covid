@@ -358,7 +358,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                 if(response.body().getRoleId() != MyConstant.PATIENT_ROLE){
                                     Intent intent = new Intent(LoginActivity.this, WebViewActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(intent);
+                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                                 }else{
                                     getPatientInfo();
                                 }
@@ -416,6 +418,70 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<UserLoginResponse> call, Throwable t) {
                 Log.i(TAG, "onFailure");
                 getShortToast(getString(R.string.occurred_error) + " 114");
+                progressDialog.dismiss();
+            }
+        });
+
+    }
+
+
+
+    private void sendPassReset(String email) {
+        ResetPasswordRequest request = new ResetPasswordRequest();
+        request.setEmail(email);
+
+        Call<ResetPasswordResponse> call = RetrofitClient
+                .getInstance()
+                .getApi(getApplicationContext())
+                .resetPassword(request);
+
+        call.enqueue(new Callback<ResetPasswordResponse>() {
+            @Override
+            public void onResponse(Call<ResetPasswordResponse> call, Response<ResetPasswordResponse> response) {
+                if (response.code() == 200) {
+                    if (response.isSuccessful()) {
+                        if (response.body() != null) {
+                            if (response.body().getCode().equals("200")) {
+                                getShortToast(getString(R.string.password_reset_info));
+                            } else if (response.body().getCode().equals("400")) {
+                                StringBuilder errors = new StringBuilder();
+                                for (int i = 0; i < response.body().getErrors().size(); i++) {
+                                    errors.append(response.body().getErrors().get(response.body().getErrors().size() - 1 - i));
+                                    errors.append("\n");
+                                }
+                                getLongToast(errors.toString());
+                            }
+                        } else {
+                            getShortToast(getString(R.string.occurred_error) + " 101");
+                        }
+                    } else {
+                        getShortToast(getString(R.string.occurred_error) + " 102");
+                    }
+                } else {
+                    try {
+                        if (response.code() == ApiConstant.BAD_REQUEST) {
+                            getShortToast(apiText.getText(ApiConstant.BAD_REQUEST));
+                        } else if (response.code() == ApiConstant.UNAUTHORIZED) {
+                            getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED));
+                        } else if (response.code() == ApiConstant.FORBIDDEN) {
+                            getShortToast(apiText.getText(ApiConstant.FORBIDDEN));
+                        } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
+                            getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
+                        } else {
+                            getShortToast(getString(R.string.occurred_error) + " 115");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        getShortToast(getString(R.string.occurred_error) + " 116");
+                    }
+                }
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ResetPasswordResponse> call, Throwable t) {
+                getShortToast(getString(R.string.occurred_error) + " 104");
+                Log.i(TAG, t.getLocalizedMessage());
                 progressDialog.dismiss();
             }
         });
@@ -657,8 +723,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    //TODO deprecated api
-    /*
+    /**
+     * Old api request deprecated
+     *
+     * @deprecated use {@link #signUpLoginButtonNA()} ()} instead.
+     */
+    @Deprecated
     private void signUpLoginButton() {
         if (connectionCheck()) {
             email = etEmail.getText().toString();
@@ -763,10 +833,14 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, R.string.noConnection, Toast.LENGTH_SHORT).show();
         }
     }
-     */
 
-    //TODO deprecated api
-    /*
+
+    /**
+     * Old api request deprecated
+     *
+     * @deprecated use {@link #login(UserLoginRequest)} ()} instead.
+     */
+    @Deprecated
     private void loginUser(String email, String password) {
         Call<LoginResponse> call = RetrofitClient
                 .getInstance().getApi(getApplicationContext()).userLogin("password", email, password);
@@ -807,12 +881,14 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
-
     }
-    */
 
-    //TODO deprecated api
-    /*
+    /**
+     * Old api request deprecated
+     *
+     * @deprecated use {@link #login(UserLoginRequest)} ()} instead.
+     */
+    @Deprecated
     private void getUserData(String email, String password) {
         Call<UserDataResponse> call = RetrofitClient
                 .getInstance().getApi(getApplicationContext()).getUserData(email);
@@ -858,13 +934,15 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
-
     }
-    */
 
 
-    //TODO deprecated api
-    /*
+    /**
+     * Old api request deprecated
+     *
+     * @deprecated use {@link #register(UserRegisterRequest)} ()} instead.
+     */
+    @Deprecated
     private void signUpUser(String email, String password, String name, String surname, String phone, int doctorID) {
 
         StringBuilder username = new StringBuilder();
@@ -936,10 +1014,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    */
 
-    //TODO deprecated api
-    /*
+    /**
+     * Old api request deprecated
+     *
+     * @deprecated use {@link #getQuarantineStatus()} ()} instead.
+     */
+    @Deprecated
     private void getLocationStatus() {
         Call<SetLocationStatusResponse> call = RetrofitClient
                 .getInstance().getApi(getApplicationContext()).getUserLocationStatus(prefManager.getUserEmail());
@@ -985,7 +1066,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    */
 
     private void signUpLegalSpanMultiply() {
         SpannableString ss = new SpannableString(getResources().getString(R.string.sign_up_legal));
@@ -1075,67 +1155,6 @@ public class LoginActivity extends AppCompatActivity {
         return DateFormat.format("yyyy-MM-ddHH:mm:ss", cal).toString();
     }
 
-    private void sendPassReset(String email) {
-        ResetPasswordRequest request = new ResetPasswordRequest();
-        request.setEmail(email);
-
-        Call<ResetPasswordResponse> call = RetrofitClient
-                .getInstance()
-                .getApi(getApplicationContext())
-                .resetPassword(request);
-
-        call.enqueue(new Callback<ResetPasswordResponse>() {
-            @Override
-            public void onResponse(Call<ResetPasswordResponse> call, Response<ResetPasswordResponse> response) {
-                if (response.code() == 200) {
-                    if (response.isSuccessful()) {
-                        if (response.body() != null) {
-                            if (response.body().getCode().equals("200")) {
-                                getShortToast(getString(R.string.password_reset_info));
-                            } else if (response.body().getCode().equals("400")) {
-                                StringBuilder errors = new StringBuilder();
-                                for (int i = 0; i < response.body().getErrors().size(); i++) {
-                                    errors.append(response.body().getErrors().get(response.body().getErrors().size() - 1 - i));
-                                    errors.append("\n");
-                                }
-                                getLongToast(errors.toString());
-                            }
-                        } else {
-                            getShortToast(getString(R.string.occurred_error) + " 101");
-                        }
-                    } else {
-                        getShortToast(getString(R.string.occurred_error) + " 102");
-                    }
-                } else {
-                    try {
-                        if (response.code() == ApiConstant.BAD_REQUEST) {
-                            getShortToast(apiText.getText(ApiConstant.BAD_REQUEST));
-                        } else if (response.code() == ApiConstant.UNAUTHORIZED) {
-                            getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED));
-                        } else if (response.code() == ApiConstant.FORBIDDEN) {
-                            getShortToast(apiText.getText(ApiConstant.FORBIDDEN));
-                        } else if (response.code() == ApiConstant.INTERNAL_SERVER) {
-                            getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER));
-                        } else {
-                            getShortToast(getString(R.string.occurred_error) + " 115");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        getShortToast(getString(R.string.occurred_error) + " 116");
-                    }
-                }
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<ResetPasswordResponse> call, Throwable t) {
-                getShortToast(getString(R.string.occurred_error) + " 104");
-                Log.i(TAG, t.getLocalizedMessage());
-                progressDialog.dismiss();
-            }
-        });
-
-    }
 
     public boolean connectionCheck() {
         boolean isConnected = false;
