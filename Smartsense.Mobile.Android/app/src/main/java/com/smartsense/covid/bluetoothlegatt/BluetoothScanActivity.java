@@ -96,14 +96,14 @@ public class BluetoothScanActivity extends AppCompatActivity implements com.smar
             mScanning = false;
         }
 
-        Log.i(TAG,(item.getAddress()+" "+ item.getName()));
+        Log.i(TAG, (item.getAddress() + " " + item.getName()));
 
 
         Intent returnIntent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putParcelable(EXTRA_DEVICE, item);
         returnIntent.putExtras(bundle);
-        setResult(Activity.RESULT_OK,returnIntent);
+        setResult(Activity.RESULT_OK, returnIntent);
         finish();
 
         /*Intent intent = new Intent(this, CovidMainActivity.class);
@@ -130,9 +130,9 @@ public class BluetoothScanActivity extends AppCompatActivity implements com.smar
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_scan:
-                if(!mScanning){
+                if (!mScanning) {
                     scanLeDevice(true);
-                }else{
+                } else {
                     scanLeDevice(false);
                 }
                 break;
@@ -240,18 +240,15 @@ public class BluetoothScanActivity extends AppCompatActivity implements com.smar
                     }
                     scanDevices();
                 } else {
-                    snackbar.setAction(getString(R.string.location_permission_enable), new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent i = new Intent();
-                            i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            i.setData(Uri.parse("package:" + getPackageName()));
-                            i.addCategory(Intent.CATEGORY_DEFAULT);
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-                            startActivity(i);
-                        }
+                    snackbar.setAction(getString(R.string.location_permission_enable), v -> {
+                        Intent i = new Intent();
+                        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        i.setData(Uri.parse("package:" + getPackageName()));
+                        i.addCategory(Intent.CATEGORY_DEFAULT);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                        i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                        startActivity(i);
                     }).show();
                 }
                 break;

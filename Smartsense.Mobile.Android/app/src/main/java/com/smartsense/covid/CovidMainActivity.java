@@ -38,10 +38,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
@@ -66,6 +68,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.jstyle.blesdk1963.Util.BleSDK;
+import com.jstyle.blesdk1963.callback.DataListener1963;
+import com.jstyle.blesdk1963.constant.BleConst;
+import com.jstyle.blesdk1963.constant.DeviceKey;
 import com.smartsense.covid.api.ApiConstant;
 import com.smartsense.covid.api.ApiConstantText;
 import com.smartsense.covid.api.model.requests.AddQuarantineLocationRequest;
@@ -84,6 +90,10 @@ import com.smartsense.covid.location.Common;
 import com.smartsense.covid.location.MyBackgroundService;
 import com.smartsense.covid.location.SendLocationToActivity;
 import com.smartsense.covid.model.Covid;
+import com.smartsense.covid.newBand.BleData;
+import com.smartsense.covid.newBand.BleManager;
+import com.smartsense.covid.newBand.BleService;
+import com.smartsense.covid.newBand.RxBus;
 import com.smartsense.covid.repo.CovidRepository;
 import com.smartsense.covid.settings.SettingsActivity;
 
@@ -103,13 +113,17 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.bluetooth.BluetoothDevice.EXTRA_DEVICE;
 
-public class CovidMainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener /*implements BaglantiFragment.onBluetoothScanListener*/ {
+public class CovidMainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener, DataListener1963  /*implements BaglantiFragment.onBluetoothScanListener*/ {
 
     private AppBarConfiguration mAppBarConfiguration;
     private Snackbar snackbar;
@@ -192,6 +206,13 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     public static boolean isForHome = false, isWearingNow = false;
     private static boolean isWearingSend = false, isWearingDisconnectSend = false;
     private String testData = "232033302E383820252033312E3935202520302E3030202520302E30302025202D313935392E37382025202D3731382E34342025202D3832322E3835202520342E3036202520300D0A";
+
+
+    private final int BAND_1963_REQUEST = 221;
+    private Disposable subscription;
+    private String address;
+    boolean isStartReal;
+
 
     MyBackgroundService mService = null;
     private boolean mBound = false, isRequestEnable = false;
@@ -347,19 +368,25 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         spO2Handler.postDelayed(spO2Runnable, spO2Time);*/
 
         isHomeSetClicked = true;
+
+        //TODO 1963
+        if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
+            subscribe();
+        }
+
     }
 
 
-    private void checkNavigationDrawer(){
-        if(prefManager.getUserRole() == MyConstant.PATIENT_ROLE){
+    private void checkNavigationDrawer() {
+        if (prefManager.getUserRole() == MyConstant.PATIENT_ROLE) {
             navMenu.findItem(R.id.nav_add_doctor).setVisible(true);
             navMenu.findItem(R.id.nav_request).setVisible(true);
             navMenu.findItem(R.id.nav_companion).setVisible(true);
         }
     }
 
-    public void setNotPatientNavigationDrawer(){
-        if(prefManager.getUserRole() != MyConstant.PATIENT_ROLE){
+    public void setNotPatientNavigationDrawer() {
+        if (prefManager.getUserRole() != MyConstant.PATIENT_ROLE) {
             navMenu.findItem(R.id.nav_add_doctor).setVisible(false);
             navMenu.findItem(R.id.nav_request).setVisible(false);
             navMenu.findItem(R.id.nav_companion).setVisible(false);
@@ -2207,6 +2234,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -2223,6 +2251,26 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 // The user was asked to change settings, but chose not to
                 Log.i(TAG, "User has clicked on NO, THANKS - So GPS is still off.");
                 getGPSDialog();
+            }
+        } else if (requestCode == BAND_1963_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                device = data.getParcelableExtra(EXTRA_DEVICE);
+                if (device != null) {
+                    Log.i(TAG, "onActivityResult: new band result ok");
+                    init();
+                    prefManager.setBandName(device.getName());
+                    prefManager.setBandMac(device.getAddress());
+                    Log.i(TAG, (prefManager.getBandName() + " " + prefManager.getBandMac()));
+
+                    BleManager.getInstance().connectDevice(device.getAddress());
+                    showConnectDialog();
+                } else {
+                    Log.e(TAG, "Device null");
+                }
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+
             }
         } else {
             if (resultCode == Activity.RESULT_OK) {
@@ -2246,6 +2294,186 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
 
     }//onActivityResult
+
+
+    //region new band 1963
+    private void showConnectDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.connectting));
+        if (!progressDialog.isShowing()) progressDialog.show();
+
+    }
+
+    private void dissMissDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+    }
+
+    private void init() {
+        subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(bleData -> {
+            String action = bleData.getAction();
+            if (action.equals(BleService.ACTION_GATT_onDescriptorWrite)) {
+                dissMissDialog();
+            } else if (action.equals(BleService.ACTION_GATT_DISCONNECTED)) {
+                isStartReal = false;
+                dissMissDialog();
+            }
+        });
+
+        sendValue(BleSDK.RealTimeStep(isStartReal,true));
+    }
+
+    @Override
+    public void dataCallback(Map<String, Object> map) {
+        String dataType = getDataType(map);
+        Log.e("info",map.toString());
+        switch (dataType) {
+           /* case BleConst.ReadSerialNumber:
+                showDialogInfo(map.toString());
+                break;*/
+            case BleConst.RealTimeStep:
+                Map<String, String> maps = getData(map);
+                String step = maps.get(DeviceKey.Step);
+                String cal = maps.get(DeviceKey.Calories);
+                String distance = maps.get(DeviceKey.Distance);
+                String time = maps.get(DeviceKey.ExerciseMinutes);
+                String ActiveTime = maps.get(DeviceKey.ActiveMinutes);
+                String heart = maps.get(DeviceKey.HeartRate);
+                String TEMP= maps.get(DeviceKey.TempData);
+                /*textViewCal.setText(cal);
+                textViewStep.setText(step);
+                textViewDistance.setText(distance);
+                textViewTime.setText(time);
+                textViewHeartValue.setText(heart);
+                textViewActiveTime.setText(ActiveTime);
+                textViewTempValue.setText(TEMP);*/
+                Log.i(TAG, "dataCallback: step: " + step + " heart: " + heart + " temp: " + TEMP);
+
+                break;
+            /*case BleConst.DeviceSendDataToAPP:
+                showDialogInfo(BleConst.DeviceSendDataToAPP);
+                break;
+            case BleConst.FindMobilePhoneMode:
+                showDialogInfo(BleConst.FindMobilePhoneMode);
+                break;
+            case BleConst.RejectTelMode:
+                showDialogInfo(BleConst.RejectTelMode);
+                break;
+            case BleConst.TelMode:
+                showDialogInfo(BleConst.TelMode);
+                break;
+            case BleConst.BackHomeView:
+                showToast(map.toString());
+                break;
+            case BleConst.Sos:
+                showToast(map.toString());
+                break;*/
+        }
+    }
+
+    private void unsubscribe() {
+        if (subscription != null && !subscription.isDisposed()) {
+            subscription.dispose();
+            Log.i(TAG, "unSubscribe: ");
+        }
+    }
+
+    protected void subscribe(){
+        subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<BleData>() {
+            @Override
+            public void accept(BleData bleData) throws Exception {
+                String action = bleData.getAction();
+                if (action.equals(BleService.ACTION_DATA_AVAILABLE)) {
+                    byte[]value=bleData.getValue();
+                    BleSDK.DataParsingWithData(value,CovidMainActivity.this);
+                }
+
+            }
+        });
+    }
+    protected void unSubscribe(Disposable disposable) {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unSubscribe(subscription);
+        unsubscribe();
+        //if (BleManager.getInstance().isConnected()) BleManager.getInstance().disconnectDevice();
+    }
+
+
+    @Override
+    public void dataCallback(byte[] value) {
+
+    }
+
+
+    protected void sendValue(byte[]value){
+        if(!BleManager.getInstance().isConnected()){
+            showToast(getString(R.string.pair_device));
+            return;
+        }
+        if(value==null)return;
+
+        BleManager.getInstance().writeValue(value);
+
+    }
+    protected void showToast(String text){
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+    AlertDialog alertDialog=null;
+    protected void showDialogInfo(String message){
+        if(null==alertDialog){
+            alertDialog=  new AlertDialog.Builder(this)
+                    .setMessage(message).setPositiveButton("Ok",null).create();
+            alertDialog.show();
+        }else{
+            alertDialog.dismiss();
+            alertDialog=null;
+            alertDialog=  new AlertDialog.Builder(this)
+                    .setMessage(message).setPositiveButton("Ok",null).create();
+            alertDialog.show();
+        }
+
+    }
+    protected void showSetSuccessfulDialogInfo(String message){
+        new AlertDialog.Builder(this)
+                .setMessage(message+" Successful").setPositiveButton("Ok",null).create().show();
+    }
+
+    protected String getDataType(Map<String, Object> maps){
+        return (String) maps.get(DeviceKey.DataType);
+    }
+    protected boolean getEnd(Map<String, Object> maps){
+        return (boolean) maps.get(DeviceKey.End);
+    }
+    protected Map<String, String> getData(Map<String, Object> maps){
+        return (Map<String, String>) maps.get(DeviceKey.Data);
+    }
+    protected void offerData(byte[]value){
+        BleManager.getInstance().offerValue(value);
+    }
+    protected void offerData(){
+
+        BleManager.getInstance().writeValue();
+    }
+    protected void showProgressDialog(String message){
+        if(progressDialog==null){
+            progressDialog=new ProgressDialog(this);
+            progressDialog.setMessage(message);
+        }
+        if(!progressDialog.isShowing())progressDialog.show();
+    }
+    protected void disMissProgressDialog(){
+        if(progressDialog!=null&&progressDialog.isShowing())progressDialog.dismiss();
+    }
+
+
+    //endregion new band 1963
 
 
     private void getShortToast(String text) {
@@ -2287,8 +2515,9 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         Log.i(TAG, "onResume");
 
 
+        //TODO 1963 için kapattım aç
         //Bluetooth connection
-        registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+       /* registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
 
             if (mBluetoothLeService != null) {
@@ -2297,8 +2526,11 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
             bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-        }
+        }*/
         //Bluetooth connection end
+
+
+
 
         //TODO: Düzenle
        /* if (myMyo != null) {
@@ -2343,7 +2575,9 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         super.onStop();
     }
 
-    @Override
+
+    //TODO: Yeni bileklik için kapattım sonra aç
+    /*@Override
     protected void onDestroy() {
         if (mGattUpdateReceiver != null) {
             unregisterReceiver(mGattUpdateReceiver);
@@ -2356,7 +2590,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         //spO2Handler.removeCallbacks(spO2Runnable);
 
         super.onDestroy();
-    }
+    }*/
 
 
 }

@@ -23,18 +23,20 @@ import com.smartsense.covid.bluetoothlegatt.BluetoothScanActivity;
 import com.smartsense.covid.CovidMainActivity;
 import com.smartsense.covid.PrefManager;
 import com.smartsense.covid.R;
+import com.smartsense.covid.newBand.DeviceScanActivity;
 
 public class BaglantiFragment extends Fragment {
 
 
-    private MaterialCardView smartsenseConnect;
-    private MaterialButton disconnect;
+    private MaterialCardView smartsenseConnect, band1963Connection;
+    private MaterialButton disconnect, band1963Disconnect;
     private PrefManager prefManager;
-    private LinearLayout connectedLayout;
-    private TextView connectedText;
+    private LinearLayout connectedLayout, band1963ConnectedLayout;
+    private TextView connectedText, band1963ConnectedText;
 
     private Runnable runnable;
     private Handler hndler;
+    private final int BAND_1963_REQUEST = 221;
 
    /* public interface onBluetoothScanListener {
         public void onClick(int i);
@@ -54,35 +56,39 @@ public class BaglantiFragment extends Fragment {
         connectedText = root.findViewById(R.id.connectedText);
         prefManager = new PrefManager(getContext());
 
-        smartsenseConnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!CovidMainActivity.isConnected) {
-                   // ((EpilepsyMainActivity) getActivity()).myoConnect();
-                }
+        band1963Connection = root.findViewById(R.id.band1963Connection);
+        band1963Disconnect = root.findViewById(R.id.band1963Disconnect);
+        band1963ConnectedText = root.findViewById(R.id.band1963ConnectedText);
+        band1963ConnectedLayout = root.findViewById(R.id.band1963ConnectedLayout);
 
-                Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
-                startActivityForResult(intent, 1);
-                //bluetoothScanListener.onClick(1);
+        smartsenseConnect.setOnClickListener(view -> {
+            if (!CovidMainActivity.isConnected) {
+               // ((EpilepsyMainActivity) getActivity()).myoConnect();
             }
+            Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
+            startActivityForResult(intent, 1);
+            //bluetoothScanListener.onClick(1);
         });
 
 
-        disconnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                prefManager.setBandMac(null);
-                prefManager.setBandName(null);
-                connectedLayout.setVisibility(View.GONE);
-                try {
-                    ((CovidMainActivity) getActivity()).onDisconnect();
-                }catch (Exception e){
-                    Log.e("SmartSense", e.getMessage());
-                }
+        disconnect.setOnClickListener(view -> {
+            prefManager.setBandMac(null);
+            prefManager.setBandName(null);
+            connectedLayout.setVisibility(View.GONE);
+            try {
+                ((CovidMainActivity) getActivity()).onDisconnect();
+            }catch (Exception e){
+                Log.e("SmartSense", e.getMessage());
             }
         });
 
         hndler = new Handler();
+
+
+        band1963Connection.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), DeviceScanActivity.class);
+            startActivityForResult(intent, BAND_1963_REQUEST);
+        });
 
 
         return root;
