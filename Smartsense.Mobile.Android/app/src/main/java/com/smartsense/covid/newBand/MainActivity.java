@@ -11,6 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,7 +58,7 @@ public class MainActivity extends BaseActivity implements MainAdapter.onItemClic
     @BindView(R.id.textView_ActiveTime)
     TextView textViewActiveTime;
     @BindView(R.id.SwitchCompat_temp)
-    Switch SwitchCompatTemp;
+    SwitchCompat SwitchCompatTemp;
     private ProgressDialog progressDialog;
     private Disposable subscription;
     private String address;

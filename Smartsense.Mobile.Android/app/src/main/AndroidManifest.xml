@@ -39,12 +39,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-
-        <activity
-            android:name="com.smartsense.covid.newBand.DeviceScanActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
         <activity
             android:name=".EmailVerifyActivity"
             android:theme="@style/FullScreen">
@@ -162,8 +156,15 @@
             android:foregroundServiceType="location" />
 
 
-        <service android:name=".newBand.BleService" />
-        <activity android:name="com.smartsense.covid.bluetoothlegatt.MainActivity" />
+
+        <activity
+            android:name="com.smartsense.covid.newBand.DeviceScanActivity"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <service android:name=".newBand.BleService"
+            android:enabled="true"/>
+        <activity android:name="com.smartsense.covid.newBand.MainActivity" />
     </application>
 
 </manifest>

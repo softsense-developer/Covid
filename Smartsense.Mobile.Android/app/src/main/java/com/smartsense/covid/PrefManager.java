@@ -37,6 +37,7 @@ public class PrefManager {
     private static final String HOME_LOCATION_LONG = "homeLocationLong";
     private static final String EMAIL_VERIFIED = "emailVerified";
 
+    private static final String BAND_TYPE = "bandType";
     private static final String BAND_MAC = "bandMAC";
     private static final String BAND_NAME = "bandName";
     private static final String TEMP_TIME = "tempTime";
@@ -203,6 +204,14 @@ public class PrefManager {
         return pref.getString(PACKAGE_NAME + "." + BAND_NAME, null);
     }
 
+    public void setBandType(int val) {
+        editor.putInt(PACKAGE_NAME + "." + BAND_TYPE, val);
+        editor.apply();
+    }
+
+    public int getBandType() { // 15 min = 60*15=900 sec -> 900*1000=900000 millis
+        return pref.getInt(PACKAGE_NAME + "." + BAND_TYPE, -1);
+    }
 
     public void setTimeTemp(int val) {
         editor.putInt(PACKAGE_NAME + "." + TEMP_TIME, val);

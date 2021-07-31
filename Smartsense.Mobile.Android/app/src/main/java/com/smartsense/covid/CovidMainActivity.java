@@ -176,6 +176,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     public static boolean isHomeSetClicked = false;
 
     private BluetoothDevice device;
+    private final int BAND_SMARTSENSE_REQUEST = 220;
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 340;
     private int locationCounter = 0, locationUpdateType = MyConstant.LOCATION_SEND;
     private ProgressDialog progressDialog;
@@ -193,7 +194,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     // than your app can handle
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5 * 1000;
 
-    private final int BLUETOOTH_DATA_IN_MIN = 4; //3 sec //TODO: Update for release = 20
+    private final int BLUETOOTH_DATA_IN_MIN = 10; //3 sec //TODO: Update for release = 20 // for 1963 = 60
     private static long LAST_SEND_TIME = 0;
     private static long DATA_SENT_INTERVAL = 15 * 1000;
 
@@ -212,7 +213,9 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     private Disposable subscription;
     private String address;
     boolean isStartReal;
-
+    private Runnable batteryRunnable;
+    private Handler batterHandler;
+    private int batteryTime = 60000;
 
     MyBackgroundService mService = null;
     private boolean mBound = false, isRequestEnable = false;
@@ -356,9 +359,6 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             startHeartDataSaveSent();
         };
         heartHandler.postDelayed(heartRunnable, heartTime);
-
-        //logIncomingData(testData);
-
         /*
         spO2Handler = new Handler();
         spO2Runnable = () -> {
@@ -367,13 +367,15 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         };
         spO2Handler.postDelayed(spO2Runnable, spO2Time);*/
 
+
+        //For band 1963
+        batterHandler = new Handler();
+        batteryRunnable = () -> {
+            batterHandler.postDelayed(batteryRunnable, batteryTime);
+            sendValue(BleSDK.GetDeviceBatteryLevel());
+        };
+
         isHomeSetClicked = true;
-
-        //TODO 1963
-        if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
-            subscribe();
-        }
-
     }
 
 
@@ -444,6 +446,184 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
 
+    }
+
+    private void tempData(float value) {
+        tempSampleSize = ((prefManager.getTimeTemp()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
+        if (tempSampleSize > tempSampleCounter1 + 1) {
+            tempSampleCounter1++;
+            Log.i(TAG, "tempData: " + tempSampleCounter1 + "/" + tempSampleSize);
+        } else {
+            tempSampleCounter1 = 0;
+
+            if (value == 0.0f) {
+                value = lastTemp;
+            }
+            if (value == 0.0f) {
+                return;
+            }
+            Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.TEMP, MyConstant.AUTO_SAVE);
+            repository.insert(covid);
+
+            checkTemp(value);
+
+            if (prefManager.getSentDataServer()) {
+                sendVitalDataToServer(MyConstant.TEMP, value);
+            }
+        }
+    }
+
+    private void heartData(int value) {
+        heartSampleSize = ((prefManager.getTimeHeart()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
+        if (heartSampleSize > heartSampleCounter + 1) {
+            heartSampleCounter++;
+            Log.i(TAG, "heartData: " + heartSampleCounter + "/" + heartSampleSize);
+        } else {
+            heartSampleCounter = 0;
+
+            if (value == 0) {
+                value = lastHeart;
+            }
+            if (value == 0) {
+                return;
+            }
+            Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.HEART, MyConstant.AUTO_SAVE);
+            repository.insert(covid);
+
+            checkHeartRate(value);
+
+            if (prefManager.getSentDataServer()) {
+                sendVitalDataToServer(MyConstant.HEART, value);
+            }
+        }
+    }
+
+    private void spO2Data(float value) {
+        spO2SampleSize = ((prefManager.getTimeSpO2()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
+        if (spO2SampleSize > spO2SampleCounter + 1) {
+            spO2SampleCounter++;
+            Log.i(TAG, "heartData: " + spO2SampleCounter + "/" + spO2SampleSize);
+        } else {
+            spO2SampleCounter = 0;
+
+            if (value == 0.0f) {
+                value = lastSpO2;
+            }
+            if (value == 0.0f) {
+                return;
+            }
+
+            Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.SPO2, MyConstant.AUTO_SAVE);
+            repository.insert(covid);
+
+            checkSpO2(value);
+
+            if (prefManager.getSentDataServer()) {
+                sendVitalDataToServer(MyConstant.SPO2, value);
+            }
+        }
+    }
+
+    private void checkSpO2(float SpO2) {
+        if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_AT_HOME) {
+            if (SpO2 <= 92) {
+                warningType = MyConstant.SPO2;
+                sendNotification(getString(R.string.warning), getString(R.string.warning_spo2));
+                prefManager.setWarningData(SpO2);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+                prefManager.setWarningType(MyConstant.SPO2);
+            }
+        } else if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_IN_HOSPITAL) {
+            if (SpO2 <= 90) {
+                warningType = MyConstant.SPO2;
+                sendNotification(getString(R.string.warning), getString(R.string.warning_spo2));
+                prefManager.setWarningData(SpO2);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+                prefManager.setWarningType(MyConstant.SPO2);
+            }
+        } else {
+            if (SpO2 <= 93) {
+                warningType = MyConstant.SPO2;
+                sendNotification(getString(R.string.warning), getString(R.string.warning_spo2));
+                prefManager.setWarningData(SpO2);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+                prefManager.setWarningType(MyConstant.SPO2);
+            }
+        }
+    }
+
+    private void checkTemp(float temp) {
+        if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_AT_HOME) {
+            if (temp >= 38.0f) {
+                warningType = MyConstant.TEMP;
+                sendNotification(getString(R.string.warning), getString(R.string.warning_temp));
+                prefManager.setWarningData(temp);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+                prefManager.setWarningType(MyConstant.TEMP);
+            }
+        } else if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_IN_HOSPITAL) {
+            if (temp >= 38.3f) {
+                warningType = MyConstant.TEMP;
+                sendNotification(getString(R.string.warning), getString(R.string.warning_temp));
+                prefManager.setWarningData(temp);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+                prefManager.setWarningType(MyConstant.TEMP);
+            }
+        } else {
+            if (temp >= 38.0f) {
+                warningType = MyConstant.TEMP;
+                sendNotification(getString(R.string.warning), getString(R.string.warning_temp));
+                prefManager.setWarningData(temp);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+                prefManager.setWarningType(MyConstant.TEMP);
+            }
+        }
+    }
+
+    private void checkHeartRate(int heartRate) {
+        if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_AT_HOME) {
+            if (heartRate >= 110 || heartRate <= 50) {
+                warningType = MyConstant.HEART;
+                if (heartRate >= 110) {
+                    warningType = MyConstant.HEART_HIGH;
+                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_high));
+                    prefManager.setWarningType(MyConstant.HEART_HIGH);
+                } else {
+                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_low));
+                    prefManager.setWarningType(MyConstant.HEART);
+                }
+                prefManager.setWarningData(heartRate);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+            }
+        } else if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_IN_HOSPITAL) {
+            if (heartRate >= 110 || heartRate <= 50) {
+                warningType = MyConstant.HEART;
+                if (heartRate >= 110) {
+                    warningType = MyConstant.HEART_HIGH;
+                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_high));
+                    prefManager.setWarningType(MyConstant.HEART_HIGH);
+                } else {
+                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_low));
+                    prefManager.setWarningType(MyConstant.HEART);
+                }
+                prefManager.setWarningData(heartRate);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+            }
+        } else {
+            if (heartRate >= 100 || heartRate <= 50) {
+                warningType = MyConstant.HEART;
+                if (heartRate >= 100) {
+                    warningType = MyConstant.HEART_HIGH;
+                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_high));
+                    prefManager.setWarningType(MyConstant.HEART_HIGH);
+                } else {
+                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_low));
+                    prefManager.setWarningType(MyConstant.HEART);
+                }
+                prefManager.setWarningData(heartRate);
+                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
+            }
+        }
     }
 
     //region Bluetooth Methods
@@ -807,185 +987,6 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     }
 
 
-    private void tempData(float value) {
-        tempSampleSize = ((prefManager.getTimeTemp()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
-        if (tempSampleSize > tempSampleCounter1 + 1) {
-            tempSampleCounter1++;
-            Log.i(TAG, "tempData: " + tempSampleCounter1 + "/" + tempSampleSize);
-        } else {
-            tempSampleCounter1 = 0;
-
-            if (value == 0.0f) {
-                value = lastTemp;
-            }
-            if (value == 0.0f) {
-                return;
-            }
-            Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.TEMP, MyConstant.AUTO_SAVE);
-            repository.insert(covid);
-
-            checkTemp(value);
-
-            if (prefManager.getSentDataServer()) {
-                sendVitalDataToServer(MyConstant.TEMP, value);
-            }
-        }
-    }
-
-    private void heartData(int value) {
-        heartSampleSize = ((prefManager.getTimeHeart()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
-        if (heartSampleSize > heartSampleCounter + 1) {
-            heartSampleCounter++;
-            Log.i(TAG, "heartData: " + heartSampleCounter + "/" + heartSampleSize);
-        } else {
-            heartSampleCounter = 0;
-
-            if (value == 0) {
-                value = lastHeart;
-            }
-            if (value == 0) {
-                return;
-            }
-            Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.HEART, MyConstant.AUTO_SAVE);
-            repository.insert(covid);
-
-            checkHeartRate(value);
-
-            if (prefManager.getSentDataServer()) {
-                sendVitalDataToServer(MyConstant.HEART, value);
-            }
-        }
-    }
-
-    private void spO2Data(float value) {
-        spO2SampleSize = ((prefManager.getTimeSpO2()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
-        if (spO2SampleSize > spO2SampleCounter + 1) {
-            spO2SampleCounter++;
-            Log.i(TAG, "heartData: " + spO2SampleCounter + "/" + spO2SampleSize);
-        } else {
-            spO2SampleCounter = 0;
-
-            if (value == 0.0f) {
-                value = lastSpO2;
-            }
-            if (value == 0.0f) {
-                return;
-            }
-
-            Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.SPO2, MyConstant.AUTO_SAVE);
-            repository.insert(covid);
-
-            checkSpO2(value);
-
-            if (prefManager.getSentDataServer()) {
-                sendVitalDataToServer(MyConstant.SPO2, value);
-            }
-        }
-    }
-
-    private void checkSpO2(float SpO2) {
-        if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_AT_HOME) {
-            if (SpO2 <= 92) {
-                warningType = MyConstant.SPO2;
-                sendNotification(getString(R.string.warning), getString(R.string.warning_spo2));
-                prefManager.setWarningData(SpO2);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-                prefManager.setWarningType(MyConstant.SPO2);
-            }
-        } else if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_IN_HOSPITAL) {
-            if (SpO2 <= 90) {
-                warningType = MyConstant.SPO2;
-                sendNotification(getString(R.string.warning), getString(R.string.warning_spo2));
-                prefManager.setWarningData(SpO2);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-                prefManager.setWarningType(MyConstant.SPO2);
-            }
-        } else {
-            if (SpO2 <= 93) {
-                warningType = MyConstant.SPO2;
-                sendNotification(getString(R.string.warning), getString(R.string.warning_spo2));
-                prefManager.setWarningData(SpO2);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-                prefManager.setWarningType(MyConstant.SPO2);
-            }
-        }
-    }
-
-    private void checkTemp(float temp) {
-        if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_AT_HOME) {
-            if (temp >= 38.0f) {
-                warningType = MyConstant.TEMP;
-                sendNotification(getString(R.string.warning), getString(R.string.warning_temp));
-                prefManager.setWarningData(temp);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-                prefManager.setWarningType(MyConstant.TEMP);
-            }
-        } else if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_IN_HOSPITAL) {
-            if (temp >= 38.3f) {
-                warningType = MyConstant.TEMP;
-                sendNotification(getString(R.string.warning), getString(R.string.warning_temp));
-                prefManager.setWarningData(temp);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-                prefManager.setWarningType(MyConstant.TEMP);
-            }
-        } else {
-            if (temp >= 38.0f) {
-                warningType = MyConstant.TEMP;
-                sendNotification(getString(R.string.warning), getString(R.string.warning_temp));
-                prefManager.setWarningData(temp);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-                prefManager.setWarningType(MyConstant.TEMP);
-            }
-        }
-    }
-
-    private void checkHeartRate(int heartRate) {
-        if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_AT_HOME) {
-            if (heartRate >= 110 || heartRate <= 50) {
-                warningType = MyConstant.HEART;
-                if (heartRate >= 110) {
-                    warningType = MyConstant.HEART_HIGH;
-                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_high));
-                    prefManager.setWarningType(MyConstant.HEART_HIGH);
-                } else {
-                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_low));
-                    prefManager.setWarningType(MyConstant.HEART);
-                }
-                prefManager.setWarningData(heartRate);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-            }
-        } else if (prefManager.getUserTrackingType() == MyConstant.QUARANTINE_IN_HOSPITAL) {
-            if (heartRate >= 110 || heartRate <= 50) {
-                warningType = MyConstant.HEART;
-                if (heartRate >= 110) {
-                    warningType = MyConstant.HEART_HIGH;
-                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_high));
-                    prefManager.setWarningType(MyConstant.HEART_HIGH);
-                } else {
-                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_low));
-                    prefManager.setWarningType(MyConstant.HEART);
-                }
-                prefManager.setWarningData(heartRate);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-            }
-        } else {
-            if (heartRate >= 100 || heartRate <= 50) {
-                warningType = MyConstant.HEART;
-                if (heartRate >= 100) {
-                    warningType = MyConstant.HEART_HIGH;
-                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_high));
-                    prefManager.setWarningType(MyConstant.HEART_HIGH);
-                } else {
-                    sendNotification(getString(R.string.warning), getString(R.string.warning_heartrate_low));
-                    prefManager.setWarningType(MyConstant.HEART);
-                }
-                prefManager.setWarningData(heartRate);
-                prefManager.setWarningDate(Calendar.getInstance().getTimeInMillis());
-            }
-        }
-    }
-
-
     /**
      * Define an intent filter of actions to respond to
      *
@@ -1011,8 +1012,10 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             }
             // Automatically connects to the device upon successful start-up initialization.
             //TODO: Oto bağlanmada eğer cihaz yoksa bağlı görünüyor yine de
-            if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
-                mBluetoothLeService.connect(prefManager.getBandMac());
+            if (prefManager.getBandType() == MyConstant.BAND_SMARTSENSE) {
+                if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
+                    mBluetoothLeService.connect(prefManager.getBandMac());
+                }
             }
         }
 
@@ -2254,32 +2257,42 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             }
         } else if (requestCode == BAND_1963_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
+                Log.i(TAG, "onActivityResult: new band result ok");
                 device = data.getParcelableExtra(EXTRA_DEVICE);
                 if (device != null) {
-                    Log.i(TAG, "onActivityResult: new band result ok");
+                    subscribe();
                     init();
+
+                    prefManager.setBandType(MyConstant.BAND_1963);
                     prefManager.setBandName(device.getName());
                     prefManager.setBandMac(device.getAddress());
                     Log.i(TAG, (prefManager.getBandName() + " " + prefManager.getBandMac()));
 
-                    BleManager.getInstance().connectDevice(device.getAddress());
+                    BleManager.init(this);
+                    BleManager.getInstance().connectDevice("C7:F4:F9:62:BD:E1");
                     showConnectDialog();
+
+                    new Handler().postDelayed(() ->
+                            sendValue(BleSDK.RealTimeStep(isStartReal, true)), 500);
+
                 } else {
                     Log.e(TAG, "Device null");
                 }
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
-
+                Log.i(TAG, "onActivityResult: new band RESULT_CANCELED");
             }
-        } else {
+        } else if (requestCode == BAND_SMARTSENSE_REQUEST) {
             if (resultCode == Activity.RESULT_OK) {
                 device = data.getParcelableExtra(EXTRA_DEVICE);
                 if (device != null) {
+                    prefManager.setBandType(MyConstant.BAND_SMARTSENSE);
                     prefManager.setBandName(device.getName());
                     prefManager.setBandMac(device.getAddress());
                     Log.i(TAG, (prefManager.getBandName() + " " + prefManager.getBandMac()));
                     //isConnected = true;
+
                     Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
                     bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
                 } else {
@@ -2312,20 +2325,23 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(bleData -> {
             String action = bleData.getAction();
             if (action.equals(BleService.ACTION_GATT_onDescriptorWrite)) {
+                isConnected = true;
+                sendValue(BleSDK.GetDeviceBatteryLevel());
+                batterHandler.postDelayed(batteryRunnable, batteryTime);
                 dissMissDialog();
             } else if (action.equals(BleService.ACTION_GATT_DISCONNECTED)) {
                 isStartReal = false;
+                isConnected = false;
                 dissMissDialog();
             }
         });
-
-        sendValue(BleSDK.RealTimeStep(isStartReal,true));
     }
 
     @Override
     public void dataCallback(Map<String, Object> map) {
         String dataType = getDataType(map);
-        Log.e("info",map.toString());
+        Log.e("info", map.toString());
+        Map<String, String> data = getData(map);
         switch (dataType) {
            /* case BleConst.ReadSerialNumber:
                 showDialogInfo(map.toString());
@@ -2338,7 +2354,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 String time = maps.get(DeviceKey.ExerciseMinutes);
                 String ActiveTime = maps.get(DeviceKey.ActiveMinutes);
                 String heart = maps.get(DeviceKey.HeartRate);
-                String TEMP= maps.get(DeviceKey.TempData);
+                String TEMP = maps.get(DeviceKey.TempData);
                 /*textViewCal.setText(cal);
                 textViewStep.setText(step);
                 textViewDistance.setText(distance);
@@ -2348,7 +2364,36 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 textViewTempValue.setText(TEMP);*/
                 Log.i(TAG, "dataCallback: step: " + step + " heart: " + heart + " temp: " + TEMP);
 
+                float temp = Float.parseFloat(TEMP);
+                int heartInt = (int) Float.parseFloat(heart);
+                //float spO2 = Float.parseFloat();
+
+                if (temp != 0.0f) {
+                    lastTemp = temp;
+                }
+
+                if (heartInt != 0) {
+                    lastHeart = heartInt;
+                }
+
+               /* if (spO2 != 0.0f) {
+                    lastSpO2 = spO2;
+                }*/
+
+                tempData(temp);
+                heartData(heartInt);
+
+                // spO2Data(spO2);
                 break;
+
+            case BleConst.GetDeviceBatteryLevel:
+                String battery = data.get(DeviceKey.BatteryLevel);
+                Log.i(TAG, "dataCallback: battery: "+battery);
+                if (battery != null) {
+                    batteryPercentage = Integer.parseInt(battery);
+                }
+                break;
+
             /*case BleConst.DeviceSendDataToAPP:
                 showDialogInfo(BleConst.DeviceSendDataToAPP);
                 break;
@@ -2377,19 +2422,17 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         }
     }
 
-    protected void subscribe(){
-        subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<BleData>() {
-            @Override
-            public void accept(BleData bleData) throws Exception {
-                String action = bleData.getAction();
-                if (action.equals(BleService.ACTION_DATA_AVAILABLE)) {
-                    byte[]value=bleData.getValue();
-                    BleSDK.DataParsingWithData(value,CovidMainActivity.this);
-                }
-
+    protected void subscribe() {
+        subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(bleData -> {
+            String action = bleData.getAction();
+            if (action.equals(BleService.ACTION_DATA_AVAILABLE)) {
+                byte[] value = bleData.getValue();
+                BleSDK.DataParsingWithData(value, CovidMainActivity.this);
             }
+
         });
     }
+
     protected void unSubscribe(Disposable disposable) {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
@@ -2399,9 +2442,29 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unSubscribe(subscription);
-        unsubscribe();
-        //if (BleManager.getInstance().isConnected()) BleManager.getInstance().disconnectDevice();
+        if (prefManager.getBandType() == MyConstant.BAND_SMARTSENSE) {
+            if (mGattUpdateReceiver != null) {
+                unregisterReceiver(mGattUpdateReceiver);
+            }
+
+            //We don't want any callbacks when the Activity is gone, so unregister the listener.
+            tempHandler.removeCallbacks(tempRunnable);
+            heartHandler.removeCallbacks(heartRunnable);
+            //TODO SPO2 olunca açılacak
+            //spO2Handler.removeCallbacks(spO2Runnable);
+        } else if (prefManager.getBandType() == MyConstant.BAND_1963) {
+            batterHandler.removeCallbacks(batteryRunnable);
+            unSubscribe(subscription);
+            unsubscribe();
+            disconnect1963Band();
+        }
+
+    }
+
+    public void disconnect1963Band() {
+        if (BleManager.getInstance().isConnected()) {
+            BleManager.getInstance().disconnectDevice();
+        }
     }
 
 
@@ -2411,65 +2474,74 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     }
 
 
-    protected void sendValue(byte[]value){
-        if(!BleManager.getInstance().isConnected()){
+    protected void sendValue(byte[] value) {
+        if (!BleManager.getInstance().isConnected()) {
             showToast(getString(R.string.pair_device));
             return;
         }
-        if(value==null)return;
+        if (value == null) return;
 
         BleManager.getInstance().writeValue(value);
 
     }
-    protected void showToast(String text){
-        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+
+    protected void showToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
-    AlertDialog alertDialog=null;
-    protected void showDialogInfo(String message){
-        if(null==alertDialog){
-            alertDialog=  new AlertDialog.Builder(this)
-                    .setMessage(message).setPositiveButton("Ok",null).create();
+    AlertDialog alertDialog = null;
+
+    protected void showDialogInfo(String message) {
+        if (null == alertDialog) {
+            alertDialog = new AlertDialog.Builder(this)
+                    .setMessage(message).setPositiveButton("Ok", null).create();
             alertDialog.show();
-        }else{
+        } else {
             alertDialog.dismiss();
-            alertDialog=null;
-            alertDialog=  new AlertDialog.Builder(this)
-                    .setMessage(message).setPositiveButton("Ok",null).create();
+            alertDialog = null;
+            alertDialog = new AlertDialog.Builder(this)
+                    .setMessage(message).setPositiveButton("Ok", null).create();
             alertDialog.show();
         }
 
     }
-    protected void showSetSuccessfulDialogInfo(String message){
+
+    protected void showSetSuccessfulDialogInfo(String message) {
         new AlertDialog.Builder(this)
-                .setMessage(message+" Successful").setPositiveButton("Ok",null).create().show();
+                .setMessage(message + " Successful").setPositiveButton("Ok", null).create().show();
     }
 
-    protected String getDataType(Map<String, Object> maps){
+    protected String getDataType(Map<String, Object> maps) {
         return (String) maps.get(DeviceKey.DataType);
     }
-    protected boolean getEnd(Map<String, Object> maps){
+
+    protected boolean getEnd(Map<String, Object> maps) {
         return (boolean) maps.get(DeviceKey.End);
     }
-    protected Map<String, String> getData(Map<String, Object> maps){
+
+    protected Map<String, String> getData(Map<String, Object> maps) {
         return (Map<String, String>) maps.get(DeviceKey.Data);
     }
-    protected void offerData(byte[]value){
+
+    protected void offerData(byte[] value) {
         BleManager.getInstance().offerValue(value);
     }
-    protected void offerData(){
+
+    protected void offerData() {
 
         BleManager.getInstance().writeValue();
     }
-    protected void showProgressDialog(String message){
-        if(progressDialog==null){
-            progressDialog=new ProgressDialog(this);
+
+    protected void showProgressDialog(String message) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
             progressDialog.setMessage(message);
         }
-        if(!progressDialog.isShowing())progressDialog.show();
+        if (!progressDialog.isShowing()) progressDialog.show();
     }
-    protected void disMissProgressDialog(){
-        if(progressDialog!=null&&progressDialog.isShowing())progressDialog.dismiss();
+
+    protected void disMissProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
     }
 
 
@@ -2514,22 +2586,20 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         super.onResume();
         Log.i(TAG, "onResume");
 
-
-        //TODO 1963 için kapattım aç
         //Bluetooth connection
-       /* registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
-        if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
+        if (prefManager.getBandType() == MyConstant.BAND_SMARTSENSE) {
+            registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+            if (prefManager.getBandMac() != null && prefManager.getBandName() != null) {
 
-            if (mBluetoothLeService != null) {
-                mBluetoothLeService.connect(prefManager.getBandMac());
+                if (mBluetoothLeService != null) {
+                    mBluetoothLeService.connect(prefManager.getBandMac());
+                }
+
+                Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
+                bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
             }
-
-            Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
-            bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-        }*/
+        }
         //Bluetooth connection end
-
-
 
 
         //TODO: Düzenle
@@ -2577,7 +2647,8 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
 
     //TODO: Yeni bileklik için kapattım sonra aç
-    /*@Override
+    /*
+    @Override
     protected void onDestroy() {
         if (mGattUpdateReceiver != null) {
             unregisterReceiver(mGattUpdateReceiver);

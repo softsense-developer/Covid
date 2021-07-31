@@ -19,11 +19,14 @@ import androidx.fragment.app.Fragment;
 import com.github.mikephil.charting.data.Entry;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.smartsense.covid.MyConstant;
 import com.smartsense.covid.bluetoothlegatt.BluetoothScanActivity;
 import com.smartsense.covid.CovidMainActivity;
 import com.smartsense.covid.PrefManager;
 import com.smartsense.covid.R;
 import com.smartsense.covid.newBand.DeviceScanActivity;
+
+import java.util.Objects;
 
 public class BaglantiFragment extends Fragment {
 
@@ -36,6 +39,7 @@ public class BaglantiFragment extends Fragment {
 
     private Runnable runnable;
     private Handler hndler;
+    private final int BAND_SMARTSENSE_REQUEST = 220;
     private final int BAND_1963_REQUEST = 221;
 
    /* public interface onBluetoothScanListener {
@@ -63,21 +67,22 @@ public class BaglantiFragment extends Fragment {
 
         smartsenseConnect.setOnClickListener(view -> {
             if (!CovidMainActivity.isConnected) {
-               // ((EpilepsyMainActivity) getActivity()).myoConnect();
+                // ((EpilepsyMainActivity) getActivity()).myoConnect();
             }
             Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
-            startActivityForResult(intent, 1);
+            requireActivity().startActivityForResult(intent, BAND_SMARTSENSE_REQUEST);
             //bluetoothScanListener.onClick(1);
         });
 
 
         disconnect.setOnClickListener(view -> {
+            prefManager.setBandType(-1);
             prefManager.setBandMac(null);
             prefManager.setBandName(null);
             connectedLayout.setVisibility(View.GONE);
             try {
                 ((CovidMainActivity) getActivity()).onDisconnect();
-            }catch (Exception e){
+            } catch (Exception e) {
                 Log.e("SmartSense", e.getMessage());
             }
         });
@@ -86,8 +91,21 @@ public class BaglantiFragment extends Fragment {
 
 
         band1963Connection.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), DeviceScanActivity.class);
-            startActivityForResult(intent, BAND_1963_REQUEST);
+            Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
+            requireActivity().startActivityForResult(intent, BAND_1963_REQUEST);
+        });
+
+        band1963Disconnect.setOnClickListener(v -> {
+            prefManager.setBandType(-1);
+            prefManager.setBandMac(null);
+            prefManager.setBandName(null);
+            band1963ConnectedLayout.setVisibility(View.GONE);
+
+            try {
+                ((CovidMainActivity) getActivity()).disconnect1963Band();
+            } catch (Exception e) {
+                Log.e("SmartSense", e.getMessage());
+            }
         });
 
 
@@ -119,13 +137,24 @@ public class BaglantiFragment extends Fragment {
         runnable = () -> {
             if (prefManager.getBandMac() != null) {
                 hndler.postDelayed(runnable, 100);
-                connectedLayout.setVisibility(View.VISIBLE);
-                if (CovidMainActivity.isConnected) {
-                    connectedText.setText((prefManager.getBandName() + " " + getString(R.string.connected) + "."));
-                    disconnect.setText(getString(R.string.disconnect));
-                } else {
-                    connectedText.setText((prefManager.getBandName() + " " + getString(R.string.not_connected) + "."));
-                    disconnect.setText(getString(R.string.disconnect_pairing));
+                if (prefManager.getBandType() == MyConstant.BAND_SMARTSENSE) {
+                    connectedLayout.setVisibility(View.VISIBLE);
+                    if (CovidMainActivity.isConnected) {
+                        connectedText.setText((prefManager.getBandName() + " " + getString(R.string.connected) + "."));
+                        disconnect.setText(getString(R.string.disconnect));
+                    } else {
+                        connectedText.setText((prefManager.getBandName() + " " + getString(R.string.not_connected) + "."));
+                        disconnect.setText(getString(R.string.disconnect_pairing));
+                    }
+                } else if (prefManager.getBandType() == MyConstant.BAND_1963) {
+                    band1963ConnectedLayout.setVisibility(View.VISIBLE);
+                    if (CovidMainActivity.isConnected) {
+                        band1963ConnectedText.setText((prefManager.getBandName() + " " + getString(R.string.connected) + "."));
+                        band1963Disconnect.setText(getString(R.string.disconnect));
+                    } else {
+                        band1963ConnectedText.setText((prefManager.getBandName() + " " + getString(R.string.not_connected) + "."));
+                        band1963Disconnect.setText(getString(R.string.disconnect_pairing));
+                    }
                 }
             }
         };

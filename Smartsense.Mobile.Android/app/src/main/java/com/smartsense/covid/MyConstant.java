@@ -37,6 +37,9 @@ public class MyConstant {
     public static final int FEMALE = 1;
     public static final int MALE = 2;
 
+    public static final int BAND_SMARTSENSE = 0;
+    public static final int BAND_1963 = 1;
+
     public static final int WARNING_OXYGEN = 0;
     public static final int WARNING_PULSE = 1;
     public static final int WARNING_TEMPERATURE = 2;

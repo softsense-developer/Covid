@@ -208,19 +208,18 @@ public class DeviceScanActivity extends AppCompatActivity implements Permissions
                 }
 
 
-                /*final Intent intent = new Intent(DeviceScanActivity.this, MainActivity.class);
+                final Intent intent = new Intent(DeviceScanActivity.this, MainActivity.class);
                 intent.putExtra("address", device.getAddress());
                 intent.putExtra("name", name);
                 startActivity(intent);
-                 */
 
 
-                Intent returnIntent = new Intent();
+                /*Intent returnIntent = getIntent();
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(EXTRA_DEVICE, device);
                 returnIntent.putExtras(bundle);
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();*/
 
             }
         });
