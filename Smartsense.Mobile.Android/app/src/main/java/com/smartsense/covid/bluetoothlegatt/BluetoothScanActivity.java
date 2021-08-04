@@ -46,7 +46,7 @@ public class BluetoothScanActivity extends AppCompatActivity implements com.smar
     private boolean mScanning;
     private static final int REQUEST_ENABLE_BT = 1;
     // Stops scanning after 10 seconds.
-    private static final long SCAN_PERIOD = 15000;
+    private static final long SCAN_PERIOD = 5000;
     private Handler mHandler;
     private ArrayList listData;
     private RecyclerView recyclerView;

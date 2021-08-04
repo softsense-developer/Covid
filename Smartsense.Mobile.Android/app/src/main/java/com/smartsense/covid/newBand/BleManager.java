@@ -21,7 +21,7 @@ public class BleManager {
     private ServiceConnection serviceConnection = new ServiceConnection() {
 
         @Override
-        public void onServiceDisconnected(ComponentName name) {// TODO Auto-generated method stub
+        public void onServiceDisconnected(ComponentName name) {
             bleService = null;
         }
 

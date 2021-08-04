@@ -175,6 +175,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     public static int warningType = 0, batteryPercentage = 0;
     public static boolean isHomeSetClicked = false;
 
+
     private BluetoothDevice device;
     private final int BAND_SMARTSENSE_REQUEST = 220;
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 340;
@@ -194,7 +195,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     // than your app can handle
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5 * 1000;
 
-    private final int BLUETOOTH_DATA_IN_MIN = 10; //3 sec //TODO: Update for release = 20 // for 1963 = 60
+    private final int BLUETOOTH_DATA_IN_MIN = 30; //3 sec //TODO: Update for release = 20 // for 1963 = 60
     private static long LAST_SEND_TIME = 0;
     private static long DATA_SENT_INTERVAL = 15 * 1000;
 
@@ -214,8 +215,13 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     private String address;
     boolean isStartReal;
     private Runnable batteryRunnable;
-    private Handler batterHandler;
+    private Handler batteryHandler;
     private int batteryTime = 60000;
+    private Handler band1963And1939Handler, band1963And1939ConnectHandler;
+    private Runnable band1963And1939Runnable, band1963And1939ConnectRunnable;
+    public static long lastDataTime;
+    public static boolean isBand1963And1939Connected;
+    private boolean isSubscribe = false;
 
     MyBackgroundService mService = null;
     private boolean mBound = false, isRequestEnable = false;
@@ -369,11 +375,39 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
 
         //For band 1963
-        batterHandler = new Handler();
-        batteryRunnable = () -> {
-            batterHandler.postDelayed(batteryRunnable, batteryTime);
-            sendValue(BleSDK.GetDeviceBatteryLevel());
+        band1963And1939Handler = new Handler();
+        band1963And1939Runnable = () -> {
+            band1963And1939Handler.postDelayed(band1963And1939Runnable, 5000);
+            Log.i(TAG, "onCreate: band1963And1939Runnable");
+            if (isConnected && isBand1963And1939Connected) {
+                if (lastDataTime + 5000 < System.currentTimeMillis()) {
+                    sendValue(BleSDK.RealTimeStep(isStartReal, true));
+                }
+            }
         };
+
+        batteryHandler = new Handler();
+        batteryRunnable = () -> {
+            Log.i(TAG, "onCreate: batteryRunnable");
+            batteryHandler.postDelayed(batteryRunnable, batteryTime);
+            if (isConnected && isBand1963And1939Connected) {
+                sendValue(BleSDK.GetDeviceBatteryLevel());
+            }
+        };
+
+
+        band1963And1939ConnectHandler = new Handler();
+        band1963And1939ConnectHandler.postDelayed(band1963And1939ConnectRunnable = () -> {
+            if (!isConnected && !isBand1963And1939Connected &&
+                    prefManager.getBandType() == MyConstant.BAND_1963 &&
+                    prefManager.getBandMac() != null) {
+                band1963And1939Connect();
+            }
+            band1963And1939ConnectHandler.postDelayed(band1963And1939ConnectRunnable, 5000);
+        }, 200);
+
+        //For band 1963
+
 
         isHomeSetClicked = true;
     }
@@ -432,8 +466,9 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             Log.i(TAG, "Location sent request");*/
             /*setupLocation();
             requestLocationUpdates();
-
              */
+
+            //sendValue(BleSDK.RealTimeStep(isStartReal, true));
         } else {
 
         }
@@ -1111,6 +1146,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 addWarning(MyConstant.WARNING_CONNECTION_LOST, 0);
             }*/
         }
+        isBand1963And1939Connected = false;
     }
 
     /**
@@ -2260,20 +2296,12 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 Log.i(TAG, "onActivityResult: new band result ok");
                 device = data.getParcelableExtra(EXTRA_DEVICE);
                 if (device != null) {
-                    subscribe();
-                    init();
-
                     prefManager.setBandType(MyConstant.BAND_1963);
                     prefManager.setBandName(device.getName());
                     prefManager.setBandMac(device.getAddress());
                     Log.i(TAG, (prefManager.getBandName() + " " + prefManager.getBandMac()));
 
-                    BleManager.init(this);
-                    BleManager.getInstance().connectDevice("C7:F4:F9:62:BD:E1");
-                    showConnectDialog();
-
-                    new Handler().postDelayed(() ->
-                            sendValue(BleSDK.RealTimeStep(isStartReal, true)), 500);
+                    band1963And1939Connect();
 
                 } else {
                     Log.e(TAG, "Device null");
@@ -2310,29 +2338,46 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
 
     //region new band 1963
-    private void showConnectDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getString(R.string.connectting));
-        if (!progressDialog.isShowing()) progressDialog.show();
 
-    }
+    private void band1963And1939Connect() {
+        Log.i(TAG, "band1963And1939Connect");
+        tempSampleCounter1 = 0;
+        heartSampleCounter = 0;
+        spO2SampleCounter = 0;
+        batteryHandler.removeCallbacks(batteryRunnable);
+        band1963And1939Handler.removeCallbacks(band1963And1939Runnable);
 
-    private void dissMissDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) progressDialog.dismiss();
+        if (!isSubscribe) {
+            isSubscribe = true;
+            subscribe();
+            init();
+        }
+
+        Log.i(TAG, " BleManager.init");
+        BleManager.init(this);
+        BleManager.getInstance().connectDevice(prefManager.getBandMac());
+
+        /*new Handler().postDelayed(() ->
+                sendValue(BleSDK.RealTimeStep(isStartReal, true)), 500);*/
     }
 
     private void init() {
+        Log.i(TAG, "init: 1963");
         subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(bleData -> {
             String action = bleData.getAction();
             if (action.equals(BleService.ACTION_GATT_onDescriptorWrite)) {
+                Log.i(TAG, "init: ACTION_GATT_onDescriptorWrite");
                 isConnected = true;
+                isBand1963And1939Connected = true;
+                lastDataTime = System.currentTimeMillis();
                 sendValue(BleSDK.GetDeviceBatteryLevel());
-                batterHandler.postDelayed(batteryRunnable, batteryTime);
-                dissMissDialog();
+                batteryHandler.postDelayed(batteryRunnable, batteryTime);
+                band1963And1939Handler.postDelayed(band1963And1939Runnable, 1000);
             } else if (action.equals(BleService.ACTION_GATT_DISCONNECTED)) {
+                Log.i(TAG, "init: ACTION_GATT_DISCONNECTED");
                 isStartReal = false;
                 isConnected = false;
-                dissMissDialog();
+                isBand1963And1939Connected = false;
             }
         });
     }
@@ -2363,6 +2408,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 textViewActiveTime.setText(ActiveTime);
                 textViewTempValue.setText(TEMP);*/
                 Log.i(TAG, "dataCallback: step: " + step + " heart: " + heart + " temp: " + TEMP);
+                lastDataTime = System.currentTimeMillis();
 
                 float temp = Float.parseFloat(TEMP);
                 int heartInt = (int) Float.parseFloat(heart);
@@ -2388,7 +2434,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             case BleConst.GetDeviceBatteryLevel:
                 String battery = data.get(DeviceKey.BatteryLevel);
-                Log.i(TAG, "dataCallback: battery: "+battery);
+                Log.i(TAG, "dataCallback: battery: " + battery);
                 if (battery != null) {
                     batteryPercentage = Integer.parseInt(battery);
                 }
@@ -2416,13 +2462,14 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     }
 
     private void unsubscribe() {
+        Log.i(TAG, "unsubscribe");
         if (subscription != null && !subscription.isDisposed()) {
             subscription.dispose();
-            Log.i(TAG, "unSubscribe: ");
         }
     }
 
     protected void subscribe() {
+        Log.i(TAG, "subscribe");
         subscription = RxBus.getInstance().toObservable(BleData.class).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(bleData -> {
             String action = bleData.getAction();
             if (action.equals(BleService.ACTION_DATA_AVAILABLE)) {
@@ -2433,33 +2480,6 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         });
     }
 
-    protected void unSubscribe(Disposable disposable) {
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (prefManager.getBandType() == MyConstant.BAND_SMARTSENSE) {
-            if (mGattUpdateReceiver != null) {
-                unregisterReceiver(mGattUpdateReceiver);
-            }
-
-            //We don't want any callbacks when the Activity is gone, so unregister the listener.
-            tempHandler.removeCallbacks(tempRunnable);
-            heartHandler.removeCallbacks(heartRunnable);
-            //TODO SPO2 olunca açılacak
-            //spO2Handler.removeCallbacks(spO2Runnable);
-        } else if (prefManager.getBandType() == MyConstant.BAND_1963) {
-            batterHandler.removeCallbacks(batteryRunnable);
-            unSubscribe(subscription);
-            unsubscribe();
-            disconnect1963Band();
-        }
-
-    }
 
     public void disconnect1963Band() {
         if (BleManager.getInstance().isConnected()) {
@@ -2476,17 +2496,12 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
     protected void sendValue(byte[] value) {
         if (!BleManager.getInstance().isConnected()) {
-            showToast(getString(R.string.pair_device));
             return;
         }
         if (value == null) return;
 
         BleManager.getInstance().writeValue(value);
 
-    }
-
-    protected void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
     AlertDialog alertDialog = null;
@@ -2645,23 +2660,31 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         super.onStop();
     }
 
-
-    //TODO: Yeni bileklik için kapattım sonra aç
-    /*
     @Override
     protected void onDestroy() {
-        if (mGattUpdateReceiver != null) {
-            unregisterReceiver(mGattUpdateReceiver);
-        }
         Log.i(TAG, "onDestroy");
+       if(prefManager.getBandType()==MyConstant.BAND_SMARTSENSE){
+           if (mGattUpdateReceiver != null) {
+               unregisterReceiver(mGattUpdateReceiver);
+           }
+       }
 
         //We don't want any callbacks when the Activity is gone, so unregister the listener.
         tempHandler.removeCallbacks(tempRunnable);
         heartHandler.removeCallbacks(heartRunnable);
+        //TODO SPO2 olunca açılacak
         //spO2Handler.removeCallbacks(spO2Runnable);
 
+        unsubscribe();
+        disconnect1963Band();
+
+
+        batteryHandler.removeCallbacks(batteryRunnable);
+        band1963And1939Handler.removeCallbacks(band1963And1939Runnable);
+        band1963And1939ConnectHandler.removeCallbacks(band1963And1939ConnectRunnable);
+
         super.onDestroy();
-    }*/
+    }
 
 
 }

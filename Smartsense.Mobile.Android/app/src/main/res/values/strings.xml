@@ -430,28 +430,6 @@
     <string name="are_you_sure_delete">Silmek istediğinize emin misiniz?</string>
 
 
-
-    <string name="title_devices">BLE Device Scan</string>
-    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
-    <string name="ble_not_supported">BLE is not supported</string>
-    <string name="connectting">Connecting</string>
-    <string name="pair_device">Please Connect Device</string>
-    <string name="Restore_factory">Factory Reset</string>
-    <string name="Restore_factory_tips">Factory Reset will clear all the data in the device,  please confirm that you want to reset?</string>
-    <string name="fileprovider">com.smartsense.covid.fileprovider</string>
-    <string name="require_now">Grant</string>
-    <string name="require_cancel">Disallow</string>
-    <string name="require_allow">Allow</string>
-    <string name="permisson_neverask">The permission of %1$s from 1860 TEST app is forbidden,it may casued some of function inavailable, please grant permissions from setting if required.</string>
-    <string name="permission_requierd">Application permissions</string>
-    <string name="Enable_Access_title">Enable Access In App Settings</string>
-    <string name="access_content">It looks like you have turned off permission required for this feature.
-It can be enabled under Phone Settings>Apps>Permissions, SET NOW?
-</string>
-    <string name="access_now">GO TO SETTINGS</string>
-    <string name="access_no">NOT NOW</string>
-
-
     <string name="privacy_policy">Privacy Policy</string>
 
     <string name="privacy_policy_text"><![CDATA[
@@ -671,7 +649,7 @@ It can be enabled under Phone Settings>Apps>Permissions, SET NOW?
         <item quantity="one">One location reported</item>
         <item quantity="other">%d locations reported</item>
     </plurals>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 

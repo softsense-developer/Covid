@@ -331,7 +331,7 @@
 
             <LinearLayout
                 android:id="@+id/connectionLayout"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
@@ -390,9 +390,9 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginBottom="16dp"
                     android:layout_weight="1"
-
                     app:cardCornerRadius="5dp"
                     app:cardElevation="1dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 

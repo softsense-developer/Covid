@@ -55,7 +55,7 @@ import java.util.TimeZone;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private MaterialCardView cardConnectionStatus, cardHomeLocation, warningCard;
+    private MaterialCardView cardConnectionStatus, cardHomeLocation, warningCard, cardWearingStatus;
     private ImageView heartIcon;
     private TextView textConnectionStatus, textHeartRate, warningText, warningTypeText, warningDateText, batteryText;
     private View cardConnectionColor, cardPrioriStatusColor, cardBluetoothColor, cardWearingColor, cardBatteryColor;
@@ -134,6 +134,7 @@ public class HomeFragment extends Fragment {
         cardBluetoothColor = root.findViewById(R.id.cardBluetoothColor);
         cardWearingColor = root.findViewById(R.id.cardWearingColor);
         cardBatteryColor = root.findViewById(R.id.cardBatteryColor);
+        cardWearingStatus = root.findViewById(R.id.cardWearingStatus);
 
         anim = AnimationUtils.loadAnimation(getContext(), R.anim.scale);
         handler = new Handler();
@@ -432,13 +433,17 @@ public class HomeFragment extends Fragment {
 
     public void connectionStatus(boolean status) {
         if (status) {
-
             cardConnectionStatus.setVisibility(View.GONE);
             connectionLayout.setVisibility(View.VISIBLE);
             cardBluetoothColor.setBackgroundColor(getResources().getColor(R.color.cardActiveColor));
             cardWearingColor.setBackgroundColor(getResources().getColor(R.color.cardActiveColor));
             cardBatteryColor.setBackgroundColor(getResources().getColor(R.color.cardActiveColor));
 
+            if(prefManager.getBandType()==MyConstant.BAND_SMARTSENSE){
+                cardWearingStatus.setVisibility(View.VISIBLE);
+            }else{
+                cardWearingStatus.setVisibility(View.GONE);
+            }
             textConnectionStatus.setText(getString(R.string.connection_active));
             cardConnectionStatus.setClickable(false);
             cardConnectionStatus.setFocusable(false);
@@ -458,6 +463,7 @@ public class HomeFragment extends Fragment {
             cardBluetoothColor.setBackgroundColor(getResources().getColor(R.color.cardPassiveColor));
             cardWearingColor.setBackgroundColor(getResources().getColor(R.color.cardPassiveColor));
             cardBatteryColor.setBackgroundColor(getResources().getColor(R.color.cardPassiveColor));
+
 
             cardConnectionStatus.setClickable(true);
             cardConnectionStatus.setFocusable(true);
@@ -526,48 +532,46 @@ public class HomeFragment extends Fragment {
         super.onResume();
         checkMedicineUsage();
 
-        dataHandler.postDelayed(runnable = new Runnable() {
-            public void run() {
-                if (CovidMainActivity.isConnected) {
-                    if (isAdded() && activity != null) {
-                        connectionStatus(true);
+        dataHandler.postDelayed(runnable = () -> {
+            if (CovidMainActivity.isConnected) {
+                if (isAdded() && activity != null) {
+                    connectionStatus(true);
 
-                        if (prefManager.getWarningData() >= 0) {
-                            if (prefManager.getWarningType() == MyConstant.TEMP) {
-                                tempWarning();
-                            } else if (prefManager.getWarningType() == MyConstant.SPO2) {
-                                spO2Warning();
-                            } else if (prefManager.getWarningType() == MyConstant.HEART) {
-                                heartrateWarning(true);
-                            } else if (prefManager.getWarningType() == MyConstant.HEART_HIGH) {
-                                heartrateWarning(false);
-                            }
-                        }
-
-                        batteryText.setText(("%" + CovidMainActivity.batteryPercentage));
-                        if (CovidMainActivity.isWearingNow) {
-                            cardWearingColor.setBackgroundColor(getResources().getColor(R.color.cardActiveColor));
-                        } else {
-                            cardWearingColor.setBackgroundColor(getResources().getColor(R.color.cardPassiveColor));
+                    if (prefManager.getWarningData() >= 0) {
+                        if (prefManager.getWarningType() == MyConstant.TEMP) {
+                            tempWarning();
+                        } else if (prefManager.getWarningType() == MyConstant.SPO2) {
+                            spO2Warning();
+                        } else if (prefManager.getWarningType() == MyConstant.HEART) {
+                            heartrateWarning(true);
+                        } else if (prefManager.getWarningType() == MyConstant.HEART_HIGH) {
+                            heartrateWarning(false);
                         }
                     }
-                } else {
-                    if (isAdded() && activity != null) {
-                        connectionStatus(false);
-                    }
-                }
 
-                if (CovidMainActivity.isHomeSetClicked) {
-                    if (prefManager.getIsLocationCanChange()) {
-                        cardHomeLocation.setVisibility(View.VISIBLE);
+                    batteryText.setText(("%" + CovidMainActivity.batteryPercentage));
+                    if (CovidMainActivity.isWearingNow) {
+                        cardWearingColor.setBackgroundColor(getResources().getColor(R.color.cardActiveColor));
                     } else {
-                        cardHomeLocation.setVisibility(View.GONE);
+                        cardWearingColor.setBackgroundColor(getResources().getColor(R.color.cardPassiveColor));
                     }
                 }
-
-
-                dataHandler.postDelayed(runnable, delay);
+            } else {
+                if (isAdded() && activity != null) {
+                    connectionStatus(false);
+                }
             }
+
+            if (CovidMainActivity.isHomeSetClicked) {
+                if (prefManager.getIsLocationCanChange()) {
+                    cardHomeLocation.setVisibility(View.VISIBLE);
+                } else {
+                    cardHomeLocation.setVisibility(View.GONE);
+                }
+            }
+
+
+            dataHandler.postDelayed(runnable, delay);
         }, delay);
 
         if (prefManager.getIsLocationCanChange()) {

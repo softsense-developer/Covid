@@ -24,7 +24,6 @@ import com.smartsense.covid.bluetoothlegatt.BluetoothScanActivity;
 import com.smartsense.covid.CovidMainActivity;
 import com.smartsense.covid.PrefManager;
 import com.smartsense.covid.R;
-import com.smartsense.covid.newBand.DeviceScanActivity;
 
 import java.util.Objects;
 
@@ -68,9 +67,9 @@ public class BaglantiFragment extends Fragment {
         smartsenseConnect.setOnClickListener(view -> {
             if (!CovidMainActivity.isConnected) {
                 // ((EpilepsyMainActivity) getActivity()).myoConnect();
+                Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
+                requireActivity().startActivityForResult(intent, BAND_SMARTSENSE_REQUEST);
             }
-            Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
-            requireActivity().startActivityForResult(intent, BAND_SMARTSENSE_REQUEST);
             //bluetoothScanListener.onClick(1);
         });
 
@@ -91,8 +90,10 @@ public class BaglantiFragment extends Fragment {
 
 
         band1963Connection.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
-            requireActivity().startActivityForResult(intent, BAND_1963_REQUEST);
+           if(!CovidMainActivity.isConnected){
+               Intent intent = new Intent(getActivity(), BluetoothScanActivity.class);
+               requireActivity().startActivityForResult(intent, BAND_1963_REQUEST);
+           }
         });
 
         band1963Disconnect.setOnClickListener(v -> {
@@ -132,8 +133,6 @@ public class BaglantiFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //TODO: Düzenle
-
         runnable = () -> {
             if (prefManager.getBandMac() != null) {
                 hndler.postDelayed(runnable, 100);
