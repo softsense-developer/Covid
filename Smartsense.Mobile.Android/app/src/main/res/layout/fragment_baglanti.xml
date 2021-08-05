@@ -102,7 +102,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="New Band"
+                    android:text="@string/smartsense_watch"
                     android:textAlignment="center"
                     android:textSize="18sp" />
 

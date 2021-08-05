@@ -195,7 +195,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     // than your app can handle
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5 * 1000;
 
-    private final int BLUETOOTH_DATA_IN_MIN = 30; //3 sec //TODO: Update for release = 20 // for 1963 = 60
+    private final int BLUETOOTH_DATA_IN_MIN = 60; //3 sec //TODO: Update for release = 20 // for 1963 = 60
     private static long LAST_SEND_TIME = 0;
     private static long DATA_SENT_INTERVAL = 15 * 1000;
 
@@ -216,9 +216,9 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     boolean isStartReal;
     private Runnable batteryRunnable;
     private Handler batteryHandler;
-    private int batteryTime = 60000;
-    private Handler band1963And1939Handler, band1963And1939ConnectHandler;
-    private Runnable band1963And1939Runnable, band1963And1939ConnectRunnable;
+    private int batteryTime = 120000;
+    private Handler band1963And1939Handler, band1963And1939ConnectHandler, band1963And1939SpO2Handler;
+    private Runnable band1963And1939Runnable, band1963And1939ConnectRunnable, band1963And1939SpO2Runnable;
     public static long lastDataTime;
     public static boolean isBand1963And1939Connected;
     private boolean isSubscribe = false;
@@ -392,6 +392,8 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             batteryHandler.postDelayed(batteryRunnable, batteryTime);
             if (isConnected && isBand1963And1939Connected) {
                 sendValue(BleSDK.GetDeviceBatteryLevel());
+
+                sendValue(BleSDK.GetBloodOxygen(0));
             }
         };
 
@@ -406,6 +408,16 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             band1963And1939ConnectHandler.postDelayed(band1963And1939ConnectRunnable, 5000);
         }, 200);
 
+        band1963And1939SpO2Handler = new Handler();
+        band1963And1939SpO2Runnable = () -> {
+            band1963And1939SpO2Handler.postDelayed(band1963And1939SpO2Runnable, prefManager.getTimeSpO2());
+            if (isConnected && isBand1963And1939Connected &&
+                    prefManager.getBandType() == MyConstant.BAND_1963 &&
+                    prefManager.getBandMac() != null) {
+
+                sendNotification(getString(R.string.ask_spo2_notify_title), getString(R.string.ask_spo2_notify));
+            }
+        };
         //For band 1963
 
 
@@ -2346,6 +2358,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         spO2SampleCounter = 0;
         batteryHandler.removeCallbacks(batteryRunnable);
         band1963And1939Handler.removeCallbacks(band1963And1939Runnable);
+        band1963And1939SpO2Handler.removeCallbacks(band1963And1939SpO2Runnable);
 
         if (!isSubscribe) {
             isSubscribe = true;
@@ -2373,6 +2386,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 sendValue(BleSDK.GetDeviceBatteryLevel());
                 batteryHandler.postDelayed(batteryRunnable, batteryTime);
                 band1963And1939Handler.postDelayed(band1963And1939Runnable, 1000);
+                band1963And1939SpO2Handler.postDelayed(band1963And1939SpO2Runnable, prefManager.getTimeSpO2());
             } else if (action.equals(BleService.ACTION_GATT_DISCONNECTED)) {
                 Log.i(TAG, "init: ACTION_GATT_DISCONNECTED");
                 isStartReal = false;
@@ -2386,7 +2400,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     public void dataCallback(Map<String, Object> map) {
         String dataType = getDataType(map);
         Log.e("info", map.toString());
-        Map<String, String> data = getData(map);
+
         switch (dataType) {
            /* case BleConst.ReadSerialNumber:
                 showDialogInfo(map.toString());
@@ -2433,10 +2447,28 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 break;
 
             case BleConst.GetDeviceBatteryLevel:
+                Map<String, String> data = getData(map);
                 String battery = data.get(DeviceKey.BatteryLevel);
                 Log.i(TAG, "dataCallback: battery: " + battery);
                 if (battery != null) {
                     batteryPercentage = Integer.parseInt(battery);
+                }
+                break;
+            case BleConst.Blood_oxygen:
+                try {
+                    String spO2String = map.toString();
+                    Log.i(TAG, "Blood_oxygen: " + spO2String);
+                    String[] spo2s = spO2String.split("Blood_oxygen=");
+                    if (spo2s.length > 1) {
+                        int spO2 = Integer.parseInt(spo2s[1].substring(0, spo2s[1].indexOf("}")));
+                        Log.i(TAG, "dataCallback: spO2: " + spO2);
+                        if (spO2 != 0) {
+                            saveSpo2ForBand1963(spO2);
+                            sendValue(BleSDK.GetBloodOxygen(0x99));
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.i(TAG, "dataCallback: " + e.getMessage());
                 }
                 break;
 
@@ -2458,6 +2490,17 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             case BleConst.Sos:
                 showToast(map.toString());
                 break;*/
+        }
+    }
+
+    public void saveSpo2ForBand1963(int value) {
+        Covid covid = new Covid((System.currentTimeMillis()), value, MyConstant.SPO2, MyConstant.AUTO_SAVE);
+        repository.insert(covid);
+
+        checkSpO2(value);
+
+        if (prefManager.getSentDataServer()) {
+            sendVitalDataToServer(MyConstant.SPO2, value);
         }
     }
 
@@ -2681,6 +2724,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
         batteryHandler.removeCallbacks(batteryRunnable);
         band1963And1939Handler.removeCallbacks(band1963And1939Runnable);
+        band1963And1939ConnectHandler.removeCallbacks(band1963And1939ConnectRunnable);
         band1963And1939ConnectHandler.removeCallbacks(band1963And1939ConnectRunnable);
 
         super.onDestroy();

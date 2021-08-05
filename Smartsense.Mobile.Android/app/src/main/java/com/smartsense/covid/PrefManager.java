@@ -236,8 +236,9 @@ public class PrefManager {
         editor.apply();
     }
 
+    //60 min
     public int getTimeSpO2() {
-        return pref.getInt(PACKAGE_NAME + "." + SPO2_TIME, 5 * 60 * 1000);
+        return pref.getInt(PACKAGE_NAME + "." + SPO2_TIME, 60 * 60 * 1000);
     }
 
     public void setTempSentLast(long val) {

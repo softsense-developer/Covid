@@ -128,6 +128,7 @@
     <string name="home_location_send_permission">Karantina lokasyonu belirleme ve vital verilerinizin sunucuya gönderilmesi için lütfen \"Ayarlar\" - \"Ölçüm Ayarları\" ekranındaki \"Sunucuya verileri gönderme durumu\" etkinleştiriniz.</string>
 
     <string name="smartsense_band">SmartSense Band</string>
+    <string name="smartsense_watch">SmartSense Watch</string>
     <string name="connected">bağlandı</string>
     <string name="not_connected">bağlanamadı</string>
     <string name="disconnect">Bağlantıyı Kes</string>
@@ -233,6 +234,9 @@
     <string name="quarantine_hospital_warning">Lütfen bir sağlık personeli ile iletişime geçiniz.</string>
 
     <string name="warning_spo2_plus">SpO2 değerinizin düşük olduğu tespit edildi. Lütfen bir sağlık kurumu ile iletişime geçiniz.</string>
+    <string name="ask_spo2_notify_title">SpO2 ölçümü</string>
+    <string name="ask_spo2_notify">Lütfen bileklik üzerinden SpO2 ölçümü yapınız.</string>
+
 
     <!-- Data sent fragment  -->
     <string name="back_up_and_sent">Yedekle ve Gönder</string>
