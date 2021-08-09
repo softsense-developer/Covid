@@ -430,7 +430,10 @@ struct LoginSignUpView: View {
             MyKeychain.isEmailVerified = true
             //print(MyKeychain.userToken)
         
-            getPatientInfo()
+            //getPatientInfo()
+            
+            GrowingNotificationBanner(title: NSLocalizedString("login_dot", comment: ""), style: .success).show(bannerPosition: .top)
+            observedLoginData.isLoggedIn = true
     
         },onFail: {(data) in
             isProgressViewShowing = false
@@ -501,7 +504,6 @@ struct LoginSignUpView: View {
             MyKeychain.userBloodGroup = response.bloodGroup ?? ""
             
             GrowingNotificationBanner(title: NSLocalizedString("login_dot", comment: ""), style: .success).show(bannerPosition: .top)
-            
             observedLoginData.isLoggedIn = true
         }, onFail: {(data) in
             isProgressViewShowing = false

@@ -50,6 +50,7 @@ struct MainView: View {
             
         }.accentColor(.colorPrimary)
         
+        
     }
 }
 
@@ -59,7 +60,7 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
-        //.preferredColorScheme(.dark)
+         //.preferredColorScheme(.dark)
     }
 }
 

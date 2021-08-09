@@ -84,6 +84,7 @@
 "bluetooth_no_connection" = "Bağlantı yok";
 "bluetooth_no_connection_click" = "Bağlantı yok. Buraya tıklayarak bağlantı yapabilirsiniz.";
 
+"all" = "Tümü";
 "heart" = "Nabız";
 "spo2" = "SpO2";
 "temperature" = "Ateş";

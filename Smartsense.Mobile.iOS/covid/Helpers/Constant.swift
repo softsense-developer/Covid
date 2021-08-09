@@ -20,6 +20,9 @@ struct Constant {
     static let HeartRate = 1
     static let Temperature = 2
     
+    static let SaveAuto = 0
+    static let SaveManual = 1
+    
     static let QuarantineAtHome = 0
     static let QuarantineInHospital = 1
     static let Suspicious = 2

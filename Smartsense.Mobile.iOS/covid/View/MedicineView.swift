@@ -40,7 +40,7 @@ struct MedicineView: View {
                     SettingsView()
                 }
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

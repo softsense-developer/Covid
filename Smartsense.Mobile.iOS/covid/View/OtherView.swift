@@ -39,7 +39,7 @@ struct OtherView: View {
                 }
             }
             
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         
     }
 }

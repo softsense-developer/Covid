@@ -119,7 +119,7 @@ struct ConnectionView: View {
                     SettingsView()
                 }
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         
        
     }

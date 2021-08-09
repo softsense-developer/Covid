@@ -47,7 +47,7 @@ struct HomeView: View {
                     SettingsView()
                 }
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         
         
     }

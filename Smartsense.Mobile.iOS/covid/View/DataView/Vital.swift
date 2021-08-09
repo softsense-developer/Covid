@@ -7,38 +7,33 @@
 
 import Foundation
 
-class VitalHistory: NSObject, Identifiable{
+struct Vital: Hashable, Codable, Identifiable{
+    var id: String
     var type: Int
-    var data: Float
+    var data: Int
     var saveType: Int
-    var date: Int64
+    var date: Date
     
-    init(type: Int, data: Float, saveType: Int, date: Int64) {
+    init(id: String, type: Int, data: Int, saveType: Int, date: Date) {
+        self.id = id
         self.type = type
         self.data = data
         self.saveType = saveType
         self.date = date
     }
     
-    convenience init(random: Bool = false){
+    init(random: Bool = false){
             if random{
-                let type = ["New", "Used", "Mint"]
-                var idx = Int.random(in: 0..<conditions.count)
-                let randomConditions = conditions[idx]
+                let type = [Constant.Temperature, Constant.HeartRate, Constant.SpO2]
+                let randomType = type[Int.random(in: 0..<type.count)]
                 
-                let names = ["Resident Evil", "Gears of War", "Halo", "God of War"]
-                idx = Int.random(in: 0..<names.count)
-                let randomName = names[idx]
-                
-                idx = Int.random(in: 0..<6)
-                let randomTitle = "\(randomConditions) \(randomName) \(idx)"
+                let randomData = Int.random(in: 40..<100)
                 
                 let serialNumber = UUID().uuidString.components(separatedBy: "-").first!
-                let priceInDollars = Double(Int.random(in: 0...70))
                 
-                self.init(name: randomTitle, priceInDollars: priceInDollars, serialNumber: serialNumber)
+                self.init(id: serialNumber, type: randomType, data: randomData, saveType: Constant.SaveAuto, date: Date())
             }else{
-                self.init(name: "", priceInDollars: 0, serialNumber: "")
+                self.init(id: "", type: 0, data: 0, saveType: 0, date: Date())
             }
         }
 }

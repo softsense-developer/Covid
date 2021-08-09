@@ -17,6 +17,8 @@
 		F522AF27266664B800691BF3 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522AF26266664B800691BF3 /* LoginView.swift */; };
 		F522AF2C266666BE00691BF3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F522AF2E266666BE00691BF3 /* Localizable.strings */; };
 		F522AF362666720D00691BF3 /* Color+covid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F522AF352666720D00691BF3 /* Color+covid.swift */; };
+		F52BE68E26BD24890090E805 /* Vital.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52BE68D26BD24890090E805 /* Vital.swift */; };
+		F52BE69026BD2C560090E805 /* VitalItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52BE68F26BD2C560090E805 /* VitalItem.swift */; };
 		F54488A12670A76A005334F7 /* UserLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488A02670A76A005334F7 /* UserLoginRequest.swift */; };
 		F54488A52670DBCF005334F7 /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488A42670DBCF005334F7 /* Encodable.swift */; };
 		F54488A82670DD5C005334F7 /* ApiServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54488A72670DD5C005334F7 /* ApiServiceProtocol.swift */; };
@@ -86,6 +88,8 @@
 		F522AF2D266666BE00691BF3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F522AF30266666C500691BF3 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F522AF352666720D00691BF3 /* Color+covid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+covid.swift"; sourceTree = "<group>"; };
+		F52BE68D26BD24890090E805 /* Vital.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vital.swift; sourceTree = "<group>"; };
+		F52BE68F26BD2C560090E805 /* VitalItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VitalItem.swift; sourceTree = "<group>"; };
 		F54488A02670A76A005334F7 /* UserLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginRequest.swift; sourceTree = "<group>"; };
 		F54488A42670DBCF005334F7 /* Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
 		F54488A72670DD5C005334F7 /* ApiServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceProtocol.swift; sourceTree = "<group>"; };
@@ -197,6 +201,15 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		F52BE68C26BD24340090E805 /* DataView */ = {
+			isa = PBXGroup;
+			children = (
+				F52BE68D26BD24890090E805 /* Vital.swift */,
+				F52BE68F26BD2C560090E805 /* VitalItem.swift */,
+			);
+			path = DataView;
+			sourceTree = "<group>";
+		};
 		F544889F2670A746005334F7 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +304,7 @@
 		F5E4E3332679E32C003B7F2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F52BE68C26BD24340090E805 /* DataView */,
 				F55E948D26846B8800F9E98C /* SettingViews */,
 				F5D7CBC32678CA8E0084CD32 /* SplashView.swift */,
 				F522AF26266664B800691BF3 /* LoginView.swift */,
@@ -440,9 +454,11 @@
 				F5A0D9802667C156003F2D1E /* Formatter+covid.swift in Sources */,
 				F55E949926846F3300F9E98C /* DoctorSelectView.swift in Sources */,
 				F5A5752D2685DBCA00BA8491 /* PasswordChangeRequest.swift in Sources */,
+				F52BE68E26BD24890090E805 /* Vital.swift in Sources */,
 				F54488A12670A76A005334F7 /* UserLoginRequest.swift in Sources */,
 				F54488AB2670EC7D005334F7 /* BaseApiRequest.swift in Sources */,
 				F5716F23267389EA00722E8A /* UserRegisterRequest.swift in Sources */,
+				F52BE69026BD2C560090E805 /* VitalItem.swift in Sources */,
 				F5A0D97926678CEF003F2D1E /* Constant.swift in Sources */,
 				F522AF1726665C7600691BF3 /* covidApp.swift in Sources */,
 				F5716F2626738A7900722E8A /* UserRegisterResponse.swift in Sources */,
@@ -510,6 +526,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -572,6 +589,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -599,9 +617,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"covid/Preview Content\"";
+				DEVELOPMENT_TEAM = 5C4HH4SK5J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = covid/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -611,6 +631,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartsense.covid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -621,9 +642,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_ASSET_PATHS = "\"covid/Preview Content\"";
+				DEVELOPMENT_TEAM = 5C4HH4SK5J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = covid/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -633,6 +656,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smartsense.covid;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
