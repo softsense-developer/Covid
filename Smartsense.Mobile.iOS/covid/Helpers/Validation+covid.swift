@@ -9,6 +9,15 @@ import Foundation
 
 
 class Validation{
+    public func validateString(string: String, maxLength: Int) ->Bool {
+        // Length be 18 characters max and 2 characters minimum
+        let stringRegex = "^\\w{2," + String(maxLength) + "}$"
+        let trimmedString = string.trimmingCharacters(in: .whitespaces)
+        let validateString = NSPredicate(format: "SELF MATCHES %@", stringRegex)
+        let isValidateString = validateString.evaluate(with: trimmedString)
+        return isValidateString
+    }
+    
     public func validateName(name: String) ->Bool {
         // Length be 18 characters max and 2 characters minimum
         let nameRegex = "^\\w{2,18}$"
@@ -50,13 +59,13 @@ class Validation{
         return isvalidatePass
     }
     /*public func validatePassword(password: String) -> Bool {
-        //Minimum 8 characters at least 1 Alphabet and 1 Number:
-        let passRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
-        let trimmedString = password.trimmingCharacters(in: .whitespaces)
-        let validatePassord = NSPredicate(format:"SELF MATCHES %@", passRegEx)
-        let isvalidatePass = validatePassord.evaluate(with: trimmedString)
-        return isvalidatePass
-    }*/
+     //Minimum 8 characters at least 1 Alphabet and 1 Number:
+     let passRegEx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+     let trimmedString = password.trimmingCharacters(in: .whitespaces)
+     let validatePassord = NSPredicate(format:"SELF MATCHES %@", passRegEx)
+     let isvalidatePass = validatePassord.evaluate(with: trimmedString)
+     return isvalidatePass
+     }*/
     public func validateAnyOtherTextField(otherField: String) -> Bool {
         let otherRegexString = "Your regex String"
         let trimmedString = otherField.trimmingCharacters(in: .whitespaces)

@@ -14,7 +14,6 @@ struct SettingsView: View {
                 SettingBodyView()
             }
         }
-        
         .navigationTitle("settings")
         .navigationBarTitleDisplayMode(.inline)
         

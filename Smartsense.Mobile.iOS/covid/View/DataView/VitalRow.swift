@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VitalItem: View {
+struct VitalRow: View {
     var vital: Vital
     var numberFormatter: NumberFormatter = Formatters.floatFormatter
     var dateFormatter = DateFormat()
@@ -24,6 +24,7 @@ struct VitalItem: View {
                 
                 HStack(alignment: .center, spacing: 16){
                     
+                    //Vital data icon view start
                     if vital.type == Constant.Temperature{
                         Image("thermometer")
                             .resizable()
@@ -49,10 +50,13 @@ struct VitalItem: View {
                             .frame(width: 30, height: 30)
                             .padding(.top, 1)
                     }
+                    //Vital data icon view end
                     
+                    //Vital data, unit and date start
                     VStack(alignment: .leading, spacing: 4){
                         HStack(alignment: .top, spacing: 4){
                             
+                            //Vital data start
                             if vital.type == Constant.Temperature && vital.type == Constant.HeartRate{
                                 Text(NSNumber(value: vital.data), formatter: numberFormatter)
                                     .font(.title3)
@@ -62,8 +66,10 @@ struct VitalItem: View {
                                     .font(.title3)
                                     .foregroundColor(.primary)
                             }
+                            //Vital data end
                             
                             
+                            //Vital unit start
                             if vital.type == Constant.Temperature{
                                 Text("temp_unit")
                                     .font(.subheadline)
@@ -77,16 +83,18 @@ struct VitalItem: View {
                                     .font(.subheadline)
                                     .foregroundColor(.secondary)
                             }
-                            
+                            //Vital unit end
                             
                         }
                         
-                        
+                        //Vital date
                         Text(dateFormatter.dateMonthToMinute(date: vital.date))
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                         
                     }
+                    //Vital data, unit and date end
+                    
                 }.padding(.all, 16)
             }
             .padding([.top, .bottom], 2)
@@ -95,7 +103,7 @@ struct VitalItem: View {
 }
 
 
-struct VitalItem2: View {
+struct VitalRow2: View {
     var vital: Vital
     var numberFormatter: NumberFormatter = Formatters.floatFormatter
     var dateFormatter = DateFormat()
@@ -104,6 +112,8 @@ struct VitalItem2: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4){
             HStack(alignment: .center, spacing: 16){
+                
+                //Vital data icon view start
                 if vital.type == Constant.Temperature{
                     Image("thermometer")
                         .resizable()
@@ -129,10 +139,14 @@ struct VitalItem2: View {
                         .frame(width: 30, height: 30)
                         .padding(.top, 1)
                 }
+                //Vital data icon view end
                 
+                
+                //Vital data end date start
                 VStack(alignment: .leading, spacing: 4){
                     HStack(alignment: .top, spacing: 4){
                         
+                        //Vital data start
                         if vital.type == Constant.Temperature && vital.type == Constant.HeartRate{
                             Text(NSNumber(value: vital.data), formatter: numberFormatter)
                                 .font(.body)
@@ -143,8 +157,10 @@ struct VitalItem2: View {
                                 .font(.body)
                                 .foregroundColor(.primary)
                         }
+                        //Vital data end
                         
                         
+                        //Vital unit start
                         if vital.type == Constant.Temperature{
                             Text("temp_unit")
                                 .font(.footnote)
@@ -158,17 +174,19 @@ struct VitalItem2: View {
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
                         }
-                        
+                        //Vital unit end
                         
                     }
                     
-                    
+                    //Vital date
                     Text(dateFormatter.dateMonthToMinute(date: vital.date))
                         .font(.caption)
                         .foregroundColor(.secondary)
                     
                 }
+                //Vital data end date end
                 
+                //Spacer for alignment .leading
                 Spacer()
             }.padding(.horizontal, 16)
             .padding([.top, .bottom], 8)
@@ -179,9 +197,9 @@ struct VitalItem2: View {
     }
 }
 
-struct VitalItem_Previews: PreviewProvider {
+struct VitalRow_Previews: PreviewProvider {
     static var previews: some View {
-        VitalItem2(vital: Vital(random: true))
+        VitalRow2(vital: Vital(random: true))
         
     }
 }

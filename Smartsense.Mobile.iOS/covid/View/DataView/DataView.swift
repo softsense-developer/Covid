@@ -44,8 +44,8 @@ struct DataView: View {
 
 struct DataViewContent: View {
     
+    //For segment picker style color
     init() {
-        
         //this changes the "thumb" that selects between items
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(.componentColor)
         
@@ -80,36 +80,39 @@ struct DataViewContent: View {
                   Vital(random: true)]
     
     
- 
+    
     
     var body: some View {
         VStack{
+            //Vital data filter picker
             Picker(selectedFilter, selection: $selectedFilter) {
                 ForEach(dataFilter, id: \.self) {
                     Text($0)
                 }
             }
             .pickerStyle(SegmentedPickerStyle())
-         
             
+            
+            //Vital data list
             ForEach(filterData, id: \.self) { vital in
-                VitalItem2(vital: vital)
+                VitalRow2(vital: vital)
             }
             
         }
     }
     
+    //Vital data filter
     var filterData: [Vital] {
-            if selectedFilter == NSLocalizedString("temperature", comment: ""){
-                return vitals.filter { $0.type == 2 }
-            }else if selectedFilter == NSLocalizedString("heart", comment: ""){
-                return vitals.filter { $0.type == 1 }
-            }else if selectedFilter == NSLocalizedString("spo2", comment: ""){
-                return vitals.filter { $0.type == 0 }
-            }else{
-                return vitals
-            }
+        if selectedFilter == NSLocalizedString("temperature", comment: ""){
+            return vitals.filter { $0.type == 2 }
+        }else if selectedFilter == NSLocalizedString("heart", comment: ""){
+            return vitals.filter { $0.type == 1 }
+        }else if selectedFilter == NSLocalizedString("spo2", comment: ""){
+            return vitals.filter { $0.type == 0 }
+        }else{
+            return vitals
         }
+    }
 }
 
 

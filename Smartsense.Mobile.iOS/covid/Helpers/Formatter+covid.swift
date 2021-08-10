@@ -26,4 +26,11 @@ class DateFormat{
         let newDateString = formatter.string(from: date)
         return newDateString
     }
+    
+    public func dateHourMinute(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let newDateString = formatter.string(from: date)
+        return newDateString
+    }
 }

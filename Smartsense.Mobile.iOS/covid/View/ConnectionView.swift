@@ -10,16 +10,18 @@ import SwiftUI
 struct ConnectionView: View {
     
     @State private var showingSetting = false
-    @State var isSmartSenseWatchConnected: Bool = true
+    @State var isSmartSenseWatchConnected: Bool = false
     @State var isSmartSenseWatchPaired: Bool = true
     @State var connectedDeviceName: String = "Smartsense Band"
+    
+    
     
     var body: some View {
         NavigationView{
             ScrollView(.vertical) {
                 VStack {
                     Button(action: {
-                        
+                        isSmartSenseWatchConnected.toggle()
                     }, label: {
                         ZStack(alignment: .bottom) {
                             /* For look like a cardview */

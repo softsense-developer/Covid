@@ -130,7 +130,7 @@
 "notify_medicine_not_used" = "Lütfen ilacınızı kullanmayı daha fazla geciktirmeyiniz. Eğer kullandıysanız uygulamayı açarak kullandığınızı onaylayınız.";
 "medicine_should_used_time" = "İlacın kullanılması gereken saat:";
 "no_medicine_text" = "İlaç verisi bulunamadı.\n\nİlaç hatırlatıcıyı kullanmak için + butonuna tıklayıp ilacını kayıt edebilirsin.";
-
+"enter_valid_medicine_name" = "Lütfen geçerli bir ilaç adı giriniz.";
 
 //Companion View Text
 "companion" = "Refakatçi";
