@@ -44,6 +44,8 @@
 		F58D2E81267210AD00F802B5 /* CustomBannerColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58D2E80267210AD00F802B5 /* CustomBannerColors.swift */; };
 		F58D2E8F2672234D00F802B5 /* MyKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F58D2E8E2672234D00F802B5 /* MyKeychain.swift */; };
 		F58D2E932672391800F802B5 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F58D2E922672391800F802B5 /* KeychainSwift */; };
+		F591A36D26C3ADEE00FD22FE /* MedicineTimeDose.swift in Sources */ = {isa = PBXBuildFile; fileRef = F591A36C26C3ADEE00FD22FE /* MedicineTimeDose.swift */; };
+		F591A36F26C3AE0B00FD22FE /* MedicineTimeDoseRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F591A36E26C3AE0B00FD22FE /* MedicineTimeDoseRow.swift */; };
 		F5A0D97926678CEF003F2D1E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A0D97826678CEF003F2D1E /* Constant.swift */; };
 		F5A0D97D2667C142003F2D1E /* Validation+covid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A0D97C2667C142003F2D1E /* Validation+covid.swift */; };
 		F5A0D9802667C156003F2D1E /* Formatter+covid.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A0D97F2667C156003F2D1E /* Formatter+covid.swift */; };
@@ -116,6 +118,8 @@
 		F580BB162678A8E7009C6CD9 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		F58D2E80267210AD00F802B5 /* CustomBannerColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBannerColors.swift; sourceTree = "<group>"; };
 		F58D2E8E2672234D00F802B5 /* MyKeychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyKeychain.swift; sourceTree = "<group>"; };
+		F591A36C26C3ADEE00FD22FE /* MedicineTimeDose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineTimeDose.swift; sourceTree = "<group>"; };
+		F591A36E26C3AE0B00FD22FE /* MedicineTimeDoseRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineTimeDoseRow.swift; sourceTree = "<group>"; };
 		F5A0D97826678CEF003F2D1E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		F5A0D97C2667C142003F2D1E /* Validation+covid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Validation+covid.swift"; sourceTree = "<group>"; };
 		F5A0D97F2667C156003F2D1E /* Formatter+covid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Formatter+covid.swift"; sourceTree = "<group>"; };
@@ -296,6 +300,8 @@
 				F5BA6CE426C25A1900308A58 /* MedicineAddEdit.swift */,
 				F5BA6CE726C25B8800308A58 /* MedicineRow.swift */,
 				F5BA6CE926C25BDB00308A58 /* Medicine.swift */,
+				F591A36C26C3ADEE00FD22FE /* MedicineTimeDose.swift */,
+				F591A36E26C3AE0B00FD22FE /* MedicineTimeDoseRow.swift */,
 			);
 			path = MedicineViews;
 			sourceTree = "<group>";
@@ -476,6 +482,7 @@
 				F52BE68E26BD24890090E805 /* Vital.swift in Sources */,
 				F5BA6CE826C25B8800308A58 /* MedicineRow.swift in Sources */,
 				F54488A12670A76A005334F7 /* UserLoginRequest.swift in Sources */,
+				F591A36F26C3AE0B00FD22FE /* MedicineTimeDoseRow.swift in Sources */,
 				F54488AB2670EC7D005334F7 /* BaseApiRequest.swift in Sources */,
 				F5716F23267389EA00722E8A /* UserRegisterRequest.swift in Sources */,
 				F52BE69026BD2C560090E805 /* VitalRow.swift in Sources */,
@@ -483,6 +490,7 @@
 				F522AF1726665C7600691BF3 /* covidApp.swift in Sources */,
 				F5716F2626738A7900722E8A /* UserRegisterResponse.swift in Sources */,
 				F5A9B86F266FA28400576DFF /* UserLoginResponse.swift in Sources */,
+				F591A36D26C3ADEE00FD22FE /* MedicineTimeDose.swift in Sources */,
 				F55E949526846EC500F9E98C /* CompanionView.swift in Sources */,
 				F5E4E32D2679DBDB003B7F2E /* TokenRefreshResponse.swift in Sources */,
 				F5E4E3352679EB7D003B7F2E /* ConnectionView.swift in Sources */,

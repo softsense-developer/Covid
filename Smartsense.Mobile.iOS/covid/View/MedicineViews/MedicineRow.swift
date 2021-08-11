@@ -94,7 +94,7 @@ struct MedicineRow2: View {
             }.padding(.horizontal, 16)
             .padding([.top, .bottom], 8)
             
-            Divider().padding(.leading, 64)
+            //Divider().padding(.leading, 64)
         }
         
     }
