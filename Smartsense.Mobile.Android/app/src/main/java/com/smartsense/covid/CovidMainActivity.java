@@ -2406,14 +2406,15 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 showDialogInfo(map.toString());
                 break;*/
             case BleConst.RealTimeStep:
-                Map<String, String> maps = getData(map);
-                String step = maps.get(DeviceKey.Step);
-                String cal = maps.get(DeviceKey.Calories);
-                String distance = maps.get(DeviceKey.Distance);
-                String time = maps.get(DeviceKey.ExerciseMinutes);
-                String ActiveTime = maps.get(DeviceKey.ActiveMinutes);
-                String heart = maps.get(DeviceKey.HeartRate);
-                String TEMP = maps.get(DeviceKey.TempData);
+                try {
+                    Map<String, String> maps = getData(map);
+                    String step = maps.get(DeviceKey.Step);
+                    String cal = maps.get(DeviceKey.Calories);
+                    String distance = maps.get(DeviceKey.Distance);
+                    String time = maps.get(DeviceKey.ExerciseMinutes);
+                    String ActiveTime = maps.get(DeviceKey.ActiveMinutes);
+                    String heart = maps.get(DeviceKey.HeartRate);
+                    String TEMP = maps.get(DeviceKey.TempData);
                 /*textViewCal.setText(cal);
                 textViewStep.setText(step);
                 textViewDistance.setText(distance);
@@ -2421,37 +2422,54 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 textViewHeartValue.setText(heart);
                 textViewActiveTime.setText(ActiveTime);
                 textViewTempValue.setText(TEMP);*/
-                Log.i(TAG, "dataCallback: step: " + step + " heart: " + heart + " temp: " + TEMP);
-                lastDataTime = System.currentTimeMillis();
+                    Log.i(TAG, "dataCallback: step: " + step + " heart: " + heart + " temp: " + TEMP);
+                    lastDataTime = System.currentTimeMillis();
 
-                float temp = Float.parseFloat(TEMP);
-                int heartInt = (int) Float.parseFloat(heart);
-                //float spO2 = Float.parseFloat();
+                    float temp = 0;
+                    if (TEMP != null) {
+                        TEMP = TEMP.replace(",", ".");
+                        temp = Float.parseFloat(TEMP);
+                    }
 
-                if (temp != 0.0f) {
-                    lastTemp = temp;
-                }
+                    int heartInt = 0;
+                    if (heart != null) {
+                        heart = heart.replace(",", ".");
+                        heartInt = (int) Float.parseFloat(heart);
+                    }
 
-                if (heartInt != 0) {
-                    lastHeart = heartInt;
-                }
+                    //float spO2 = Float.parseFloat();
+
+                    if (temp != 0.0f) {
+                        lastTemp = temp;
+                    }
+
+                    if (heartInt != 0) {
+                        lastHeart = heartInt;
+                    }
 
                /* if (spO2 != 0.0f) {
                     lastSpO2 = spO2;
                 }*/
 
-                tempData(temp);
-                heartData(heartInt);
+                    tempData(temp);
+                    heartData(heartInt);
 
-                // spO2Data(spO2);
+                    // spO2Data(spO2);
+                } catch (Exception e) {
+                    Log.i(TAG, "dataCallback: " + e.getMessage());
+                }
                 break;
 
             case BleConst.GetDeviceBatteryLevel:
-                Map<String, String> data = getData(map);
-                String battery = data.get(DeviceKey.BatteryLevel);
-                Log.i(TAG, "dataCallback: battery: " + battery);
-                if (battery != null) {
-                    batteryPercentage = Integer.parseInt(battery);
+                try {
+                    Map<String, String> data = getData(map);
+                    String battery = data.get(DeviceKey.BatteryLevel);
+                    Log.i(TAG, "dataCallback: battery: " + battery);
+                    if (battery != null) {
+                        batteryPercentage = Integer.parseInt(battery);
+                    }
+                } catch (Exception e) {
+                    Log.i(TAG, e.getMessage());
                 }
                 break;
             case BleConst.Blood_oxygen:
@@ -2706,11 +2724,11 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     @Override
     protected void onDestroy() {
         Log.i(TAG, "onDestroy");
-       if(prefManager.getBandType()==MyConstant.BAND_SMARTSENSE){
-           if (mGattUpdateReceiver != null) {
-               unregisterReceiver(mGattUpdateReceiver);
-           }
-       }
+        if (prefManager.getBandType() == MyConstant.BAND_SMARTSENSE) {
+            if (mGattUpdateReceiver != null) {
+                unregisterReceiver(mGattUpdateReceiver);
+            }
+        }
 
         //We don't want any callbacks when the Activity is gone, so unregister the listener.
         tempHandler.removeCallbacks(tempRunnable);
