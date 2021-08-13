@@ -118,6 +118,7 @@
 "medicine_reminder_notify" = "İlaç hatırlartma";
 "medicine_reminder_add" = "Hatırlatma zamanı ekle";
 "medicine_add" = "İlaç Ekle";
+"medicine_edit" = "İlaç Düzenle";
 "medicine_name" = "İlaç Adı";
 "medicine_dose" = "Doz";
 "medicine_time" = "Kullanma Saati";
@@ -131,7 +132,7 @@
 "medicine_should_used_time" = "İlacın kullanılması gereken saat:";
 "no_medicine_text" = "İlaç verisi bulunamadı.\n\nİlaç hatırlatıcıyı kullanmak için + butonuna tıklayıp ilacını kayıt edebilirsin.";
 "enter_valid_medicine_name" = "Lütfen geçerli bir ilaç adı giriniz.";
-"you_will_delete_medicine" = "Silinecek ilaç: ";
+"you_will_delete_medicine" = "Silinecek ilaç:";
 
 
 //Companion View Text
@@ -146,6 +147,7 @@
 "companion_password_info" = "Refakatçiniz daha önce kayıt olmadıysa belirlediğiniz e-mail ve şifre ile giriş yapacaktır. Eğer kayıtlıysa kendi belirlediği şifresiyle giriş yapacaktır.";
 "companion_delete" = "Refakatçinizi silmek istediğinize emin misiniz?";
 "companion_added" = "Refakatçi eklendi.";
+"you_will_delete_companion" = "Silinecek refakatçi:";
 
 //Request View Text
 "request" = "İstekler";

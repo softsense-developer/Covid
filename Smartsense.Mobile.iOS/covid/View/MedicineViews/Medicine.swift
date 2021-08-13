@@ -18,3 +18,4 @@ struct Medicine: Hashable, Codable, Identifiable{
         self.onComingUsageTime = onComingUsageTime
     }
 }
+

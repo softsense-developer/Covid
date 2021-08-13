@@ -13,17 +13,16 @@ import NotificationBannerSwift
 struct MedicineAddEdit: View {
     var body: some View {
         ScrollView(.vertical) {
-        VStack{
-            /*if medicine != nil{
-             
-             }else{
-             
-             }*/
-            MedicineAddEditContent(medicineName: "")
-        }
+            VStack{
+                /*if medicine != nil{
+                 
+                 }else{
+                 
+                 }*/
+                MedicineAddEditContent()
+            }
             
         }
-        
         .navigationTitle("medicine_add")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -31,6 +30,7 @@ struct MedicineAddEdit: View {
 
 struct MedicineEdit: View {
     var medicine: Medicine
+    @State var medicineName: String = ""
     
     var body: some View {
         ScrollView(.vertical) {
@@ -45,7 +45,7 @@ struct MedicineEdit: View {
                 
             }
         }
-        .navigationTitle("medicine_add")
+        .navigationTitle("medicine_edit")
         .navigationBarTitleDisplayMode(.inline)
     }
 }
@@ -62,41 +62,44 @@ struct MedicineAddEditContent: View {
     let apiText = ApiConstantText()
     var validation = Validation()
     
-    @State private var currentNumber = 1
-    
     var body: some View{
         VStack(alignment: .center, spacing: 8){
-            VStack(alignment: .leading, spacing: 4){
+            //Medicine name view start
+            VStack(alignment: .leading){
                 Text("medicine_name")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-                    .padding(.leading, 10)
+                    .padding(.leading, 75)
                 
                 HStack {
-                    Image("medicine")
-                        .resizable()
-                        .renderingMode(.template)
-                        .scaledToFit()
-                        .foregroundColor(.secondary)
-                        .frame(width: 24, height: 24)
-                        .padding(.top, 1)
+                    ZStack{
+                        Circle()
+                            .frame(width: 55, height: 55)
+                            .foregroundColor(.textFieldBackground)
+                            .opacity(1)
+                        
+                        Image(systemName: "person")
+                            .font(.system(size: 20))
+                            .foregroundColor(.secondary)
+                        
+                    }
                     
                     TextField("medicine_name", text: $medicineName)
-                        .foregroundColor(.primary)
-                        .keyboardType(.default)
+                        .textFieldStyle(CapsuleTextFieldStyle())
                         .onReceive(Just(medicineName), perform: { newValue in
                             isMedicineValid = validation.validateString(string: medicineName, maxLength: 50)
                         })
-                }.padding()
-                .background(Capsule().fill(Color.textFieldBackground))
+                }
                 
                 if !isMedicineValid && saveEditClickFirst{
                     Text("enter_valid_medicine_name")
                         .font(.caption)
                         .foregroundColor(.red)
-                        .padding(.leading, 10)
+                        .padding(.leading, 75)
                 }
+                
             }
+            //Medicine name view end
             
             ForEach(timeDoses, id: \.self) { medicineDose in
                 MedicineTimeDoseRow(medicineTime: medicineDose)
@@ -170,73 +173,6 @@ struct MedicineAddEdit_Previews: PreviewProvider {
         //ContentViewa()
         
         
-    }
-}
-
-
-struct ContentViewa: View {
-    @State var saveEditClickFirst: Bool = false
-    @State var medicineName: String = ""
-    @State var isMedicineValid: Bool = false
-    @State var isLoading: Bool = false
-    
-    @State private var timeDoses = [MedicimeTimeDose]()
-    
-    let apiService: ApiServiceProtocol = ApiService()
-    let apiText = ApiConstantText()
-    var validation = Validation()
-    
-    var body: some View {
-        VStack{
-            Text("medicine_name")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-                .padding(.leading, 10)
-            
-            HStack {
-                Image("medicine")
-                    .resizable()
-                    .renderingMode(.template)
-                    .scaledToFit()
-                    .foregroundColor(.secondary)
-                    .frame(width: 24, height: 24)
-                    .padding(.top, 1)
-                
-                TextField("medicine_name", text: $medicineName)
-                    .foregroundColor(.primary)
-                    .keyboardType(.default)
-                    .onReceive(Just(medicineName), perform: { newValue in
-                        isMedicineValid = validation.validateString(string: medicineName, maxLength: 50)
-                    })
-            }.padding()
-            .background(Capsule().fill(Color.textFieldBackground))
-            
-            if !isMedicineValid && saveEditClickFirst{
-                Text("enter_valid_medicine_name")
-                    .font(.caption)
-                    .foregroundColor(.red)
-                    .padding(.leading, 10)
-            }
-            
-            VStack {
-                List {
-                    ForEach(timeDoses, id: \.self) { timeDose in
-                        MedicineTimeDoseRow(medicineTime: timeDose)
-                    }
-                    .onDelete(perform: removeRows)
-                }
-                .listStyle(PlainListStyle())
-                
-                Button("Add Number") {
-                    timeDoses.append(MedicimeTimeDose(id: "1", dose: "1.0", time: Date()))
-                }
-            }
-        }
-        .navigationBarItems(leading: EditButton())
-    }
-    
-    func removeRows(at offsets: IndexSet) {
-        timeDoses.remove(atOffsets: offsets)
     }
 }
 

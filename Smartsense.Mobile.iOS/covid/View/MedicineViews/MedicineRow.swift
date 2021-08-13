@@ -69,17 +69,18 @@ struct MedicineRow2: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 30, height: 30)
-                    .padding(.top, 1)
                 
                 //Medicine name and time view start
                 VStack(alignment: .leading, spacing: 4){
                     Text(String(medicine.medicineName))
                         .font(.body)
+                        .foregroundColor(.primary)
                     
                     Text(NSLocalizedString("medicine_time", comment: "") + " " + dateFormatter.dateHourMinute(date: medicine.onComingUsageTime))
                         .font(.caption)
                         .foregroundColor(.colorPrimary)
-                        .padding(.all, 8)
+                        .padding(.vertical, 4)
+                        .padding(.horizontal , 8)
                         .background(
                             RoundedRectangle(cornerRadius: 16)
                                 .fill(Color.colorPrimary.opacity(0.2))
@@ -91,8 +92,8 @@ struct MedicineRow2: View {
                 
                 //Spacer for alignment .leading
                 Spacer()
-            }.padding(.horizontal, 16)
-            .padding([.top, .bottom], 8)
+            }
+            .padding([.top, .bottom], 4)
             
             //Divider().padding(.leading, 64)
         }
