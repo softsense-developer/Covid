@@ -160,8 +160,10 @@
 //Add Doctor View Text
 "doctor" = "Doktor";
 "select_hospital" = "Hastane seçimi";
+"search_hospital" = "Hastane ara";
 "hospital" = "Hastane";
 "select_doctor" = "Doktor seçimi";
+"search_doctor" = "Doktor ara";
 "add_doctor" = "Doktor ekle";
 "add_doctor_info" = "Doktor ekleyerek verilerinizi doktorunuz ile paylaşabilirsiniz.";
 "add_doctor_info_before" = "Not: Doktor ekleyebilmek için lütfen \"Ayarlar\" - \"Hasta Bilgileri\" bölümünden bilgilerinizi doldurunuz.";

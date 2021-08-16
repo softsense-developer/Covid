@@ -71,6 +71,7 @@
 		F5BA6CE526C25A1900308A58 /* MedicineAddEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BA6CE426C25A1900308A58 /* MedicineAddEdit.swift */; };
 		F5BA6CE826C25B8800308A58 /* MedicineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BA6CE726C25B8800308A58 /* MedicineRow.swift */; };
 		F5BA6CEA26C25BDB00308A58 /* Medicine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5BA6CE926C25BDB00308A58 /* Medicine.swift */; };
+		F5C04F0926CA515900601393 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C04F0826CA515900601393 /* SearchBar.swift */; };
 		F5D7CBBE2678B1820084CD32 /* PatientInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D7CBBD2678B1820084CD32 /* PatientInfoResponse.swift */; };
 		F5D7CBC12678B41B0084CD32 /* QuarantineStatusResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D7CBC02678B41B0084CD32 /* QuarantineStatusResponse.swift */; };
 		F5D7CBC42678CA8E0084CD32 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5D7CBC32678CA8E0084CD32 /* SplashView.swift */; };
@@ -118,7 +119,7 @@
 		F55E949226846E6900F9E98C /* MeasurementView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementView.swift; sourceTree = "<group>"; };
 		F55E949426846EC500F9E98C /* CompanionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanionView.swift; sourceTree = "<group>"; };
 		F55E949626846EF800F9E98C /* RequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestView.swift; sourceTree = "<group>"; };
-		F55E949826846F3300F9E98C /* DoctorSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoctorSelectView.swift; sourceTree = "<group>"; };
+		F55E949826846F3300F9E98C /* DoctorSelectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoctorSelectView.swift; path = "../New Group/DoctorSelectView.swift"; sourceTree = "<group>"; };
 		F55E949A26848E1E00F9E98C /* NavigationBarModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarModifier.swift; sourceTree = "<group>"; };
 		F55E949C2684BCF500F9E98C /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		F5716F22267389EA00722E8A /* UserRegisterRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRegisterRequest.swift; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 		F5BA6CE426C25A1900308A58 /* MedicineAddEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineAddEdit.swift; sourceTree = "<group>"; };
 		F5BA6CE726C25B8800308A58 /* MedicineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineRow.swift; sourceTree = "<group>"; };
 		F5BA6CE926C25BDB00308A58 /* Medicine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medicine.swift; sourceTree = "<group>"; };
+		F5C04F0826CA515900601393 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		F5D7CBBD2678B1820084CD32 /* PatientInfoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PatientInfoResponse.swift; sourceTree = "<group>"; };
 		F5D7CBC02678B41B0084CD32 /* QuarantineStatusResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuarantineStatusResponse.swift; sourceTree = "<group>"; };
 		F5D7CBC32678CA8E0084CD32 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 		F55E948D26846B8800F9E98C /* SettingViews */ = {
 			isa = PBXGroup;
 			children = (
+				F5180649268361840039D796 /* SettingsView.swift */,
 				F55E948B268467A300F9E98C /* ProfileView.swift */,
 				F55E949026846D9B00F9E98C /* PasswordChangeView.swift */,
 				F55E948E26846BCD00F9E98C /* PatientProfileView.swift */,
@@ -346,6 +349,14 @@
 			path = MedicineViews;
 			sourceTree = "<group>";
 		};
+		F5C04F0726CA430700601393 /* DoctorView */ = {
+			isa = PBXGroup;
+			children = (
+				F55E949826846F3300F9E98C /* DoctorSelectView.swift */,
+			);
+			path = DoctorView;
+			sourceTree = "<group>";
+		};
 		F5D7CBBA2678AB100084CD32 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,6 +372,7 @@
 				F55E949C2684BCF500F9E98C /* ModalView.swift */,
 				F5A5752A2685B73E00BA8491 /* StyleView.swift */,
 				F5F2CD4C26860E4E00E069F2 /* LoadingButton.swift */,
+				F5C04F0826CA515900601393 /* SearchBar.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -368,6 +380,7 @@
 		F5E4E3332679E32C003B7F2E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F5C04F0726CA430700601393 /* DoctorView */,
 				F5572C5826C64F7A00AD63BF /* RequestView */,
 				F58ECAD426C4F5E70057DD40 /* CompanionViews */,
 				F5BA6CE626C25B5C00308A58 /* MedicineViews */,
@@ -380,8 +393,6 @@
 				F5E4E3342679EB7D003B7F2E /* ConnectionView.swift */,
 				F5E4E33E2679F777003B7F2E /* EmailVerifyView.swift */,
 				F518064726834FF50039D796 /* OtherView.swift */,
-				F5180649268361840039D796 /* SettingsView.swift */,
-				F55E949826846F3300F9E98C /* DoctorSelectView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -549,6 +560,7 @@
 				F58ECAD626C4F63A0057DD40 /* Companion.swift in Sources */,
 				F54488A82670DD5C005334F7 /* ApiServiceProtocol.swift in Sources */,
 				F518064A268361840039D796 /* SettingsView.swift in Sources */,
+				F5C04F0926CA515900601393 /* SearchBar.swift in Sources */,
 				F55E949D2684BCF600F9E98C /* ModalView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

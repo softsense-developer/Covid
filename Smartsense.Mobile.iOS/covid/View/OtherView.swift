@@ -149,7 +149,7 @@ struct OtherNew: View {
                                     .foregroundColor(.green500)
                                     .opacity(0.1)
                                 
-                                Image(systemName: "heart.text.square.fill")
+                                Image(systemName: "stethoscope")
                                     .font(.system(size: iconSize))
                                     .foregroundColor(.green500)
                             }
