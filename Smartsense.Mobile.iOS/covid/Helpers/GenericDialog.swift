@@ -36,7 +36,7 @@ public struct GenericDialog<DialogContent: View>: ViewModifier {
                 ZStack {
                     dialogContent
                         .background(RoundedRectangle(cornerRadius: 8)
-                                        .foregroundColor(.white))
+                                        .foregroundColor(Color.componentColor))
                 }.padding(40)
             }
         }

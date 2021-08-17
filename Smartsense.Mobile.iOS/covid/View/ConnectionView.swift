@@ -21,7 +21,7 @@ struct ConnectionView: View {
             ScrollView(.vertical) {
                 VStack {
                     Button(action: {
-                        isSmartSenseWatchConnected.toggle()
+                        //isSmartSenseWatchConnected.toggle()
                     }, label: {
                         ZStack(alignment: .bottom) {
                             /* For look like a cardview */

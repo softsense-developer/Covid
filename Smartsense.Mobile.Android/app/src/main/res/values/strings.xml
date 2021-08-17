@@ -386,6 +386,8 @@
     <string name="connected_to_wristband">Bilekliğe bağlandı.</string>
     <string name="disconnected_to_wristband">Bileklik bağlantısı koptu.</string>
 
+    <string name="connected_to_clamps">Elektronik kelepçe aktif.</string>
+    <string name="disconnected_to_clamps">Elektronik kelepçe bağlantısı koptu.</string>
 
     <!-- Mail Verified  -->
     <string name="email_verified">Doğruladım</string>

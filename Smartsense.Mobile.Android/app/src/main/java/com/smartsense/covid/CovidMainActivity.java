@@ -165,12 +165,9 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
     private int SP = 0, Pa = 0, HR = 0;
     private float S1 = 0, S2 = 0;
-    private Runnable runnable, tempRunnable, heartRunnable, spO2Runnable;
-    private Handler hndler, tempHandler, heartHandler, spO2Handler;
-    private int tempTime, heartTime, spO2Time, locationTime = 15000 * 1;//TODO: Update for release = 1000 * 60 * 15 = 15 min
+    private int locationTime = 15000 * 1;//TODO: Update for release = 1000 * 60 * 15 = 15 min
     private int tempSampleSize = 10, heartSampleSize = 10, spO2SampleSize = 10;
     private int tempSampleCounter1 = 0, tempSampleCounter2 = 0, heartSampleCounter = 0, spO2SampleCounter = 0, lastHeart = 0;
-    private boolean tempStart = false, heartStart = false, spO2Start = false;
     private float temp1 = 0.0f, temp2 = 0.0f, lastTemp = 0.0f, lastSpO2 = 0.0f;
     public static int warningType = 0, batteryPercentage = 0;
     public static boolean isHomeSetClicked = false;
@@ -195,9 +192,11 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     // than your app can handle
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5 * 1000;
 
-    private final int BLUETOOTH_DATA_IN_MIN = 60; //3 sec //TODO: Update for release = 20 // for 1963 = 60
+    private final int SPO2_NOTIFICATION_INTERVAL = 60; //60 min
+    private final int DATA_SENT_INTERVAL = 10; //10 min
+    private int BLUETOOTH_DATA_IN_MIN = 60; //TODO: Update for release = 20 // for 1963 = 60
     private static long LAST_SEND_TIME = 0;
-    private static long DATA_SENT_INTERVAL = 15 * 1000;
+    private static long LOCATION_DATA_SENT_INTERVAL = 15 * 1000;
 
     private static long CONNECTING_CHANGE_TIME = 0;
     private static long CONNECTING_CHANGE_INTERVAL = 3000;
@@ -347,33 +346,6 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         }
          */
 
-        tempTime = prefManager.getTimeTemp();
-        heartTime = prefManager.getTimeHeart();
-        spO2Time = prefManager.getTimeSpO2();
-
-        tempHandler = new Handler();
-        tempRunnable = () -> {
-            tempHandler.postDelayed(tempRunnable, tempTime);
-            startTempDataSaveSent();
-        };
-        tempHandler.postDelayed(tempRunnable, tempTime);
-
-
-        heartHandler = new Handler();
-        heartRunnable = () -> {
-            heartHandler.postDelayed(heartRunnable, heartTime);
-            startHeartDataSaveSent();
-        };
-        heartHandler.postDelayed(heartRunnable, heartTime);
-        /*
-        spO2Handler = new Handler();
-        spO2Runnable = () -> {
-            spO2Handler.postDelayed(spO2Runnable, spO2Time);
-            startSpO2DataSaveSent();
-        };
-        spO2Handler.postDelayed(spO2Runnable, spO2Time);*/
-
-
         //For band 1963
         band1963And1939Handler = new Handler();
         band1963And1939Runnable = () -> {
@@ -410,7 +382,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
         band1963And1939SpO2Handler = new Handler();
         band1963And1939SpO2Runnable = () -> {
-            band1963And1939SpO2Handler.postDelayed(band1963And1939SpO2Runnable, prefManager.getTimeSpO2());
+            band1963And1939SpO2Handler.postDelayed(band1963And1939SpO2Runnable, (SPO2_NOTIFICATION_INTERVAL * 60 * 1000));
             if (isConnected && isBand1963And1939Connected &&
                     prefManager.getBandType() == MyConstant.BAND_1963 &&
                     prefManager.getBandMac() != null) {
@@ -440,20 +412,6 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             navMenu.findItem(R.id.nav_companion).setVisible(false);
         }
     }
-
-
-    private void startTempDataSaveSent() {
-        tempStart = true;
-    }
-
-    private void startHeartDataSaveSent() {
-        heartStart = true;
-    }
-
-    private void startSpO2DataSaveSent() {
-        spO2Start = true;
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -496,7 +454,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
     }
 
     private void tempData(float value) {
-        tempSampleSize = ((prefManager.getTimeTemp()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
+        tempSampleSize = DATA_SENT_INTERVAL * BLUETOOTH_DATA_IN_MIN;
         if (tempSampleSize > tempSampleCounter1 + 1) {
             tempSampleCounter1++;
             Log.i(TAG, "tempData: " + tempSampleCounter1 + "/" + tempSampleSize);
@@ -516,12 +474,13 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             if (prefManager.getSentDataServer()) {
                 sendVitalDataToServer(MyConstant.TEMP, value);
+                lastTemp = 0;
             }
         }
     }
 
     private void heartData(int value) {
-        heartSampleSize = ((prefManager.getTimeHeart()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
+        heartSampleSize = DATA_SENT_INTERVAL * BLUETOOTH_DATA_IN_MIN;
         if (heartSampleSize > heartSampleCounter + 1) {
             heartSampleCounter++;
             Log.i(TAG, "heartData: " + heartSampleCounter + "/" + heartSampleSize);
@@ -541,15 +500,16 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             if (prefManager.getSentDataServer()) {
                 sendVitalDataToServer(MyConstant.HEART, value);
+                lastHeart = 0;
             }
         }
     }
 
     private void spO2Data(float value) {
-        spO2SampleSize = ((prefManager.getTimeSpO2()) / (1000 * 60)) * BLUETOOTH_DATA_IN_MIN;
+        spO2SampleSize = DATA_SENT_INTERVAL * BLUETOOTH_DATA_IN_MIN;
         if (spO2SampleSize > spO2SampleCounter + 1) {
             spO2SampleCounter++;
-            Log.i(TAG, "heartData: " + spO2SampleCounter + "/" + spO2SampleSize);
+            Log.i(TAG, "spO2Data: " + spO2SampleCounter + "/" + spO2SampleSize);
         } else {
             spO2SampleCounter = 0;
 
@@ -567,6 +527,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             if (prefManager.getSentDataServer()) {
                 sendVitalDataToServer(MyConstant.SPO2, value);
+                lastSpO2 = 0;
             }
         }
     }
@@ -752,30 +713,28 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             */
 
 
-            if (tempStart) {
-                if (tempSampleSize > tempSampleCounter1) {
-                    temp1 += value;
-                    tempSampleCounter1++;
-                } else {
-                    if (tempSampleSize == tempSampleCounter2) {
-                        tempStart = false;
-                        temp1 /= tempSampleSize;
-                        temp2 /= tempSampleSize;
+            if (tempSampleSize > tempSampleCounter1) {
+                temp1 += value;
+                tempSampleCounter1++;
+            } else {
+                if (tempSampleSize == tempSampleCounter2) {
+                    temp1 /= tempSampleSize;
+                    temp2 /= tempSampleSize;
 
-                        Covid covid = new Covid((System.currentTimeMillis()), ((temp1 + temp2) / 2), MyConstant.TEMP, MyConstant.AUTO_SAVE);
-                        repository.insert(covid);
+                    Covid covid = new Covid((System.currentTimeMillis()), ((temp1 + temp2) / 2), MyConstant.TEMP, MyConstant.AUTO_SAVE);
+                    repository.insert(covid);
 
-                        if (prefManager.getSentDataServer()) {
-                            sendVitalDataToServer(MyConstant.TEMP, (temp1 + temp2) / 2);
-                        }
-
-                        tempSampleCounter1 = 0;
-                        tempSampleCounter2 = 0;
-                        temp1 = 0;
-                        temp2 = 0;
+                    if (prefManager.getSentDataServer()) {
+                        sendVitalDataToServer(MyConstant.TEMP, (temp1 + temp2) / 2);
                     }
+
+                    tempSampleCounter1 = 0;
+                    tempSampleCounter2 = 0;
+                    temp1 = 0;
+                    temp2 = 0;
                 }
             }
+
         }
         // temperature bottom
         if (characteristic.compareTo(UUID.fromString(BLE_MAXIM_HSP_TEMPERATURE_BOTTOM_CHARACTERISTIC)) == 0) {
@@ -791,11 +750,10 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             */
 
-            if (tempStart) {
-                if (tempSampleSize > tempSampleCounter2) {
-                    temp2 += value;
-                    tempSampleCounter2++;
-                }
+            if (tempSampleSize > tempSampleCounter2) {
+                temp2 += value;
+                tempSampleCounter2++;
+
             }
         }
         // acceleration
@@ -855,24 +813,21 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
             value = CalculateHeartRate(data);
             HR = (int) Math.floor(value);
 
-            if (heartStart) {
-                if (heartSampleSize > heartSampleCounter) {
-                    HR += HR;
-                    heartSampleCounter++;
-                } else {
-                    heartStart = false;
-                    HR /= heartSampleSize;
+            if (heartSampleSize > heartSampleCounter) {
+                HR += HR;
+                heartSampleCounter++;
+            } else {
+                HR /= heartSampleSize;
 
-                    Covid covid = new Covid((System.currentTimeMillis()), HR, MyConstant.HEART, MyConstant.AUTO_SAVE);
-                    repository.insert(covid);
+                Covid covid = new Covid((System.currentTimeMillis()), HR, MyConstant.HEART, MyConstant.AUTO_SAVE);
+                repository.insert(covid);
 
-                    if (prefManager.getSentDataServer()) {
-                        sendVitalDataToServer(MyConstant.HEART, HR);
-                    }
-
-                    HR = 0;
-                    heartSampleCounter = 0;
+                if (prefManager.getSentDataServer()) {
+                    sendVitalDataToServer(MyConstant.HEART, HR);
                 }
+
+                HR = 0;
+                heartSampleCounter = 0;
             }
 
            /* mTextHeartRateRaw.setText(str);
@@ -979,7 +934,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                         isWearingDisconnectSend = true;
                         isWearingSend = false;
 
-                        sendNotification(getString(R.string.disconnected_to_wristband), getString(R.string.smartsense_band));
+                        sendNotification(getString(R.string.disconnected_to_clamps), getString(R.string.smartsense_band));
                         if (prefManager.getSentDataServer()) {
                             addWarning(MyConstant.WARNING_CONNECTION_LOST, 0);
                         }
@@ -993,11 +948,12 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                         isWearingDisconnectSend = false;
                         isWearingSend = true;
 
-                        sendNotification(getString(R.string.connected_to_wristband), getString(R.string.smartsense_band));
+                        sendNotification(getString(R.string.connected_to_clamps), getString(R.string.smartsense_band));
                         if (prefManager.getSentDataServer()) {
                             addWarning(MyConstant.WARNING_CONNECTION_LOST, 1);
                         }
                     }
+                    BLUETOOTH_DATA_IN_MIN = 20;
 
                     float temp = Float.parseFloat(splitData[0]);
                     int heart = (int) Float.parseFloat(splitData[2]);
@@ -1847,7 +1803,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
 
             Log.i(TAG, "onListenLocation Location updated: " + event.getLocation().getLatitude() + "," + event.getLocation().getLongitude());
 
-            if (calendar.getTimeInMillis() >= LAST_SEND_TIME + DATA_SENT_INTERVAL) {
+            if (calendar.getTimeInMillis() >= LAST_SEND_TIME + LOCATION_DATA_SENT_INTERVAL) {
                 LAST_SEND_TIME = calendar.getTimeInMillis();
                 if (prefManager.getSentDataServer()) {
                     sendLocationToServer(event.getLocation().getLatitude(), event.getLocation().getLongitude());
@@ -2313,6 +2269,8 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                     prefManager.setBandMac(device.getAddress());
                     Log.i(TAG, (prefManager.getBandName() + " " + prefManager.getBandMac()));
 
+                    BLUETOOTH_DATA_IN_MIN = 60;
+
                     band1963And1939Connect();
 
                 } else {
@@ -2386,7 +2344,7 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 sendValue(BleSDK.GetDeviceBatteryLevel());
                 batteryHandler.postDelayed(batteryRunnable, batteryTime);
                 band1963And1939Handler.postDelayed(band1963And1939Runnable, 1000);
-                band1963And1939SpO2Handler.postDelayed(band1963And1939SpO2Runnable, prefManager.getTimeSpO2());
+                band1963And1939SpO2Handler.postDelayed(band1963And1939SpO2Runnable, (SPO2_NOTIFICATION_INTERVAL * 60 * 1000));
             } else if (action.equals(BleService.ACTION_GATT_DISCONNECTED)) {
                 Log.i(TAG, "init: ACTION_GATT_DISCONNECTED");
                 isStartReal = false;
@@ -2537,14 +2495,15 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
                 byte[] value = bleData.getValue();
                 BleSDK.DataParsingWithData(value, CovidMainActivity.this);
             }
-
         });
     }
 
 
     public void disconnect1963Band() {
-        if (BleManager.getInstance().isConnected()) {
-            BleManager.getInstance().disconnectDevice();
+        if(BleManager.getInstance() != null){
+            if (BleManager.getInstance().isConnected()) {
+                BleManager.getInstance().disconnectDevice();
+            }
         }
     }
 
@@ -2731,11 +2690,6 @@ public class CovidMainActivity extends AppCompatActivity implements SharedPrefer
         }
 
         //We don't want any callbacks when the Activity is gone, so unregister the listener.
-        tempHandler.removeCallbacks(tempRunnable);
-        heartHandler.removeCallbacks(heartRunnable);
-        //TODO SPO2 olunca açılacak
-        //spO2Handler.removeCallbacks(spO2Runnable);
-
         unsubscribe();
         disconnect1963Band();
 

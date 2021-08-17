@@ -28,12 +28,14 @@ struct MainView: View {
                 .tag(Tab.home)
             ConnectionView()
                 .tabItem {
-                    Label("tab_connection", systemImage: "bolt.horizontal")
+                    Image("bluetooth")
+                        .renderingMode(.template)
+                    Text("tab_connection")
                 }
                 .tag(Tab.connection)
             DataView()
                 .tabItem{
-                    Label("tab_data", systemImage: "list.dash")
+                    Label("tab_data", systemImage: "doc.text")
                 }
                 .tag(Tab.data)
             MedicineView()
@@ -43,7 +45,7 @@ struct MainView: View {
                 .tag(Tab.medicine)
             OtherView()
                 .tabItem{
-                    Label("tab_other", systemImage: "ellipsis")
+                    Label("tab_other", systemImage: "ellipsis.circle")
                 }
             .tag(Tab.other)
             
