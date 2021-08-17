@@ -160,12 +160,14 @@ struct SettingBodyView: View {
                         
                     })
                 
+                /*
                 Text("settings")
                     .foregroundColor(.primary)
                     .font(.title.weight(Font.Weight.regular))
                     .padding([.top, .bottom], 16)
                 
                 //Measurement settings view
+              
                 NavigationLink(
                     destination: MeasurementView(),
                     label: {
@@ -203,27 +205,35 @@ struct SettingBodyView: View {
                         }.padding(.bottom, 8)
                         
                     })
+                */
+                
+                
                 
                 //Logout view
-                HStack(alignment: .center, spacing: 8){
-                    ZStack{
-                        Circle()
-                            .frame(width: circleSize, height: circleSize)
-                            .foregroundColor(.red500)
-                            .opacity(0.1)
+                Button(action: {
+                   
+                }, label: {
+                    HStack(alignment: .center, spacing: 8){
+                        ZStack{
+                            Circle()
+                                .frame(width: circleSize, height: circleSize)
+                                .foregroundColor(.red500)
+                                .opacity(0.1)
+                            
+                            Image(systemName: "escape")
+                                .font(.system(size: iconSize))
+                                .foregroundColor(.red500)
+                        }
                         
-                        Image(systemName: "escape")
-                            .font(.system(size: iconSize))
-                            .foregroundColor(.red500)
-                    }
-                    
-                    Text("logout")
-                        .foregroundColor(.primary)
-                        .font(.title3)
-                        .padding(.leading, 16)
-                    
-                    
-                }.padding(.bottom, 8)
+                        Text("logout")
+                            .foregroundColor(.primary)
+                            .font(.title3)
+                            .padding(.leading, 16)
+                        
+                        
+                    }.padding(.bottom, 8)
+                })
+               
                 
                 
             }.padding(.leading, 32)

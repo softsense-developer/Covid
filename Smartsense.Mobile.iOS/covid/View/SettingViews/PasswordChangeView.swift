@@ -259,7 +259,7 @@ struct PasswordChangeView: View {
             }.padding(24)
         }
         .navigationTitle("password_change")
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.large)
     }
     
     

@@ -308,7 +308,7 @@ struct PatientProfileView: View {
                 }.padding(24)
             }
         }.navigationTitle("patient_data")
-        .navigationBarTitleDisplayMode(.automatic)
+        .navigationBarTitleDisplayMode(.large)
         /*.modal(isPresented: $modalIsDisplayed) {
          
          }*/
