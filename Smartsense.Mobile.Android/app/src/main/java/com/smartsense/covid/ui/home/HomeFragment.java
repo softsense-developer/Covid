@@ -1,5 +1,6 @@
 package com.smartsense.covid.ui.home;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -76,7 +77,6 @@ public class HomeFragment extends Fragment {
     private static final String TAG = "Smartsense";
 
     private MaterialCardView tempMainCard, heartMainCard, spO2MainCard;
-    private ApiConstantText apiText;
 
 
     private MaterialCardView medicineStatus;
@@ -140,7 +140,6 @@ public class HomeFragment extends Fragment {
         handler = new Handler();
         dataHandler = new Handler();
         prefManager = new PrefManager(getContext());
-        apiText = new ApiConstantText(getContext());
         medicineUsageRepo = new MedicineUsageRepo(getContext());
         medicineRepository = new MedicineRepository(getContext());
         medicineTimeRepo = new MedicineTimeRepo(getContext());
@@ -401,24 +400,22 @@ public class HomeFragment extends Fragment {
         return DateFormat.format("dd/MM HH:mm", cal).toString();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void twoSecondAction() {
-        heartIcon.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View arg0, MotionEvent arg1) {
-                switch (arg1.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        handler.postDelayed(run, 2000);
-                        callIcon.setVisibility(View.VISIBLE);
-                        callIcon.startAnimation(anim);
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        callIcon.setVisibility(View.GONE);
-                        handler.removeCallbacks(run);
-                        callIcon.clearAnimation();
-                        break;
-                }
-                return true;
+        heartIcon.setOnTouchListener((arg0, arg1) -> {
+            switch (arg1.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    handler.postDelayed(run, 2000);
+                    callIcon.setVisibility(View.VISIBLE);
+                    callIcon.startAnimation(anim);
+                    break;
+                case MotionEvent.ACTION_UP:
+                    callIcon.setVisibility(View.GONE);
+                    handler.removeCallbacks(run);
+                    callIcon.clearAnimation();
+                    break;
             }
+            return true;
         });
 
         run = new Runnable() {

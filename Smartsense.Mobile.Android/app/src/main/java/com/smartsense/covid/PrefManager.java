@@ -256,7 +256,7 @@ public class PrefManager {
     }
 
     public boolean getSentDataServer() {
-        return pref.getBoolean(PACKAGE_NAME + "." + SENT_DATA_SERVER, false);
+        return pref.getBoolean(PACKAGE_NAME + "." + SENT_DATA_SERVER, true);
     }
 
     public void setIsLocationCanChange(boolean val) {
