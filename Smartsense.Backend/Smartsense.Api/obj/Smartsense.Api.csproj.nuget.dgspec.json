@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj": {}
+    "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj",
         "projectName": "Smartsense.Api",
-        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Api\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
@@ -33,11 +33,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj"
               },
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj"
               }
             }
           }
@@ -113,18 +113,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj",
         "projectName": "Smartsense.Business",
-        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Business\\Smartsense.Business.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Business\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Business\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
@@ -146,11 +146,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj"
               },
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj"
               }
             }
           }
@@ -203,18 +203,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj",
         "projectName": "Smartsense.Core",
-        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
@@ -278,18 +278,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj",
         "projectName": "Smartsense.Data",
-        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\Smartsense.Data.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Data\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
@@ -311,11 +311,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj"
               },
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj"
               }
             }
           }
@@ -360,18 +360,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj": {
+    "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj",
+        "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj",
         "projectName": "Smartsense.Entity",
-        "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj",
+        "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\obj\\",
+        "outputPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
@@ -393,8 +393,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj"
+              "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj": {
+                "projectPath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj"
               }
             }
           }
@@ -443,7 +443,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

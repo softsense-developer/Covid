@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3/EA0Ne9oDealC4WmGIz4J/kvJ9K9zN7DYDznwLW2/doNnF6oAlsv6nZaL9FAZKs6FiQQ3U9zn5USsuWGB5R7A==",
+  "dgSpecHash": "CxqBUpIePIoPLWVnTUqYL5l6EALKGeSrbBro+c1ge5fCOj3Cj1juJFmcGbcjeFtCWHC4pTvigyfErP65ba+P4Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Entity\\Smartsense.Entity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\fluentvalidation\\9.5.1\\fluentvalidation.9.5.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\fluentvalidation.aspnetcore\\9.5.1\\fluentvalidation.aspnetcore.9.5.1.nupkg.sha512",

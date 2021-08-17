@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bQJIVRuJa3rbosY1BiSTvVURm0s1MC2LqU19Z1n6rZ5NioRsqVbKRkdtmIbm6C+bJi0Ln6Vl9erRo6WDUVNlAg==",
+  "dgSpecHash": "ZYYCMGWxecn6MQK0SZI3CUyoLQXIdIYQUpd74EQLQxCQ2Rh8bF40bOnYjQU4zPZK6I5R6dCFnqdkkceMs0b2zw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Core\\Smartsense.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

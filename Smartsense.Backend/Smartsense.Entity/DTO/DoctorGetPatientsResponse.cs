@@ -24,7 +24,7 @@ namespace Smartsense.Entity.DTO
 
         public UserStatus PatientStatus { get; set; }
 
-
+        public string LastDataMinute { get; set; }
         }
 
 

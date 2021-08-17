@@ -10,3 +10,15 @@ C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Core\obj
 C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.dll
 C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.pdb
 C:\Users\Administrator\Source\Repos\covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.genruntimeconfig.cache
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\bin\Debug\netcoreapp3.1\Smartsense.Core.deps.json
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\bin\Debug\netcoreapp3.1\Smartsense.Core.runtimeconfig.json
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\bin\Debug\netcoreapp3.1\Smartsense.Core.runtimeconfig.dev.json
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\bin\Debug\netcoreapp3.1\Smartsense.Core.dll
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\bin\Debug\netcoreapp3.1\Smartsense.Core.pdb
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.csproj.AssemblyReference.cache
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.AssemblyInfoInputs.cache
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.AssemblyInfo.cs
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.dll
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.pdb
+C:\Users\Administrator\Desktop\Covid\Smartsense.Backend\Smartsense.Core\obj\Debug\netcoreapp3.1\Smartsense.Core.genruntimeconfig.cache

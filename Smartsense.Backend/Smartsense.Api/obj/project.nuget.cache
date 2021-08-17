@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lSCJMkuxxNOl3bj3DNn/QcRGZEp7bqxdLGrG0C9xw7PKhaWYdVIruzLGsJo1seZGldFnpqD2RsFlYbN6dAUV/g==",
+  "dgSpecHash": "6oh/GFZCVqqDfDY/v5sZ3VWDvj0EXMpXnFppUvLYfSqtDo0BNM9e/uIYKr6qBkxiyl41Tc91H21Xi9wlLieRDg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Source\\Repos\\covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\Covid\\Smartsense.Backend\\Smartsense.Api\\Smartsense.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\fluentvalidation\\9.5.1\\fluentvalidation.9.5.1.nupkg.sha512",

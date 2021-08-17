@@ -70,6 +70,32 @@ namespace Smartsense.Business.Concrete
                var nabız = patientValues.Where(w => w.DataType == DataValueType.PULSE).Select(s => s.DataValue).LastOrDefault();
                var sıcaklık = patientValues.Where(w => w.DataType == DataValueType.TEMPERATURE).Select(s => s.DataValue).LastOrDefault();
 
+                var lastData = patientValues.LastOrDefault();
+                if (lastData != null)
+                {
+                    long dk = (long)(DateTime.Now - patientValues.LastOrDefault().CreatedDate).TotalMinutes;
+
+                    if(dk > 0  && dk <= 10)
+                    {
+                        x.LastDataMinute = "Aktif";
+                    }
+                    else if(dk > 10 && dk <= 30)
+                    {
+                        x.LastDataMinute = "Bir süredir veri göndermiyor.";
+                    }
+                    else
+                    {
+                        x.LastDataMinute = "Uzun süredir veri göndermiyor.";
+                    }
+                }
+                else
+                {
+                    x.LastDataMinute = "Daha önceden veri göndermedi.";
+                }
+                
+
+                //x.LastDataMinute
+
                x.OxygenWarning = x.PulseWarning = x.TemperatureWarning = x.LocationWarning= ValueStatus.NORM;
                
                 var location = _locationWarningRepository.GetList(p => p.UserId == id).LastOrDefault();
