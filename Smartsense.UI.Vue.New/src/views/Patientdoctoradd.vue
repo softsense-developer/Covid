@@ -215,7 +215,8 @@ export default {
         }
         
       }).catch(err=> {
-        Vue.$toast.error(err);
+        console.log(err);
+        // Vue.$toast.error(err);
       })
     },
     getHospitals(){

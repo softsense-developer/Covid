@@ -246,8 +246,8 @@
                   <img class="card-img-top" src="../assets/hospital.jpg" alt="Card image cap" style="width:95%;height:350px;border-radius:15px">
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                  <p  v-if="doctor==true"><span class="text-success" >Doktorunuz - </span> {{profile.data.doctorName}}</p>
-                  <p v-if="doctor==false"><span class="text-success" >Doktorunuz - </span> Doktor seçimi yapmalısınız !!</p>
+                  <p><span class="text-success" >Doktorunuz - </span> {{profile.data.doctorName}}</p>
+                  <!-- <p v-if="doctor==false"><span class="text-success" >Doktorunuz - </span> Doktor seçimi yapmalısınız !!</p> -->
                   <p><span class="text-success" >Mail adresiniz - </span> {{profile.data.email}}</p>
                   <p><span class="text-success" >Doğum tarihiniz - </span> {{profile.data.dateOfBirth.slice(0,10)}}</p>
                   <p><span class="text-success" >Teşhis - </span> {{profile.data.diagnosis}}</p>
@@ -259,7 +259,7 @@
                   <p v-if="profile.data.userStatus == 4"><span class="text-success" >Durum -</span> Diğer</p>
                   <p><span class="text-success" >Kan grubunuz - </span> {{profile.data.bloodGroup}}</p>
                   <p><span class="text-success" >Kimlik numaranız - </span> {{profile.data.identityNumber}}</p>
-                  <p v-if="doctor==false"><span class="text-success" >Hastane ismi - </span> Hastane seçimi yapmalısınız !!</p>
+                  <!-- <p v-if="doctor==false"><span class="text-success" >Hastane ismi - </span> Hastane seçimi yapmalısınız !!</p> -->
                 </div>
               </div>
             </div>
@@ -419,6 +419,7 @@ export default {
         console.log(res);
         if(res.data.code == "200") {
           Vue.$toast.success("bilgiler başarıyla kaydedildi");
+          this.getProfile();
           this.pageMode=1;
         }
       }).catch(err=> {
@@ -435,16 +436,22 @@ export default {
         if(res.data.code == "200") {
           console.log(res.data.doctorName)
           this.profile.push(res);
+          this.pageMode = 1
         } else {
           this.pageMode = 0;
         }
         console.log(this.profile);
-        if(this.profile[0].data.doctorName !== ""){
-          this.doctor=true
-          this.pageMode = 1
-        } else {
-          this.doctor=false
-          this.pageMode=1
+        // if(this.profile[0].data.doctorName !== ""){
+        //   this.doctor=true
+        //   this.pageMode = 1
+        // } else {
+        //   this.doctor=false
+        //   this.pageMode=1
+        // }
+        if(res.data.code == "400") {
+          res.data.errors.forEach(element => {
+            Vue.$toast.warning(element);
+          });
         }
         
       }).catch(err=> {
