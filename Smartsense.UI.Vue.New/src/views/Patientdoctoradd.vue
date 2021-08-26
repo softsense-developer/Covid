@@ -202,21 +202,16 @@ export default {
         if(res.data.code == "200") {
           console.log(res.data.doctorName)
           this.profile.push(res);
+          this.pageMode = 1
         } else {
           this.pageMode = 0;
         }
         console.log(this.profile);
-        if(this.profile[0].data.doctorName !== ""){
-          // this.doctor=true
-          this.pageMode = 1
-        } else {
-          // this.doctor=false
-          this.pageMode=0
-        }
+        
         
       }).catch(err=> {
         console.log(err);
-        // Vue.$toast.error(err);
+        Vue.$toast.error(err);
       })
     },
     getHospitals(){
