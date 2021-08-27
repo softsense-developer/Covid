@@ -59,4 +59,10 @@
         android:label="@string/companion"
         tools:layout="@layout/fragment_companion" />
 
+    <fragment
+        android:id="@+id/nav_analysis"
+        android:name="com.smartsense.covid.ui.analysis.AnalysisFragment"
+        android:label="@string/analysis"
+        tools:layout="@layout/fragment_analysis" />
+
 </navigation>

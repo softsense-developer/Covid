@@ -430,6 +430,11 @@
     <string name="companion_delete">Refakatçinizi silmek istediğinize emin misiniz?</string>
     <string name="companion_added">Refakatçi eklendi.</string>
 
+    <!-- Analysis Fragment -->
+    <string name="analysis">Analiz</string>
+    <string name="press_to_record">Mikrofon butonuna tıklayarak kayıdı başlatın.</string>
+    <string name="press_to_record_hint">Lütfen 30 saniye boyunca öksürün.</string>
+    <string name="record_permission">Eğer izin vermezseniz ses kayıdı yapamazsınız.</string>
     <!-- Dialog -->
     <string name="delete">Sil</string>
     <string name="no">Hayır</string>
