@@ -42,6 +42,11 @@
             android:title="@string/menu_request" />
 
         <item
+            android:id="@+id/nav_analysis"
+            android:icon="@drawable/ic_audio"
+            android:title="@string/analysis" />
+
+        <item
             android:id="@+id/nav_data_backup"
             android:icon="@drawable/ic_backup_24"
             android:title="@string/backupRestore" />
