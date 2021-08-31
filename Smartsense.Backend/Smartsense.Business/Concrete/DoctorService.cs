@@ -186,7 +186,7 @@ namespace Smartsense.Business.Concrete
 
             var values = _valueRepository.GetList(p => p.UserId == request.PatientId);
 
-            //TODO kendi hastası dışında hastaları görüntüleyemesin
+            
 
            var isDoctorPatient= _patientRepository.Get(p => p.DoctorId == request.UserId && p.UserId == request.PatientId);
 
@@ -202,7 +202,7 @@ namespace Smartsense.Business.Concrete
                 response.Code = "400";
                 response.Errors.Add("Hastaya ait veri bulunamadı");
                 
-                //Todo patlarsak burdan patlarız
+               
 
             }
 

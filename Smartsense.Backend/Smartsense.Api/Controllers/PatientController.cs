@@ -253,5 +253,18 @@ namespace Smartsense.Api.Controllers
 
             return _patientService.ConnectionAcceptRefuse(request);
         }
-    }
+        [HttpPost]
+        [Route("AudioTest")]
+        public AudioTestResponse AudioTest(AudioTestRequest request)
+        {
+            var identity = User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var id = Convert.ToInt64(identity.Claims.ElementAt(0).Value);
+                request.UserId = id;
+            }
+           return _patientService.AudioTest(request);
+        }
+
+        }
 }

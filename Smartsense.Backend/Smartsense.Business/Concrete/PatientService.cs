@@ -265,7 +265,7 @@ namespace Smartsense.Business.Concrete
             //    return response;
             //}
 
-            //TODO burayı düzenle doktor bulunamazsa tanımlanamadı gibi değerler döndür
+            
             var dr = _doctorRepository.Get(p => p.UserId == patient.DoctorId);
             if (dr == null || patient.DoctorId==0)
             {
@@ -514,6 +514,15 @@ namespace Smartsense.Business.Concrete
             }
 
             user.RoleId = 5;
+
+            var isCompanion = _companionRepository.Get(p => p.CompanionUserId == user.Id && p.PatientUserId == request.UserId);
+            if (isCompanion != null)
+            {
+                response.Errors.Add("Refakatçi zaten ekli tekrar ekleyemezsiniz.");
+                response.Code = "400";
+                return response;
+            }
+
             companion.CompanionUserId = user.Id;
             companion.PatientUserId = request.UserId;
             companion.Status = true;
@@ -710,6 +719,25 @@ namespace Smartsense.Business.Concrete
         public string GetPasswordHash(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        public AudioTestResponse AudioTest(AudioTestRequest request)
+        {
+            var response = new AudioTestResponse();
+            if (request.Audio != null)
+            {
+                response.isCovid = true;
+            }
+            else
+            {
+                response.isCovid = false;
+            }
+
+            
+            response.Message = "Ses iletildi";
+            response.Code = "200";
+            return response;
+
         }
     }
 }

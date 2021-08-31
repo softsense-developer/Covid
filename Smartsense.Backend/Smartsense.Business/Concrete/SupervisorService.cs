@@ -266,7 +266,7 @@ namespace Smartsense.Business.Concrete
             _doctorRepository.Delete(doctor);
 
             
-            //TODO doctor tablosundan düşürülmesi gerek
+            
 
             response.Code = "200";
             response.Message = "" + user.Id + " id li kullanıcı doktor rolünden düşürüldü";

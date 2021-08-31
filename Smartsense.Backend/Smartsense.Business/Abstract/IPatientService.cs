@@ -38,5 +38,7 @@ namespace Smartsense.Business.Abstract
 
         ConnectionAcceptRefuseResponse ConnectionAcceptRefuse(ConnectionAcceptRefuseRequest request);
 
+        AudioTestResponse AudioTest(AudioTestRequest request);
+
     }
 }
