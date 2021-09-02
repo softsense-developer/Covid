@@ -2,42 +2,46 @@ package com.smartsense.covid.ui.analysis
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.smartsense.covid.R
-import android.widget.Chronometer
-
-import android.media.MediaRecorder
-
-import androidx.core.app.ActivityCompat
-
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.net.Uri
-
+import android.os.Bundle
+import android.os.Handler
 import android.os.SystemClock
 import android.provider.Settings
 import android.util.Log
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import java.io.File
-import java.io.IOException
+import com.smartsense.covid.PrefManager
+import com.smartsense.covid.R
+import com.smartsense.covid.api.ApiConstant
+import com.smartsense.covid.api.ApiConstantText
+import com.smartsense.covid.api.model.requests.AudioToAnalysisRequest
+import com.smartsense.covid.api.model.responses.AudioToAnalysisResponse
+import com.smartsense.covid.api.service.RetrofitClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class AnalysisFragment : Fragment() {
 
+    private var TAG = "Analysis"
     private lateinit var viewModel: AnalysisViewModel
 
     private lateinit var recordButton: ImageButton
@@ -59,6 +63,12 @@ class AnalysisFragment : Fragment() {
     private var recordFilePath: String = ""
     private lateinit var snackbar: Snackbar
 
+    private lateinit var apiText: ApiConstantText
+    private lateinit var prefManager: PrefManager
+    private lateinit var loadingDialog: Dialog
+    private lateinit var resultDialog: Dialog
+    private lateinit var resultText: TextView
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -78,6 +88,22 @@ class AnalysisFragment : Fragment() {
         playSendLayout = view.findViewById(R.id.playSendLayout)
 
 
+        prefManager = PrefManager(context)
+        apiText = ApiConstantText(context)
+
+        loadingDialog = Dialog(requireContext())
+        loadingDialog.setContentView(R.layout.dialog_loading_text)
+        loadingDialog.setCancelable(false)
+        val dm = resources.displayMetrics
+        loadingDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        loadingDialog.window?.setLayout(dm.widthPixels - 100, LinearLayout.LayoutParams.WRAP_CONTENT)
+
+        resultDialog = Dialog(requireContext())
+        resultDialog.setContentView(R.layout.dialog_analysis_result)
+        resultDialog.setCancelable(true)
+        resultDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        resultDialog.window?.setLayout(dm.widthPixels - 100, LinearLayout.LayoutParams.WRAP_CONTENT)
+        resultText = resultDialog.findViewById(R.id.analysisResultText)
 
         recordButton.setOnClickListener {
             if (isRecording) {
@@ -100,7 +126,21 @@ class AnalysisFragment : Fragment() {
         }
 
         sendToAnalysis.setOnClickListener {
+            if (!loadingDialog.isShowing) {
+                loadingDialog.show()
+            }
 
+            val handler = Handler()
+            val runnable = Runnable {
+                val fileInputStream: InputStream = FileInputStream(File(recordFilePath))
+                val bytesData = convertStreamToByteArray(fileInputStream)
+                val request = AudioToAnalysisRequest()
+                if (bytesData != null) {
+                    request.audio = bytesData
+                    audioToAnalysis(request)
+                }
+            }
+            handler.postDelayed(runnable, 100)
         }
 
         playVoice.setOnClickListener {
@@ -111,6 +151,101 @@ class AnalysisFragment : Fragment() {
            }
         }
     }
+
+    private fun audioToAnalysis(request: AudioToAnalysisRequest) {
+        val call = RetrofitClient.getInstance()
+            .getApi(context).audioToAnalysis(request)
+        call.enqueue(object : Callback<AudioToAnalysisResponse?> {
+            override fun onResponse(
+                call: Call<AudioToAnalysisResponse?>,
+                response: Response<AudioToAnalysisResponse?>
+            ) {
+                if (response.code() == 200) {
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            if (response.body()!!.code == "200") {
+                                Log.i("Analysis", "onResponse: code 200")
+                                if (loadingDialog.isShowing) {
+                                    loadingDialog.dismiss()
+                                }
+
+                                if(response.body()!!.isCovid){
+                                    resultText.text = getString(R.string.analysis_result_covid)
+                                    if (!resultDialog.isShowing) {
+                                        resultDialog.show()
+                                    }
+                                }else{
+                                    resultText.text = getString(R.string.analysis_result_not_covid)
+                                    if (!resultDialog.isShowing) {
+                                        resultDialog.show()
+                                    }
+                                }
+
+                            } else if (response.body()!!.code == "400") {
+                                val errors = StringBuilder()
+                                for (i in response.body()!!.errors.indices) {
+                                    errors.append(response.body()!!.errors[response.body()!!.errors.size - 1 - i])
+                                    errors.append("\n")
+                                }
+                                getLongToast(errors.toString())
+                            }
+                        } else {
+                            getShortToast(getString(R.string.occurred_error) + " 481")
+                        }
+                    } else {
+                        getShortToast(getString(R.string.occurred_error) + " 482")
+                    }
+                } else {
+                    try {
+                        when {
+                            response.code() == ApiConstant.BAD_REQUEST -> {
+                                getShortToast(apiText.getText(ApiConstant.BAD_REQUEST))
+                            }
+                            response.code() == ApiConstant.UNAUTHORIZED -> {
+                                getShortToast(apiText.getText(ApiConstant.UNAUTHORIZED))
+                            }
+                            response.code() == ApiConstant.FORBIDDEN -> {
+                                getShortToast(apiText.getText(ApiConstant.FORBIDDEN))
+                            }
+                            response.code() == ApiConstant.INTERNAL_SERVER -> {
+                                getShortToast(apiText.getText(ApiConstant.INTERNAL_SERVER))
+                            }
+                            else -> {
+                                getShortToast(getString(R.string.occurred_error) + " 483")
+                            }
+                        }
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        getShortToast(getString(R.string.occurred_error) + " 484")
+                    }
+                }
+                if (loadingDialog.isShowing) {
+                    loadingDialog.dismiss()
+                }
+            }
+
+            override fun onFailure(call: Call<AudioToAnalysisResponse?>, t: Throwable) {
+                Log.i(TAG, "onFailure: "+t.message)
+                Toast.makeText(
+                    context,
+                    getString(R.string.occurred_error) + " 485",
+                    Toast.LENGTH_SHORT
+                ).show()
+                if (loadingDialog.isShowing) {
+                    loadingDialog.dismiss()
+                }
+            }
+        })
+    }
+
+    private fun getShortToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun getLongToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show()
+    }
+
 
 
     private fun stopRecording() {
@@ -201,6 +336,17 @@ class AnalysisFragment : Fragment() {
         }
 
         isPlaying = true
+    }
+
+
+    fun convertStreamToByteArray(inputStream: InputStream): ByteArray? {
+        val baos = ByteArrayOutputStream()
+        val buff = ByteArray(10240)
+        var i = Int.MAX_VALUE
+        while (inputStream.read(buff, 0, buff.size).also { i = it } > 0) {
+            baos.write(buff, 0, i)
+        }
+        return baos.toByteArray() // be sure to close InputStream in calling function
     }
 
     private fun stopAudio() {
