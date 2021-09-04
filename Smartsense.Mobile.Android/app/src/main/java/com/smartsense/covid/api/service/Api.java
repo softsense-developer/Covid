@@ -4,6 +4,7 @@ import com.smartsense.covid.api.model.requests.AddCompanionRequest;
 import com.smartsense.covid.api.model.requests.AddInfoRequest;
 import com.smartsense.covid.api.model.requests.AddQuarantineLocationRequest;
 import com.smartsense.covid.api.model.requests.AddWarningRequest;
+import com.smartsense.covid.api.model.requests.AudioToAnalysisRequest;
 import com.smartsense.covid.api.model.requests.PatientConnectionRequest;
 import com.smartsense.covid.api.model.requests.ResetPasswordRequest;
 import com.smartsense.covid.api.model.requests.PutNowLocationRequest;
@@ -16,6 +17,7 @@ import com.smartsense.covid.api.model.responses.AddQuarantineLocationResponse;
 import com.smartsense.covid.api.model.responses.AddValueResponse;
 import com.smartsense.covid.api.model.requests.PasswordChangeRequest;
 import com.smartsense.covid.api.model.responses.AddWarningResponse;
+import com.smartsense.covid.api.model.responses.AudioToAnalysisResponse;
 import com.smartsense.covid.api.model.responses.DeleteCompanionResponse;
 import com.smartsense.covid.api.model.responses.GetCompanionResponse;
 import com.smartsense.covid.api.model.responses.PatientConnectionResponse;
@@ -149,6 +151,10 @@ public interface Api {
     @Headers({"Content-Type: application/json", "Cache-Control: max-age=640000"})
     @GET("/api/patient/deletecompanion/{CompanionId}")
     Call<DeleteCompanionResponse> deleteCompanion(@Path("CompanionId") long companionId);
+
+    @Headers({"Content-Type: application/json", "Cache-Control: max-age=640000"})
+    @POST("/api/patient/AudioTest")
+    Call<AudioToAnalysisResponse> audioToAnalysis(@Body AudioToAnalysisRequest request);
 
     @FormUrlEncoded
     @POST("api/Account/Register")

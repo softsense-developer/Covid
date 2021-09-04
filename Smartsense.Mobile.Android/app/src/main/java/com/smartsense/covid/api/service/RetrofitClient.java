@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static String AUTH = "Bearer ";
-    //private static final String BASE_URL = "http://iepilepsi.com:8080/";
+    //private static final String BASE_URL = "http://95.70.241.241:45458";
     private static final String BASE_URL = "http://api.smartsense.com.tr";
     private static RetrofitClient mInstance;
     private Retrofit retrofit;
