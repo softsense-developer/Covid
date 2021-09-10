@@ -51,7 +51,7 @@
         android:id="@+id/recordTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:fontFamily="@font/montserrat_medium"
         android:textColor="@color/textColorPrimary"
         android:textSize="32sp"

@@ -1,6 +1,7 @@
 package com.smartsense.covid.ui.analysis
 
 import android.Manifest
+import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
@@ -25,8 +26,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.smartsense.covid.Base64
+import com.smartsense.covid.Base64.encoder
 import com.smartsense.covid.PrefManager
 import com.smartsense.covid.R
+import com.smartsense.covid.WavRecorder
 import com.smartsense.covid.api.ApiConstant
 import com.smartsense.covid.api.ApiConstantText
 import com.smartsense.covid.api.model.requests.AudioToAnalysisRequest
@@ -39,6 +43,7 @@ import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class AnalysisFragment : Fragment() {
 
     private var TAG = "Analysis"
@@ -49,8 +54,11 @@ class AnalysisFragment : Fragment() {
     private lateinit var playVoice: ImageView
     private lateinit var sendToAnalysis: MaterialButton
     private lateinit var playSendLayout: ConstraintLayout
+    private lateinit var recordHintText: TextView
 
     private var isRecording = false
+
+    private lateinit var wavRecorder: WavRecorder
 
     private val recordPermission: String = Manifest.permission.RECORD_AUDIO
     private val PERMISSION_CODE = 21
@@ -70,8 +78,8 @@ class AnalysisFragment : Fragment() {
     private lateinit var resultText: TextView
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_analysis, container, false)
     }
@@ -86,7 +94,7 @@ class AnalysisFragment : Fragment() {
         playVoice = view.findViewById(R.id.playButton)
         sendToAnalysis = view.findViewById(R.id.sendToAnalysis)
         playSendLayout = view.findViewById(R.id.playSendLayout)
-
+        recordHintText = view.findViewById(R.id.recordHintText)
 
         prefManager = PrefManager(context)
         apiText = ApiConstantText(context)
@@ -96,7 +104,10 @@ class AnalysisFragment : Fragment() {
         loadingDialog.setCancelable(false)
         val dm = resources.displayMetrics
         loadingDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        loadingDialog.window?.setLayout(dm.widthPixels - 100, LinearLayout.LayoutParams.WRAP_CONTENT)
+        loadingDialog.window?.setLayout(
+            dm.widthPixels - 100,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
 
         resultDialog = Dialog(requireContext())
         resultDialog.setContentView(R.layout.dialog_analysis_result)
@@ -105,15 +116,19 @@ class AnalysisFragment : Fragment() {
         resultDialog.window?.setLayout(dm.widthPixels - 100, LinearLayout.LayoutParams.WRAP_CONTENT)
         resultText = resultDialog.findViewById(R.id.analysisResultText)
 
+        wavRecorder = WavRecorder(context = requireContext())
+
         recordButton.setOnClickListener {
             if (isRecording) {
                 //Stop Recording
-                stopRecording()
+                //stopRecording()
+                wavStopRecording()
             } else {
                 //Check permission to record audio
                 if (checkPermissions()) {
                     //Start Recording
-                    startRecording()
+                    //startRecording()
+                    wavStartRecording()
                 }
             }
         }
@@ -121,7 +136,8 @@ class AnalysisFragment : Fragment() {
 
         timer.setOnChronometerTickListener {
             if ((SystemClock.elapsedRealtime() - it.base) >= 30000) {
-                stopRecording()
+                //stopRecording()
+                wavStopRecording()
             }
         }
 
@@ -133,8 +149,20 @@ class AnalysisFragment : Fragment() {
             val handler = Handler()
             val runnable = Runnable {
                 val fileInputStream: InputStream = FileInputStream(File(recordFilePath))
-                val bytesData = convertStreamToByteArray(fileInputStream)
+                //val bytesData = convertStreamToByteArray(fileInputStream)
+                val bytesData = File(recordFilePath).readBytes()
+                //bytesData!!.forEach { Log.i(TAG, "onViewCreated: "+it) }
+                //val apacheBytes = org.apache.commons.codec.binary.Base64.encodeBase64(bytesData)
+
+                //val kotlinEncoded = String(Base64.encoder.encode(bytesData!!))
+
+                // val base64Encoded = Base64.encodeToString(bytesData, Base64.DEFAULT);
+                //val base64String = String(apacheBytes)
+
+                val string = bytesData.contentToString()
+                Log.i(TAG, "bytes: " + string)
                 val request = AudioToAnalysisRequest()
+                Log.i(TAG, "onViewCreated: $bytesData")
                 if (bytesData != null) {
                     request.audio = bytesData
                     audioToAnalysis(request)
@@ -144,11 +172,11 @@ class AnalysisFragment : Fragment() {
         }
 
         playVoice.setOnClickListener {
-           if(!isPlaying){
-               playAudio(File(recordFilePath))
-           }else{
-               stopAudio()
-           }
+            if (!isPlaying) {
+                playAudio(File(recordFilePath))
+            } else {
+                stopAudio()
+            }
         }
     }
 
@@ -164,17 +192,22 @@ class AnalysisFragment : Fragment() {
                     if (response.isSuccessful) {
                         if (response.body() != null) {
                             if (response.body()!!.code == "200") {
-                                Log.i("Analysis", "onResponse: code 200")
+                                Log.i(
+                                    "Analysis",
+                                    "onResponse: code 200 covid: " + response.body()!!.isCovid
+                                )
                                 if (loadingDialog.isShowing) {
                                     loadingDialog.dismiss()
                                 }
 
-                                if(response.body()!!.isCovid){
+                                Log.i(TAG, "onResponse: " + response.body()!!.message)
+
+                                if (response.body()!!.isCovid) {
                                     resultText.text = getString(R.string.analysis_result_covid)
                                     if (!resultDialog.isShowing) {
                                         resultDialog.show()
                                     }
-                                }else{
+                                } else {
                                     resultText.text = getString(R.string.analysis_result_not_covid)
                                     if (!resultDialog.isShowing) {
                                         resultDialog.show()
@@ -199,6 +232,8 @@ class AnalysisFragment : Fragment() {
                     try {
                         when {
                             response.code() == ApiConstant.BAD_REQUEST -> {
+                                Log.i(TAG, "onResponse: " + response.message())
+                                Log.i(TAG, "onResponse: " + response.errorBody())
                                 getShortToast(apiText.getText(ApiConstant.BAD_REQUEST))
                             }
                             response.code() == ApiConstant.UNAUTHORIZED -> {
@@ -225,7 +260,7 @@ class AnalysisFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<AudioToAnalysisResponse?>, t: Throwable) {
-                Log.i(TAG, "onFailure: "+t.message)
+                Log.i(TAG, "onFailure: " + t.message)
                 Toast.makeText(
                     context,
                     getString(R.string.occurred_error) + " 485",
@@ -247,8 +282,8 @@ class AnalysisFragment : Fragment() {
     }
 
 
-
     private fun stopRecording() {
+        recordHintText.visibility = View.GONE
         //Stop Timer, very obvious
         timer.stop()
 
@@ -259,10 +294,10 @@ class AnalysisFragment : Fragment() {
 
         // Change button image and set Recording state to false
         recordButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.record_btn_stopped
-                )
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.record_btn_stopped
+            )
         )
         isRecording = false
 
@@ -270,6 +305,9 @@ class AnalysisFragment : Fragment() {
     }
 
     private fun startRecording() {
+        recordHintText.visibility = View.VISIBLE
+
+
         //Start timer from 0
         timer.base = SystemClock.elapsedRealtime()
         timer.start()
@@ -282,15 +320,15 @@ class AnalysisFragment : Fragment() {
         val now = Date()
 
         //initialize filename variable with date and time at the end to ensure the new file wont overwrite previous file
-        recordFile = "Recording_" + formatter.format(now).toString() + ".m4a"
+        recordFile = "Recording_" + formatter.format(now).toString() + ".3gp"
 
         //Setup Media Recorder for recording
         mediaRecorder = MediaRecorder()
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC)
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
         mediaRecorder.setOutputFile("$recordPath/$recordFile")
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-        mediaRecorder.setAudioEncodingBitRate(16*44100)
+        mediaRecorder.setAudioEncodingBitRate(16 * 44100)
         mediaRecorder.setAudioSamplingRate(44100)
 
         recordFilePath = "$recordPath/$recordFile"
@@ -306,18 +344,71 @@ class AnalysisFragment : Fragment() {
 
         // Change button image and set Recording state to false
         recordButton.setImageDrawable(
-                ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.record_btn_recording
-                )
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.record_btn_recording
+            )
         )
         isRecording = true
 
         playSendLayout.visibility = View.GONE
     }
 
+    private fun wavStartRecording() {
+        recordHintText.visibility = View.VISIBLE
+
+
+        //Get app external directory path
+        val recordPath = requireActivity().getExternalFilesDir("/")!!.absolutePath
+
+        //Get current date and time
+        val formatter = SimpleDateFormat("yyyy_MM_dd_hh_mm_ss", Locale.ROOT)
+        val now = Date()
+
+        //initialize filename variable with date and time at the end to ensure the new file wont overwrite previous file
+        recordFile = "Recording_" + formatter.format(now).toString() + ".wav"
+        recordFilePath = "$recordPath/$recordFile"
+
+        //Start timer from 0
+        timer.base = SystemClock.elapsedRealtime()
+        timer.start()
+
+        wavRecorder.startRecording(path = recordFilePath, internalStorage = false)
+
+        // Change button image and set Recording state to false
+        recordButton.setImageDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.record_btn_recording
+            )
+        )
+        isRecording = true
+
+        playSendLayout.visibility = View.GONE
+    }
+
+
+    private fun wavStopRecording() {
+        recordHintText.visibility = View.GONE
+        //Stop Timer, very obvious
+        timer.stop()
+
+        wavRecorder.stopRecording()
+
+        // Change button image and set Recording state to false
+        recordButton.setImageDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.record_btn_stopped
+            )
+        )
+        isRecording = false
+
+        playSendLayout.visibility = View.VISIBLE
+    }
+
     private fun playAudio(fileToPlay: File) {
-        if(mediaPlayer == null){
+        if (mediaPlayer == null) {
             mediaPlayer = MediaPlayer()
         }
         mediaPlayer!!.setDataSource(fileToPlay.absolutePath)
@@ -325,10 +416,10 @@ class AnalysisFragment : Fragment() {
         mediaPlayer!!.start()
 
         playVoice.setImageDrawable(
-                ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.player_pause_btn
-                )
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.player_pause_btn
+            )
         )
 
         mediaPlayer!!.setOnCompletionListener {
@@ -350,7 +441,7 @@ class AnalysisFragment : Fragment() {
     }
 
     private fun stopAudio() {
-        if(mediaPlayer !== null){
+        if (mediaPlayer !== null) {
             mediaPlayer?.stop()
             mediaPlayer?.reset()
             mediaPlayer?.release()
@@ -358,10 +449,10 @@ class AnalysisFragment : Fragment() {
         }
 
         playVoice.setImageDrawable(
-                ContextCompat.getDrawable(
-                        requireContext(),
-                        R.drawable.player_play_btn
-                )
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.player_play_btn
+            )
         )
 
         isPlaying = false
@@ -370,27 +461,27 @@ class AnalysisFragment : Fragment() {
     private fun checkPermissions(): Boolean {
         //Check permission
         return if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        recordPermission
-                ) == PackageManager.PERMISSION_GRANTED
+                requireContext(),
+                recordPermission
+            ) == PackageManager.PERMISSION_GRANTED
         ) {
             //Permission Granted
             true
         } else {
             //Permission not granted, ask for permission
             ActivityCompat.requestPermissions(
-                    requireActivity(),
-                    arrayOf(recordPermission),
-                    PERMISSION_CODE
+                requireActivity(),
+                arrayOf(recordPermission),
+                PERMISSION_CODE
             )
             false
         }
     }
 
     override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_CODE) {
@@ -398,11 +489,12 @@ class AnalysisFragment : Fragment() {
                 if (snackbar.isShown) {
                     snackbar.dismiss()
                 }
-                startRecording()
+                //startRecording()
+                wavStopRecording()
             } else {
                 snackbar = Snackbar.make(
-                        requireActivity().findViewById(android.R.id.content),
-                        getString(R.string.record_permission), Snackbar.LENGTH_INDEFINITE
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.record_permission), Snackbar.LENGTH_INDEFINITE
                 )
                 snackbar.setActionTextColor(Color.WHITE)
                 snackbar.setAction(getString(R.string.give_permission)) {
@@ -422,7 +514,8 @@ class AnalysisFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         if (isRecording) {
-            stopRecording()
+            //stopRecording()
+            wavStopRecording()
         }
     }
 
