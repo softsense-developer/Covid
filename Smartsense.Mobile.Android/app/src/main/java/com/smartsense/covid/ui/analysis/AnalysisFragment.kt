@@ -1,7 +1,6 @@
 package com.smartsense.covid.ui.analysis
 
 import android.Manifest
-import android.R.attr
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
@@ -24,10 +23,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import com.smartsense.covid.Base64
-import com.smartsense.covid.Base64.encoder
 import com.smartsense.covid.PrefManager
 import com.smartsense.covid.R
 import com.smartsense.covid.WavRecorder
@@ -36,12 +34,20 @@ import com.smartsense.covid.api.ApiConstantText
 import com.smartsense.covid.api.model.requests.AudioToAnalysisRequest
 import com.smartsense.covid.api.model.responses.AudioToAnalysisResponse
 import com.smartsense.covid.api.service.RetrofitClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.graphics.Typeface
+
+import android.text.style.StyleSpan
+
+import android.text.SpannableString
+import android.text.Spanned
 
 
 class AnalysisFragment : Fragment() {
@@ -135,40 +141,38 @@ class AnalysisFragment : Fragment() {
 
 
         timer.setOnChronometerTickListener {
-            if ((SystemClock.elapsedRealtime() - it.base) >= 30000) {
+            if ((SystemClock.elapsedRealtime() - it.base) >= 10000) {
                 //stopRecording()
                 wavStopRecording()
             }
         }
 
+
         sendToAnalysis.setOnClickListener {
+            stopAudio()
+
             if (!loadingDialog.isShowing) {
                 loadingDialog.show()
             }
 
-            val handler = Handler()
-            val runnable = Runnable {
-                val fileInputStream: InputStream = FileInputStream(File(recordFilePath))
-                //val bytesData = convertStreamToByteArray(fileInputStream)
+            lifecycleScope.launch(Dispatchers.IO){
+                //val fileInputStream: InputStream = FileInputStream(File(recordFilePath))
                 val bytesData = File(recordFilePath).readBytes()
+
+                //val bytesData = convertStreamToByteArray(fileInputStream)
                 //bytesData!!.forEach { Log.i(TAG, "onViewCreated: "+it) }
                 //val apacheBytes = org.apache.commons.codec.binary.Base64.encodeBase64(bytesData)
-
                 //val kotlinEncoded = String(Base64.encoder.encode(bytesData!!))
-
                 // val base64Encoded = Base64.encodeToString(bytesData, Base64.DEFAULT);
                 //val base64String = String(apacheBytes)
 
-                val string = bytesData.contentToString()
-                Log.i(TAG, "bytes: " + string)
+                //val string = bytesData.contentToString()
+                //Log.i(TAG, "bytes: " + string)
                 val request = AudioToAnalysisRequest()
                 Log.i(TAG, "onViewCreated: $bytesData")
-                if (bytesData != null) {
-                    request.audio = bytesData
-                    audioToAnalysis(request)
-                }
+                request.audio = bytesData
+                audioToAnalysis(request)
             }
-            handler.postDelayed(runnable, 100)
         }
 
         playVoice.setOnClickListener {
@@ -203,12 +207,18 @@ class AnalysisFragment : Fragment() {
                                 Log.i(TAG, "onResponse: " + response.body()!!.message)
 
                                 if (response.body()!!.isCovid) {
-                                    resultText.text = getString(R.string.analysis_result_covid)
+                                    val resultTextSpan = SpannableString(getString(R.string.analysis_result_covid))
+                                    val mBold = StyleSpan(Typeface.BOLD) //bold style
+                                    resultTextSpan.setSpan(mBold, 24, 43, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    resultText.text = resultTextSpan
                                     if (!resultDialog.isShowing) {
                                         resultDialog.show()
                                     }
                                 } else {
-                                    resultText.text = getString(R.string.analysis_result_not_covid)
+                                    val resultTextSpan = SpannableString(getString(R.string.analysis_result_not_covid))
+                                    val mBold = StyleSpan(Typeface.BOLD) //bold style
+                                    resultTextSpan.setSpan(mBold, 24, 45, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                                    resultText.text = resultTextSpan
                                     if (!resultDialog.isShowing) {
                                         resultDialog.show()
                                     }
@@ -282,6 +292,7 @@ class AnalysisFragment : Fragment() {
     }
 
 
+    //For other audio format
     private fun stopRecording() {
         recordHintText.visibility = View.GONE
         //Stop Timer, very obvious
@@ -304,6 +315,7 @@ class AnalysisFragment : Fragment() {
         playSendLayout.visibility = View.VISIBLE
     }
 
+    //For other audio format
     private fun startRecording() {
         recordHintText.visibility = View.VISIBLE
 

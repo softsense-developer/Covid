@@ -433,12 +433,12 @@
     <!-- Analysis Fragment -->
     <string name="analysis">Analiz</string>
     <string name="press_to_record">Mikrofon butonuna tıklayarak kayıdı başlatın.</string>
-    <string name="press_to_record_hint">Lütfen 30 saniye boyunca öksürün.</string>
+    <string name="press_to_record_hint">Lütfen 10 saniye boyunca öksürün.</string>
     <string name="record_permission">Eğer izin vermezseniz ses kayıdı yapamazsınız.</string>
     <string name="send_to_analysis">Analize Gönder</string>
     <string name="analysis_please_wait">Analiz ediliyor. Lütfen bekleyiniz…</string>
-    <string name="analysis_result_covid">Analiz sonucunuz Korona olduğunuz yönündedir.</string>
-    <string name="analysis_result_not_covid">Analiz sonucunuz Korona olmadığınız yönündedir.</string>
+    <string name="analysis_result_covid">Analiz sonucunuz: Korona olduğunuz(Pozitif) yönündedir.</string>
+    <string name="analysis_result_not_covid">Analiz sonucunuz: Korona olmadığınız(Negatif) yönündedir.</string>
 
     <!-- Dialog -->
     <string name="delete">Sil</string>
