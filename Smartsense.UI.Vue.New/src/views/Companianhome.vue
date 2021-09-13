@@ -7,7 +7,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12"  v-for="(patientsdata,index) in patientsData" :key="index">
           <div class="card card-head" style="margin-bottom:0 !important;border: 1px solid rgb(149, 224, 153); ">
             <div class="d-flex justify-content-end">
-              <!-- <i class="fas fa-info-circle text-white m-2" style="font-size:25px;cursor:pointer;" @click="goTodetail(patientsdata.id)"></i> -->
+               <i class="fas fa-info-circle text-white m-2" style="font-size:25px;cursor:pointer;" @click="goTodetail(patientsdata.id)"></i> 
                  
             </div> 
           </div>
@@ -112,7 +112,7 @@ export default {
   },
   data () {
     return {
-      patientsData:[]
+      patientsData:[],
     }
   },
   mounted () {
