@@ -160,7 +160,7 @@ export default {
               nodatacard.style.display="none"
             }
           console.log(res.data);
-          res.data.oxygen.forEach(element => {
+          res.data.pulses.forEach(element => {
           this.pulses.push(element.dataValue);
           this.time.push(element.saveDate.slice(11,19));
         });

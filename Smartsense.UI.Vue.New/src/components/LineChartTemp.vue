@@ -188,7 +188,7 @@ export default {
             ticks: {
               beginAtZero: true,
               min: 33,
-              max: 40,
+              max: 44,
               stepSize: 1 // 1 - 2 - 3 ...,
             }
           }],

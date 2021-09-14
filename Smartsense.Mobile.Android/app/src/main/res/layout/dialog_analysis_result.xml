@@ -12,6 +12,17 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <ImageView
+            android:id="@+id/analysisImage"
+            android:layout_width="192dp"
+            android:layout_gravity="center"
+            android:layout_height="192dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/cough"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/analysisResultText"
             android:layout_width="match_parent"

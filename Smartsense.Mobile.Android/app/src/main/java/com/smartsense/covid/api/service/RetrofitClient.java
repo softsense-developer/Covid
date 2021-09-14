@@ -5,6 +5,7 @@ import android.content.Context;
 import com.smartsense.covid.PrefManager;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -24,19 +25,19 @@ public class RetrofitClient {
 
     private RetrofitClient() {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
+                .writeTimeout(1, TimeUnit.MINUTES)
                 .addInterceptor(
-                        new Interceptor() {
-                            @Override
-                            public Response intercept(Chain chain) throws IOException {
-                                Request original = chain.request();
+                        chain -> {
+                            Request original = chain.request();
 
-                                Request.Builder requestBuilder = original.newBuilder()
-                                        .addHeader("Authorization", AUTH)
-                                        .method(original.method(), original.body());
+                            Request.Builder requestBuilder = original.newBuilder()
+                                    .addHeader("Authorization", AUTH)
+                                    .method(original.method(), original.body());
 
-                                Request request = requestBuilder.build();
-                                return chain.proceed(request);
-                            }
+                            Request request = requestBuilder.build();
+                            return chain.proceed(request);
                         }
                 ).build();
 
