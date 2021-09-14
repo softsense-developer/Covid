@@ -64,7 +64,7 @@ namespace Smartsense.Api.Controllers
 
         [HttpGet]
         [Route("getpatientdata/{patientid}")]
-        public PatientValueResponse GetPatientData(long PatientId)
+        public PatientValueResponse GetPatientData(long patientid)
         {
             var request = new PatientValueRequest();
             var identity = User.Identity as ClaimsIdentity;
@@ -74,7 +74,7 @@ namespace Smartsense.Api.Controllers
                 request.UserId = id;
             }
 
-            request.PatientId = PatientId;
+            request.PatientId = patientid;
 
             return _doctorService.GetPatientData(request);
         }

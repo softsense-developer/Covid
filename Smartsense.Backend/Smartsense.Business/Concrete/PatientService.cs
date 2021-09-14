@@ -7,6 +7,11 @@ using Smartsense.Entity.DTO;
 using Smartsense.Entity.Enums;
 using Smartsense.Entity.Models;
 using Smartsense.Entity.Validators;
+using IronPython;
+using IronPython.Hosting;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
 
 namespace Smartsense.Business.Concrete
 {
@@ -726,11 +731,77 @@ namespace Smartsense.Business.Concrete
             var response = new AudioTestResponse();
             if (request.Audio != null)
             {
-                response.isCovid = true;
+
+               
+                byte[] audio = new byte[request.Audio.Length];
+                
+                for (int i = 0; i < audio.Length; i++)
+                {
+                    audio[i] = (byte)request.Audio[i];
+                }                
+             
+                string base64String = Convert.ToBase64String(audio, 0, audio.Length);
+
+                if (System.IO.File.Exists(@"C:\\Users\\Administrator\\Desktop\\Covid_model\\test\\covid\\Covid109_cough-heavy.wav"))
+                {
+                    System.IO.File.Delete(@"C:\\Users\\Administrator\\Desktop\\Covid_model\\test\\covid\\Covid109_cough-heavy.wav");
+                }
+
+                byte[] dummyAudioData = Convert.FromBase64String(base64String);
+                var fname = "C:\\Users\\Administrator\\Desktop\\Covid_model\\test\\covid\\Covid109_cough-heavy.wav";
+                FileStream stream = new FileStream(fname, FileMode.Append, FileAccess.Write);
+                System.IO.BinaryWriter br = new System.IO.BinaryWriter(stream);
+                br.Write(dummyAudioData);
+                br.Close();
+               
+
+                var py = Python.CreateEngine();
+                try
+                { var proc1 = new ProcessStartInfo();
+                    string anyCommand= "python C:\\Users\\Administrator\\Desktop\\Covid_model\\CovidFromCough.py";
+                    proc1.UseShellExecute = true;
+
+                    proc1.WorkingDirectory = @"C:\Windows\System32";
+
+                    proc1.FileName = @"C:\Windows\System32\cmd.exe";
+                    proc1.Verb = "runas";
+                    proc1.Arguments = "/c " + anyCommand;
+                    proc1.WindowStyle = ProcessWindowStyle.Hidden;
+                    Process.Start(proc1);
+
+                    string text = System.IO.File.ReadAllText(@"C:\Users\Administrator\Desktop\Covid_model\isCovid.txt");
+
+                    if (text == "covid")
+                    {
+                        response.isCovid = true;
+                        response.Message = "Covid positif ";
+                        response.Code = "200";
+                        return response;
+                    }
+                    if (text == "healthy")
+                    {
+                        response.isCovid = false;
+                        response.Message = "Covid negatif ";
+                        response.Code = "200";
+                        return response;
+                    }
+                                    
+
+                }
+                catch (Exception)
+                {
+
+                    response.Errors.Add("Bir hata ile karşılaşıldı");
+                    response.Code = "400";
+                    return response;
+                }
+               
             }
             else
             {
-                response.isCovid = false;
+                response.Errors.Add("Bir hata ile karşılaşıldı");
+                response.Code = "400";
+                return response;
             }
 
             

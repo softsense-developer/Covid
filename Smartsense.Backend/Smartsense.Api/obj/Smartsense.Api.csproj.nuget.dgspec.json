@@ -173,6 +173,14 @@
               "target": "Package",
               "version": "[9.5.1, )"
             },
+            "IronPython": {
+              "target": "Package",
+              "version": "[2.7.11, )"
+            },
+            "IronPython.StdLib": {
+              "target": "Package",
+              "version": "[2.7.11, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.4, )"
@@ -186,6 +194,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.4, )"
+            },
+            "python": {
+              "target": "Package",
+              "version": "[3.9.7, )"
             }
           },
           "imports": [
