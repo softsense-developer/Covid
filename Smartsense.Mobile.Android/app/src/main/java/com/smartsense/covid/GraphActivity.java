@@ -43,6 +43,7 @@ import com.smartsense.covid.repo.CovidRepository;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -473,6 +474,7 @@ public class GraphActivity extends AppCompatActivity implements OnChartValueSele
 
     private void getDailyDataView(int type) {
         List<Covid> allManualData = getDailyTypeData(type, startTime, endTime);
+        Collections.reverse(allManualData);
         listData.clear();
         adapter.notifyDataSetChanged();
         if (allManualData.size() > 0) {
