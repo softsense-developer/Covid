@@ -104,7 +104,7 @@ class MyKeychain{
             keychain.set(newValue, forKey: USER_ID)
         }
         get{
-            return keychain.get(USER_ID) ?? ""
+            return keychain.get(USER_ID) ?? "-1"
         }
     }
     

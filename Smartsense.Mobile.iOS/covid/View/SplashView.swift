@@ -75,7 +75,11 @@ struct SplashView: View {
             hasTimeElapsed = true
         }
         
-        refreshToken()
+        if userAuth.isLoggedin{
+            if userAuth.isConnectionHave{
+                refreshToken()
+            }
+        }
     }
     
     /* Refresh token */
