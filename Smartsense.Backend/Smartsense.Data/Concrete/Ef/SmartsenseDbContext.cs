@@ -11,7 +11,7 @@ namespace Smartsense.Data.Concrete.Ef
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source='95.70.241.241,1433\\MSSQLSERVER'; Initial Catalog=SmartsenseDB; user id=sera;password=Sagtek21;MultipleActiveResultSets=True;");
+            optionsBuilder.UseSqlServer("Data Source='*********\\MSSQLSERVER'; Initial Catalog=*********; user id=******;password=*******;MultipleActiveResultSets=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
